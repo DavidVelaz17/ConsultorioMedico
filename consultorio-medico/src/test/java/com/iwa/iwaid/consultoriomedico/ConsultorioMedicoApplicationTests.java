@@ -3,11 +3,12 @@ package com.iwa.iwaid.consultoriomedico;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import java.util.Optional;
+
 @SpringBootTest
-class ConsultorioMedicoApplicationTests {
+public class ConsultorioMedicoApplicationTests {
 
 	@Test
-	void contextLoads() {
+	 void consultorioMedicoTest(){
 	}
-
 }
