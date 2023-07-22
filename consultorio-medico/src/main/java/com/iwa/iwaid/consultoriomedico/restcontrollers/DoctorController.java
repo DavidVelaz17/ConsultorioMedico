@@ -40,7 +40,7 @@ public class DoctorController {
 
     @PostMapping("/")
     //The path to save a doctor's info is /, in the body goes the info as JSON
-    public ResponseEntity save(@RequestBody Doctor doctor){
+    public ResponseEntity saveDoctor(@RequestBody Doctor doctor){
             doctorService.saveDoctor(doctor);    //it sends the doctor's info to DoctorService with .saveDoctor method
             return new ResponseEntity<>("Saved doctor " + doctor.getId(), HttpStatus.CREATED);  //Returns a ResponseEntity with the doctor's id and the status code of 201 for created
            // return ResponseEntity.status(HttpStatus.CREATED).body(doctorService.saveDoctor(doctors));
@@ -48,7 +48,7 @@ public class DoctorController {
 
     @DeleteMapping("/{doctorId}")
     //The path to delete doctor's info is /{id}, the {id} must be replaced by an actual doctor's id
-    public ResponseEntity delete(@PathVariable("doctorId") final int doctorId){
+    public ResponseEntity deleteDoctor(@PathVariable("doctorId") final int doctorId){
         Optional<Doctor> doctor=doctorService.getDoctor(doctorId);
         if (doctor.isPresent()) {
             doctorService.deleteDoctor(doctorId);//it sends the doctor's id to DoctorService with .deleteDoctor method
@@ -62,7 +62,7 @@ public class DoctorController {
     @PatchMapping("/{doctorId}")
     //The path to update a doctor's info is /{id}, the {id} must be replaced by an actual doctor's id
     //also in the body goes the info to change as JSON
-    public ResponseEntity updateById(@RequestBody Doctor doctor, @PathVariable("doctorId") final int doctorId){
+    public ResponseEntity updateDoctorById(@RequestBody Doctor doctor, @PathVariable("doctorId") final int doctorId){
         Optional<Doctor> doctor1=doctorService.getDoctor(doctorId);
         if (doctor1.isPresent()) {
             Doctor doctorUpdated = doctorService.updateDoctorById(doctor, doctorId);//it sends the doctor's id and info to DoctorService .updateDoctorById method
