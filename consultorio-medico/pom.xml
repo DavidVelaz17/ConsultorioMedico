@@ -79,6 +79,11 @@
 			<artifactId>junit</artifactId>
 			<scope>test</scope>
 		</dependency>
+		<dependency>
+			<groupId>org.jsondoc</groupId>
+			<artifactId>jsondoc-springmvc</artifactId>
+			<version>1.2.23</version>
+		</dependency>
 	</dependencies>
 
 	<build>
