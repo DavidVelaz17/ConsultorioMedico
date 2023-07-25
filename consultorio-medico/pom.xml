@@ -53,9 +53,9 @@
 			<artifactId>hibernate-validator</artifactId>
 		</dependency>
 		<dependency>
-			<groupId>io.micrometer</groupId>
-			<artifactId>micrometer-registry-prometheus</artifactId>
-			<version>1.10.8</version>
+			<groupId>org.jsondoc</groupId>
+			<artifactId>jsondoc-springmvc</artifactId>
+			<version>1.2.23</version>
 		</dependency>
 	</dependencies>
 
