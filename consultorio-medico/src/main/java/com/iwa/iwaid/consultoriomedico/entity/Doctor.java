@@ -1,15 +1,10 @@
 package com.iwa.iwaid.consultoriomedico.entity;
 
-import com.iwa.iwaid.consultoriomedico.dto.DoctorDTO;
 import com.iwa.iwaid.consultoriomedico.form.DoctorForm;
 import jakarta.persistence.*;
-import jakarta.transaction.Transactional;
-import jakarta.validation.constraints.Size;
-import jakarta.validation.constraints.Email;
 import lombok.AccessLevel;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.springframework.data.jpa.repository.Modifying;
 
 @Data
 @Entity

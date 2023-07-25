@@ -1,7 +1,6 @@
 package com.iwa.iwaid.consultoriomedico.restcontrollers;
 
 import com.iwa.iwaid.consultoriomedico.dto.DoctorDTO;
-import com.iwa.iwaid.consultoriomedico.entity.Doctor;
 import com.iwa.iwaid.consultoriomedico.form.DoctorForm;
 import com.iwa.iwaid.consultoriomedico.services.DoctorService;
 import lombok.RequiredArgsConstructor;
@@ -15,8 +14,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
-
-import java.util.Optional;
 
 @RestController
 @RequestMapping(path = "/iwaid/doctors")
