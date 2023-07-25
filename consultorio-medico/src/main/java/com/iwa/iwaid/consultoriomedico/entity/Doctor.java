@@ -1,4 +1,5 @@
 package com.iwa.iwaid.consultoriomedico.entity;
+
 import com.iwa.iwaid.consultoriomedico.dto.DoctorDTO;
 import com.iwa.iwaid.consultoriomedico.form.DoctorForm;
 import jakarta.persistence.*;
@@ -12,7 +13,7 @@ import org.springframework.data.jpa.repository.Modifying;
 
 @Data
 @Entity
-@Table(name="doctors")
+@Table(name = "doctors")
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Doctor {
 
@@ -20,19 +21,19 @@ public class Doctor {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    @Column(name="name",length = 45,nullable = false)
+    @Column(name = "name", length = 45, nullable = false)
     private String name;
 
-    @Column(name="specialty",length = 45,nullable = false)
+    @Column(name = "specialty", length = 45, nullable = false)
     private String specialty;
 
-    @Column(name="address",length = 45,nullable = false)
+    @Column(name = "address", length = 45, nullable = false)
     private String address;
 
-   @Column(name="phone_number",length = 13,nullable = false)
+    @Column(name = "phone_number", length = 13, nullable = false)
     private String phoneNumber;
 
-    @Column(name="email",length = 45,nullable = false)
+    @Column(name = "email", length = 45, nullable = false)
     private String email;
 
     public Doctor(final DoctorForm form) {
@@ -43,7 +44,8 @@ public class Doctor {
         this.phoneNumber = form.getPhoneNumber();
         this.email = form.getEmail();
     }
-    public void updateDoctor(final DoctorForm form){
+
+    public void updateDoctor(final DoctorForm form) {
         this.name = form.getName();
         this.specialty = form.getSpecialty();
         this.address = form.getAddress();

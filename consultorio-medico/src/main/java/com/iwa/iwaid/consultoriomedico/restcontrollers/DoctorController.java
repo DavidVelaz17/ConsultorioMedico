@@ -1,4 +1,5 @@
 package com.iwa.iwaid.consultoriomedico.restcontrollers;
+
 import com.iwa.iwaid.consultoriomedico.dto.DoctorDTO;
 import com.iwa.iwaid.consultoriomedico.entity.Doctor;
 import com.iwa.iwaid.consultoriomedico.form.DoctorForm;
@@ -14,50 +15,50 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
+
 import java.util.Optional;
 
 @RestController
-@RequestMapping(path="/iwaid/doctors")
+@RequestMapping(path = "/iwaid/doctors")
 @RequiredArgsConstructor
 public class DoctorController {
 
     private final DoctorService doctorService;
 
     @GetMapping("/{doctorId}")
-    public ResponseEntity<DoctorDTO> getDoctorById(@PathVariable("doctorId") final int doctorId){
-        DoctorDTO doctorDTO=doctorService.getDoctor(doctorId);
-        if (doctorDTO!=null){
+    public ResponseEntity<DoctorDTO> getDoctorById(@PathVariable("doctorId") final int doctorId) {
+        DoctorDTO doctorDTO = doctorService.getDoctor(doctorId);
+        if (doctorDTO != null) {
             return ResponseEntity.ok().body(doctorDTO);
-        }else{
+        } else {
             return ResponseEntity.notFound().build();
         }
     }
 
     @PostMapping("/")
-    public ResponseEntity saveDoctor(@RequestBody DoctorForm form){
-            DoctorDTO doctorDTO=doctorService.saveDoctor(form);
-            return new ResponseEntity<>("Saved doctor " + doctorDTO.getId(), HttpStatus.CREATED);
+    public ResponseEntity saveDoctor(@RequestBody DoctorForm form) {
+        DoctorDTO doctorDTO = doctorService.saveDoctor(form);
+        return new ResponseEntity<>("Saved doctor " + doctorDTO.getId(), HttpStatus.CREATED);
     }
 
     @DeleteMapping("/{doctorId}")
-    public ResponseEntity<DoctorDTO> deleteDoctor(@PathVariable("doctorId") final int doctorId){
-        DoctorDTO doctorDTO=doctorService.getDoctor(doctorId);
-        if (doctorDTO!=null) {
+    public ResponseEntity<DoctorDTO> deleteDoctor(@PathVariable("doctorId") final int doctorId) {
+        DoctorDTO doctorDTO = doctorService.getDoctor(doctorId);
+        if (doctorDTO != null) {
             doctorService.deleteDoctor(doctorId);
             return ResponseEntity.ok().build();
-        }
-        else{
+        } else {
             return ResponseEntity.notFound().build();
         }
     }
 
     @PatchMapping("/{doctorId}")
-    public ResponseEntity<DoctorDTO> updateDoctorById(@RequestBody DoctorForm form, @PathVariable("doctorId") final int doctorId){
-        DoctorDTO doctorDTO=doctorService.getDoctor(doctorId);
-        if (doctorDTO!=null && form!=null) {
+    public ResponseEntity<DoctorDTO> updateDoctorById(@RequestBody DoctorForm form, @PathVariable("doctorId") final int doctorId) {
+        DoctorDTO doctorDTO = doctorService.getDoctor(doctorId);
+        if (doctorDTO != null && form != null) {
             doctorService.updateDoctorById(form, doctorId);
-            return new ResponseEntity<>(HttpStatus.OK);
-        }else{
+            return ResponseEntity.ok().build();
+        } else {
             return ResponseEntity.notFound().build();
         }
     }

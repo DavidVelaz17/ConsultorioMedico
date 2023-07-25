@@ -8,24 +8,25 @@ import org.jsondoc.core.annotation.ApiObjectField;
 @Data
 @Builder
 public class DoctorDTO {
-    @ApiObjectField(name="id",description = "Doctor's id")
+    @ApiObjectField(name = "id", description = "Doctor's id")
     private int id;
 
-    @ApiObjectField(name="name",description = "Doctor's name")
+    @ApiObjectField(name = "name", description = "Doctor's name")
     private String name;
 
-    @ApiObjectField(name="specialty",description = "Doctor's specialty")
+    @ApiObjectField(name = "specialty", description = "Doctor's specialty")
     private String specialty;
 
-    @ApiObjectField(name="address",description = "Doctor's address")
+    @ApiObjectField(name = "address", description = "Doctor's address")
     private String address;
 
-    @ApiObjectField(name="phoneNumber",description = "Doctor's phoneNumber")
+    @ApiObjectField(name = "phoneNumber", description = "Doctor's phone number")
     private String phoneNumber;
 
-    @ApiObjectField(name="email",description = "Doctor's email")
+    @ApiObjectField(name = "email", description = "Doctor's email")
     private String email;
-    public static DoctorDTO build(final Doctor doctor){
+
+    public static DoctorDTO build(final Doctor doctor) {
         return DoctorDTO.builder()
                 .id(doctor.getId())
                 .name(doctor.getName())
