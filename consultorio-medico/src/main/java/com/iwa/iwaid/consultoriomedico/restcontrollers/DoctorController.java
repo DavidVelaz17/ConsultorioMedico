@@ -26,13 +26,9 @@ public class DoctorController {
     private final DoctorService doctorService;
 
     @GetMapping("/{doctorId}")
-    public ResponseEntity<DoctorDTO> getDoctorById(@PathVariable("doctorId") final int doctorId) {
+    public ResponseEntity<DoctorDTO> getDoctorById(@PathVariable("doctorId") final int doctorId) throws Exception {
         DoctorDTO doctorDTO = doctorService.getDoctor(doctorId);
-        if (doctorDTO != null) {
-            return ResponseEntity.ok().body(doctorDTO);
-        } else {
-            return ResponseEntity.notFound().build();
-        }
+        return ResponseEntity.ok().body(doctorDTO);
     }
 
     @PostMapping("/")
@@ -42,24 +38,14 @@ public class DoctorController {
     }
 
     @DeleteMapping("/{doctorId}")
-    public ResponseEntity<DoctorDTO> deleteDoctor(@PathVariable("doctorId") final int doctorId) {
-        DoctorDTO doctorDTO = doctorService.getDoctor(doctorId);
-        if (doctorDTO != null) {
-            doctorService.deleteDoctor(doctorId);
-            return ResponseEntity.ok().build();
-        } else {
-            return ResponseEntity.notFound().build();
-        }
+    public ResponseEntity<DoctorDTO> deleteDoctor(@PathVariable("doctorId") final int doctorId) throws Exception {
+        doctorService.deleteDoctor(doctorId);
+        return ResponseEntity.ok().build();
     }
 
     @PatchMapping("/{doctorId}")
-    public ResponseEntity<DoctorDTO> updateDoctorById(@RequestBody DoctorForm form, @PathVariable("doctorId") final int doctorId) {
-        DoctorDTO doctorDTO = doctorService.getDoctor(doctorId);
-        if (doctorDTO != null && form != null) {
-            doctorService.updateDoctorById(form, doctorId);
-            return ResponseEntity.ok().build();
-        } else {
-            return ResponseEntity.notFound().build();
-        }
+    public ResponseEntity<DoctorDTO> updateDoctorById(@RequestBody DoctorForm form, @PathVariable("doctorId") final int doctorId) throws Exception {
+        doctorService.updateDoctorById(form, doctorId);
+        return ResponseEntity.ok().build();
     }
 }

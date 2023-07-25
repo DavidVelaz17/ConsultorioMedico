@@ -37,7 +37,6 @@ public class Doctor {
     private String email;
 
     public Doctor(final DoctorForm form) {
-        this.id = form.getId();
         this.name = form.getName();
         this.specialty = form.getSpecialty();
         this.address = form.getAddress();

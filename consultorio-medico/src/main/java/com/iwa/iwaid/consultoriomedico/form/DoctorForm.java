@@ -10,8 +10,6 @@ import java.io.Serializable;
 
 @Data
 public class DoctorForm implements Serializable {
-    @ApiObjectField(name = "id", description = "Doctor's id")
-    private int id;
 
     @ApiObjectField(name = "name", description = "Doctor's name")
     @Size(min = 3, max = 45, message = "{right.length}")

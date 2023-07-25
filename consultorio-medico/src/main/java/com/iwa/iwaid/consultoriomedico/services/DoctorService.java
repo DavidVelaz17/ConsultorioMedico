@@ -15,13 +15,10 @@ public class DoctorService {
 
     private final DoctorRepository doctorRepository;
 
-    public DoctorDTO getDoctor(final int id) {
-        if (doctorRepository.findById(id).isPresent()) {
-            Doctor doctor = doctorRepository.findById(id).get();
-            return DoctorDTO.build(doctor);
-        } else {
-            return null;
-        }
+    public DoctorDTO getDoctor(final int id) throws Exception {
+        validateIfDoctorExists(id);
+        Doctor doctor = doctorRepository.findById(id).get();
+        return DoctorDTO.build(doctor);
     }
 
     public DoctorDTO saveDoctor(final DoctorForm form) {
@@ -30,16 +27,24 @@ public class DoctorService {
         return DoctorDTO.build(doctor);
     }
 
-    public void deleteDoctor(final int id) {
+    public void deleteDoctor(final int id) throws Exception {
+        validateIfDoctorExists(id);
         doctorRepository.deleteById(id);
     }
 
-
-    public DoctorDTO updateDoctorById(final DoctorForm form, final int id) {
+    public DoctorDTO updateDoctorById(final DoctorForm form, final int id) throws Exception {
+        validateIfDoctorExists(id);
         final Doctor doctor = doctorRepository.findById(id).get();
         doctor.updateDoctor(form);
         doctorRepository.save(doctor);
         return DoctorDTO.build(doctor);
     }
 
+    private boolean validateIfDoctorExists(int id) throws Exception {
+        if(doctorRepository.existsById(id)){
+            return true;
+        }else {
+            throw new Exception("Doctor Not Found");
+        }
+    }
 }
