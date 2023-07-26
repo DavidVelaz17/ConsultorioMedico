@@ -15,7 +15,7 @@ public class DoctorService {
 
     public DoctorDTO getDoctor(final int id) throws Exception {
         validateIfDoctorExists(id);
-        Doctor doctor = doctorRepository.findById(id).get();
+        final Doctor doctor = doctorRepository.findById(id).get();
         return DoctorDTO.build(doctor);
     }
 
@@ -38,11 +38,9 @@ public class DoctorService {
         return DoctorDTO.build(doctor);
     }
 
-    private boolean validateIfDoctorExists(int id) throws Exception {
-        if(doctorRepository.existsById(id)){
-            return true;
-        }else {
-            throw new Exception("Doctor Not Found");
+    private void validateIfDoctorExists(int id) throws Exception {
+        if (!doctorRepository.existsById(id)){
+            throw new Exception();
         }
     }
 }

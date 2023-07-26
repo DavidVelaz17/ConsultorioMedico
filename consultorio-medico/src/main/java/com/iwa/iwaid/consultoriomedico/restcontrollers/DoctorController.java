@@ -31,7 +31,7 @@ public class DoctorController {
     @PostMapping("/")
     public ResponseEntity saveDoctor(@RequestBody DoctorForm form) {
         DoctorDTO doctorDTO = doctorService.saveDoctor(form);
-        return new ResponseEntity<>("Saved doctor " + doctorDTO.getId(), HttpStatus.CREATED);
+        return ResponseEntity.status(HttpStatus.CREATED).body(doctorService.saveDoctor(form));
     }
 
     @DeleteMapping("/{doctorId}")
