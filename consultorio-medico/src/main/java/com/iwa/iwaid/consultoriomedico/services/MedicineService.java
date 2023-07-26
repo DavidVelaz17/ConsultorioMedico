@@ -13,13 +13,13 @@ public class MedicineService {
 
     private final MedicineRepository medicineRepository;
 
-    public MedicineDTO getMedicine(final int id) throws Exception {
+    public MedicineDTO getMedicineById(final int id) throws Exception {
         validateIfMedicineExists(id);
         Medicine medicine = medicineRepository.findById(id).get();
         return MedicineDTO.build(medicine);
     }
 
-    public MedicineDTO saveMedicine(final MedicineForm form) {
+    public MedicineDTO createMedicine(final MedicineForm form) {
         final Medicine medicine = new Medicine(form);
         medicineRepository.save(medicine);
         return MedicineDTO.build(medicine);
@@ -30,7 +30,7 @@ public class MedicineService {
         medicineRepository.deleteById(id);
     }
 
-    public MedicineDTO updateMedicineById(final MedicineForm form, final int id) throws Exception {
+    public MedicineDTO updateMedicine(final MedicineForm form, final int id) throws Exception {
         validateIfMedicineExists(id);
         final Medicine medicine = medicineRepository.findById(id).get();
         medicine.updateMedicine(form);
@@ -40,7 +40,7 @@ public class MedicineService {
 
     private void validateIfMedicineExists(int id) throws Exception {
         if (!medicineRepository.existsById(id)) {
-            throw new Exception("{not.found}");
+            throw new Exception("Medicine not found");
         }
     }
 }

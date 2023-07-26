@@ -25,13 +25,13 @@ public class MedicineController {
 
     @GetMapping("/{medicineId}")
     public ResponseEntity<MedicineDTO> getMedicineById(@PathVariable("medicineId") final int medicineId) throws Exception {
-        MedicineDTO medicineDTO = medicineService.getMedicine(medicineId);
+        MedicineDTO medicineDTO = medicineService.getMedicineById(medicineId);
         return ResponseEntity.ok().body(medicineDTO);
     }
 
     @PostMapping("/")
-    public ResponseEntity saveMedicine(@RequestBody @Valid MedicineForm form) {
-        return ResponseEntity.status(HttpStatus.CREATED).body(medicineService.saveMedicine(form));
+    public ResponseEntity createMedicine(@RequestBody @Valid MedicineForm form) {
+        return ResponseEntity.status(HttpStatus.CREATED).body(medicineService.createMedicine(form));
     }
 
     @DeleteMapping("/{medicineId}")
@@ -41,8 +41,8 @@ public class MedicineController {
     }
 
     @PatchMapping("/{medicineId}")
-    public ResponseEntity<MedicineDTO> updateMedicineById(@RequestBody @Valid MedicineForm form, @PathVariable("medicineId") final int medicineId) throws Exception {
-        medicineService.updateMedicineById(form, medicineId);
+    public ResponseEntity<MedicineDTO> updateMedicine(@RequestBody @Valid MedicineForm form, @PathVariable("medicineId") final int medicineId) throws Exception {
+        medicineService.updateMedicine(form, medicineId);
         return ResponseEntity.ok().build();
     }
 }

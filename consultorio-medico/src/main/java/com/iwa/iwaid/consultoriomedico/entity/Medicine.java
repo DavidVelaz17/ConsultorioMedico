@@ -1,12 +1,18 @@
 package com.iwa.iwaid.consultoriomedico.entity;
 
 import com.iwa.iwaid.consultoriomedico.form.MedicineForm;
-import jakarta.persistence.*;
+
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
+import jakarta.persistence.Column;
+import jakarta.persistence.GenerationType;
 import lombok.AccessLevel;
-import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-@Data
+@Getter
 @Entity
 @Table(name = "medicines")
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
