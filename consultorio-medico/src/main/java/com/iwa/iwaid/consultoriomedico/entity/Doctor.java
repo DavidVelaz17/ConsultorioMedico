@@ -1,12 +1,13 @@
 package com.iwa.iwaid.consultoriomedico.entity;
 
 import com.iwa.iwaid.consultoriomedico.form.DoctorForm;
+
 import jakarta.persistence.*;
 import lombok.AccessLevel;
-import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-@Data
+@Getter
 @Entity
 @Table(name = "doctors")
 @NoArgsConstructor(access = AccessLevel.PROTECTED)

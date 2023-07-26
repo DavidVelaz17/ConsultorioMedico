@@ -24,14 +24,14 @@ public class DoctorController {
 
     @GetMapping("/{doctorId}")
     public ResponseEntity<DoctorDTO> getDoctorById(@PathVariable("doctorId") final int doctorId) throws Exception {
-        DoctorDTO doctorDTO = doctorService.getDoctor(doctorId);
+        DoctorDTO doctorDTO = doctorService.getDoctorById(doctorId);
         return ResponseEntity.ok().body(doctorDTO);
     }
 
     @PostMapping("/")
     public ResponseEntity saveDoctor(@RequestBody DoctorForm form) {
-        DoctorDTO doctorDTO = doctorService.saveDoctor(form);
-        return ResponseEntity.status(HttpStatus.CREATED).body(doctorService.saveDoctor(form));
+        DoctorDTO doctorDTO = doctorService.createDoctor(form);
+        return ResponseEntity.status(HttpStatus.CREATED).body(doctorService.createDoctor(form));
     }
 
     @DeleteMapping("/{doctorId}")
@@ -42,7 +42,7 @@ public class DoctorController {
 
     @PatchMapping("/{doctorId}")
     public ResponseEntity<DoctorDTO> updateDoctorById(@RequestBody DoctorForm form, @PathVariable("doctorId") final int doctorId) throws Exception {
-        doctorService.updateDoctorById(form, doctorId);
+        doctorService.updateDoctor(form, doctorId);
         return ResponseEntity.ok().build();
     }
 }
