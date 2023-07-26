@@ -3,6 +3,7 @@ package com.iwa.iwaid.consultoriomedico.restcontrollers;
 import com.iwa.iwaid.consultoriomedico.dto.DoctorDTO;
 import com.iwa.iwaid.consultoriomedico.form.DoctorForm;
 import com.iwa.iwaid.consultoriomedico.services.DoctorService;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -29,7 +30,7 @@ public class DoctorController {
     }
 
     @PostMapping("/")
-    public ResponseEntity saveDoctor(@RequestBody DoctorForm form) {
+    public ResponseEntity saveDoctor(@RequestBody @Valid DoctorForm form) {
         DoctorDTO doctorDTO = doctorService.saveDoctor(form);
         return new ResponseEntity<>("Saved doctor " + doctorDTO.getId(), HttpStatus.CREATED);
     }
@@ -41,7 +42,7 @@ public class DoctorController {
     }
 
     @PatchMapping("/{doctorId}")
-    public ResponseEntity<DoctorDTO> updateDoctorById(@RequestBody DoctorForm form, @PathVariable("doctorId") final int doctorId) throws Exception {
+    public ResponseEntity<DoctorDTO> updateDoctorById(@RequestBody @Valid DoctorForm form, @PathVariable("doctorId") final int doctorId) throws Exception {
         doctorService.updateDoctorById(form, doctorId);
         return ResponseEntity.ok().build();
     }

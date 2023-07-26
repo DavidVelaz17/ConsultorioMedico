@@ -40,7 +40,7 @@ public class MedicineService {
 
     private void validateIfMedicineExists(int id) throws Exception {
         if (!medicineRepository.existsById(id)) {
-            throw new Exception();
+            throw new Exception("{not.found}");
         }
     }
 }
