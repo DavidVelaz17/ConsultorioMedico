@@ -1,13 +1,11 @@
 package com.iwa.iwaid.consultoriomedico.services;
 
+import com.iwa.iwaid.consultoriomedico.dto.PatientDTO;
 import com.iwa.iwaid.consultoriomedico.entity.Patient;
-import com.iwa.iwaid.consultoriomedico.entity.PatientDTO;
-import com.iwa.iwaid.consultoriomedico.entity.PatientForm;
+import com.iwa.iwaid.consultoriomedico.form.PatientForm;
 import com.iwa.iwaid.consultoriomedico.repository.PatientRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import java.util.Optional;
 
 
 @Service
@@ -16,37 +14,34 @@ public class PatientService {
     @Autowired
     private PatientRepository patientRepository;
 
-    public PatientDTO getPatient(final int id) {
-        Optional<Patient> patient = patientRepository.findById(id);
-        if (patient.isPresent()) {
-            return PatientDTO.build(patient.get());
-        } else {
-            return null;
-        }
+    public PatientDTO getPatientById(final int id) throws Exception {
+        validateIfPatientExist(id);
+        Patient patient = patientRepository.findById(id).orElseThrow();
+        return PatientDTO.build(patient);
     }
 
-    public PatientDTO savePatient(final PatientForm patientForm) {
+    public PatientDTO createPatient(final PatientForm patientForm) {
         Patient patient = new Patient(patientForm);
         patientRepository.save(patient);
         return PatientDTO.build(patient);
     }
 
-    public PatientDTO updatePatient(final PatientForm patientForm, final int id) {
-        final Optional<Patient> patient = patientRepository.findById(id);
-        if (patient.isPresent()) {
-            patient.get().updatePatient(patientForm);
-            patientRepository.save(patient.get());
-            return PatientDTO.build(patient.get());
-        } else {
-            return null;
-        }
+    public PatientDTO updatePatient(final PatientForm patientForm, final int id) throws Exception {
+        validateIfPatientExist(id);
+        final Patient patient = patientRepository.findById(id).orElseThrow();
+        patient.updatePatient(patientForm);
+        patientRepository.save(patient);
+        return PatientDTO.build(patient);
     }
 
-    public boolean deletePatient(int id) {
-        if (patientRepository.existsById(id)) {
-            patientRepository.deleteById(id);
-            return true;
-        } else
-            return false;
+    public void deletePatient(int id) throws Exception {
+        validateIfPatientExist(id);
+        patientRepository.deleteById(id);
+    }
+
+    public void validateIfPatientExist(int id) throws Exception {
+        if (!patientRepository.existsById(id)) {
+            throw new Exception("Patient not found");
+        }
     }
 }

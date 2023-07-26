@@ -1,7 +1,7 @@
 package com.iwa.iwaid.consultoriomedico.restcontrollers;
 
-import com.iwa.iwaid.consultoriomedico.entity.PatientDTO;
-import com.iwa.iwaid.consultoriomedico.entity.PatientForm;
+import com.iwa.iwaid.consultoriomedico.dto.PatientDTO;
+import com.iwa.iwaid.consultoriomedico.form.PatientForm;
 import com.iwa.iwaid.consultoriomedico.services.PatientService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -23,36 +23,26 @@ public class PatientController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<PatientDTO> getbyId(@PathVariable int id) {
-        Optional<PatientDTO> patient = Optional.ofNullable(patientService.getPatient(id));
-        if (patient.isPresent()) {
-            return new ResponseEntity<>(patient.get(), HttpStatus.OK);
-        } else {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }
+    public ResponseEntity<PatientDTO> getPatientById(@PathVariable int id) throws Exception {
+        PatientDTO patient = patientService.getPatientById(id);
+        return new ResponseEntity<>(patient, HttpStatus.OK);
     }
 
     @PostMapping("/")
-    public ResponseEntity<PatientDTO> savePatient(@RequestBody final PatientForm patientForm) {
-        PatientDTO patientDTO = patientService.savePatient(patientForm);
+    public ResponseEntity<PatientDTO> createPatient(@RequestBody final PatientForm form) {
+        PatientDTO patientDTO = patientService.createPatient(form);
         return new ResponseEntity<>(patientDTO, HttpStatus.CREATED);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<?> update(@RequestBody PatientForm patientForm, @PathVariable int id) {
-        Optional<PatientDTO> patient1 = Optional.ofNullable(patientService.updatePatient(patientForm, id));
-        if (patient1.isPresent()) {
-            return new ResponseEntity<>(HttpStatus.CREATED);
-        }
-        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+    public ResponseEntity<PatientDTO> updatePatient(@RequestBody PatientForm patientForm, @PathVariable int id) throws Exception {
+        PatientDTO patient = patientService.updatePatient(patientForm, id);
+        return new ResponseEntity<>(patient,HttpStatus.CREATED);
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<?> delete(@PathVariable("id") int id) {
-        if (patientService.deletePatient(id)) {
-            return new ResponseEntity<>(HttpStatus.OK);
-        } else {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }
+    public ResponseEntity<?> delete(@PathVariable("id") int id) throws Exception {
+        patientService.deletePatient(id);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 }

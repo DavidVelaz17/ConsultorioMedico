@@ -1,5 +1,6 @@
 package com.iwa.iwaid.consultoriomedico.entity;
 
+import com.iwa.iwaid.consultoriomedico.form.PatientForm;
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;
