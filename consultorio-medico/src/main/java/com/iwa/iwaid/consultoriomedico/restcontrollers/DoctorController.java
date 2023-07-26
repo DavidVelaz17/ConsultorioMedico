@@ -1,6 +1,7 @@
 package com.iwa.iwaid.consultoriomedico.restcontrollers;
 
 import com.iwa.iwaid.consultoriomedico.dto.DoctorDTO;
+import com.iwa.iwaid.consultoriomedico.entity.Doctor;
 import com.iwa.iwaid.consultoriomedico.form.DoctorForm;
 import com.iwa.iwaid.consultoriomedico.services.DoctorService;
 import lombok.RequiredArgsConstructor;
@@ -15,12 +16,20 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
 
+import java.util.List;
+
 @RestController
 @RequestMapping(path = "/iwaid/doctors")
 @RequiredArgsConstructor
 public class DoctorController {
 
     private final DoctorService doctorService;
+
+    @GetMapping("/")
+    public List<DoctorDTO> getAll(){
+        List<DoctorDTO> doctors=doctorService.getAll();
+        return doctors;
+    }
 
     @GetMapping("/{doctorId}")
     public ResponseEntity<DoctorDTO> getDoctorById(@PathVariable("doctorId") final int doctorId) throws Exception {

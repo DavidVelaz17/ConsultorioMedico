@@ -7,12 +7,19 @@ import com.iwa.iwaid.consultoriomedico.repository.DoctorRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import javax.print.Doc;
+import java.util.List;
+
 @Service
 @RequiredArgsConstructor
 public class DoctorService {
 
     private final DoctorRepository doctorRepository;
 
+    public List<DoctorDTO>getAll(){
+        List<Doctor> doctors=doctorRepository.findAll();
+        return doctors.stream().map(DoctorDTO::build).toList();
+    }
     public DoctorDTO getDoctorById(final int id) throws Exception {
         validateIfDoctorExists(id);
         Doctor doctor = doctorRepository.findById(id).get();
