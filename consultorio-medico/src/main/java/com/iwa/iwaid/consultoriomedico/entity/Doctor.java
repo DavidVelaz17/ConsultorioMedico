@@ -3,7 +3,13 @@ package com.iwa.iwaid.consultoriomedico.entity;
 import com.iwa.iwaid.consultoriomedico.convertors.StringToEnumConvertor;
 import com.iwa.iwaid.consultoriomedico.form.DoctorForm;
 
-import jakarta.persistence.*;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Column;
+import jakarta.persistence.Convert;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

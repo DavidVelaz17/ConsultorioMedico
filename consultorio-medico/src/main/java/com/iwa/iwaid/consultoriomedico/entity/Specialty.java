@@ -2,17 +2,19 @@ package com.iwa.iwaid.consultoriomedico.entity;
 
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
+
 @Getter
 @RequiredArgsConstructor
 public enum Specialty {
     General(0), Urologia(1), Ginecologia(2), Pediatria(3), Neurologia(4);
     private int key;
+
     Specialty(int key) {
-    this.key=key;
+        this.key = key;
     }
 
     public static Specialty getSpecialty(Integer key) {
-        switch (key){
+        switch (key) {
             case 0:
                 return Specialty.General;
             case 1:
