@@ -11,7 +11,6 @@ import java.io.Serializable;
 public class DoctorFiltersForm implements Serializable {
 
     @ApiObjectField(name = "name", description = "Doctor's name")
-    @Size(min = 3, max = 100, message = "{name.right.length}")
     private String name;
 
     @ApiObjectField(name = "specialty", description = "Doctor's specialty")

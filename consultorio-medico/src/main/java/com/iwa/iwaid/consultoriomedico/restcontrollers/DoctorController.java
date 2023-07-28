@@ -1,5 +1,6 @@
 package com.iwa.iwaid.consultoriomedico.restcontrollers;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.iwa.iwaid.consultoriomedico.dto.DoctorDTO;
 import com.iwa.iwaid.consultoriomedico.form.DoctorFiltersForm;
 import com.iwa.iwaid.consultoriomedico.form.DoctorForm;
@@ -8,14 +9,7 @@ import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.PatchMapping;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -27,7 +21,7 @@ public class DoctorController {
     private final DoctorService doctorService;
 
     @GetMapping("/")
-    public List<DoctorDTO> getAllDoctorsByFilters(@RequestBody @Valid DoctorFiltersForm form) {
+    public List<DoctorDTO> getAllDoctorsByFilters(@RequestBody(required = false) DoctorFiltersForm form) {
         List<DoctorDTO> doctors = doctorService.getAllByFilters(form);
         return doctors;
     }

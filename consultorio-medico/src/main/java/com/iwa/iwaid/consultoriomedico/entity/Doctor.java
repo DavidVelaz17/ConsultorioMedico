@@ -1,5 +1,6 @@
 package com.iwa.iwaid.consultoriomedico.entity;
 
+import com.iwa.iwaid.consultoriomedico.convertors.StringToEnumConvertor;
 import com.iwa.iwaid.consultoriomedico.form.DoctorForm;
 
 import jakarta.persistence.*;
@@ -22,6 +23,7 @@ public class Doctor {
     private String name;
 
     @Column(name = "specialty", nullable = false)
+    @Convert(converter = StringToEnumConvertor.class)
     private Specialty specialty;
 
     @Column(name = "address", length = 500, nullable = false)

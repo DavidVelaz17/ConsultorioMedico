@@ -1,10 +1,30 @@
 package com.iwa.iwaid.consultoriomedico.convertors;
 
 import com.iwa.iwaid.consultoriomedico.entity.Specialty;
-import org.springframework.core.convert.converter.Converter;
+import jakarta.persistence.AttributeConverter;
+import jakarta.persistence.Converter;
+import lombok.Getter;
+import lombok.RequiredArgsConstructor;
 
-public class StringToEnumConvertor implements Converter<String, Specialty> {
+@Converter(autoApply = true)
+public class StringToEnumConvertor implements AttributeConverter<Specialty, Integer> {
     @Override
+    public Integer  convertToDatabaseColumn(Specialty s) {
+        if (s == null) {
+            return null;
+        }
+        return s.getKey();
+    }
+
+    @Override
+    public Specialty convertToEntityAttribute(Integer key) {
+        if (key == null) {
+            return null;
+        }
+        return Specialty.getSpecialty(key);
+    }
+
+ /*   @Override
     public Specialty convert(String s) {
         if (s.equals("Neurologia")) {
             return Specialty.Neurologia;
@@ -19,4 +39,6 @@ public class StringToEnumConvertor implements Converter<String, Specialty> {
         }
         return null;
     }
+    */
+
 }
