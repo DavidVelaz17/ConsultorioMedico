@@ -18,13 +18,13 @@ public class Doctor {
     @Column(name = "id")
     private int id;
 
-    @Column(name = "name", length = 45, nullable = false)
+    @Column(name = "name", length = 100, nullable = false)
     private String name;
 
-    @Column(name = "specialty", length = 45, nullable = false)
-    private String specialty;
+    @Column(name = "specialty", nullable = false)
+    private Specialty specialty;
 
-    @Column(name = "address", length = 45, nullable = false)
+    @Column(name = "address", length = 500, nullable = false)
     private String address;
 
     @Column(name = "phone_number", length = 13, nullable = false)

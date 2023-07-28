@@ -1,9 +1,10 @@
 package com.iwa.iwaid.consultoriomedico.restcontrollers;
 
 import com.iwa.iwaid.consultoriomedico.dto.DoctorDTO;
-import com.iwa.iwaid.consultoriomedico.entity.Doctor;
+import com.iwa.iwaid.consultoriomedico.form.DoctorFiltersForm;
 import com.iwa.iwaid.consultoriomedico.form.DoctorForm;
 import com.iwa.iwaid.consultoriomedico.services.DoctorService;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -26,8 +27,8 @@ public class DoctorController {
     private final DoctorService doctorService;
 
     @GetMapping("/")
-    public List<DoctorDTO> getAll(){
-        List<DoctorDTO> doctors=doctorService.getAll();
+    public List<DoctorDTO> getAllDoctorsByFilters(@RequestBody @Valid DoctorFiltersForm form) {
+        List<DoctorDTO> doctors = doctorService.getAllByFilters(form);
         return doctors;
     }
 
@@ -38,8 +39,7 @@ public class DoctorController {
     }
 
     @PostMapping("/")
-    public ResponseEntity saveDoctor(@RequestBody DoctorForm form) {
-        DoctorDTO doctorDTO = doctorService.createDoctor(form);
+    public ResponseEntity saveDoctor(@RequestBody @Valid DoctorForm form) {
         return ResponseEntity.status(HttpStatus.CREATED).body(doctorService.createDoctor(form));
     }
 
@@ -50,7 +50,7 @@ public class DoctorController {
     }
 
     @PatchMapping("/{doctorId}")
-    public ResponseEntity<DoctorDTO> updateDoctorById(@RequestBody DoctorForm form, @PathVariable("doctorId") final int doctorId) throws Exception {
+    public ResponseEntity<DoctorDTO> updateDoctorById(@RequestBody @Valid DoctorForm form, @PathVariable("doctorId") final int doctorId) throws Exception {
         doctorService.updateDoctor(form, doctorId);
         return ResponseEntity.ok().build();
     }

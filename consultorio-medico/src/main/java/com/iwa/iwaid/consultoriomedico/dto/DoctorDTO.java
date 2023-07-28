@@ -1,6 +1,7 @@
 package com.iwa.iwaid.consultoriomedico.dto;
 
 import com.iwa.iwaid.consultoriomedico.entity.Doctor;
+import com.iwa.iwaid.consultoriomedico.entity.Specialty;
 import lombok.Builder;
 import lombok.Data;
 import org.jsondoc.core.annotation.ApiObjectField;
@@ -15,7 +16,7 @@ public class DoctorDTO {
     private String name;
 
     @ApiObjectField(name = "specialty", description = "Doctor's specialty")
-    private String specialty;
+    private Specialty specialty;
 
     @ApiObjectField(name = "address", description = "Doctor's address")
     private String address;
