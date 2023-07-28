@@ -7,7 +7,7 @@ import jakarta.persistence.Converter;
 @Converter(autoApply = true)
 public class StringToEnumConvertor implements AttributeConverter<Specialty, Integer> {
     @Override
-    public Integer  convertToDatabaseColumn(Specialty s) {
+    public Integer convertToDatabaseColumn(Specialty s) {
         if (s == null) {
             return null;
         }

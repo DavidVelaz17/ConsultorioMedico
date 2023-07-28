@@ -1,7 +1,10 @@
 package com.iwa.iwaid.consultoriomedico.form;
 
 import com.iwa.iwaid.consultoriomedico.entity.Specialty;
-import jakarta.validation.constraints.*;
+import jakarta.validation.constraints.Size;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Email;
 import lombok.Data;
 import org.jsondoc.core.annotation.ApiObjectField;
 
