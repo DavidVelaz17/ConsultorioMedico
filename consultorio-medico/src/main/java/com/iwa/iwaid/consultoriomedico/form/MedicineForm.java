@@ -1,5 +1,6 @@
 package com.iwa.iwaid.consultoriomedico.form;
 
+import com.iwa.iwaid.consultoriomedico.entity.DosageForm;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 import lombok.Data;
@@ -9,8 +10,14 @@ import java.io.Serializable;
 
 @Data
 public class MedicineForm implements Serializable {
+
+    @ApiObjectField(name = "key", description = "Medicine's key")
+    @Size(min = 3, max = 5)
+    @NotBlank
+    private String key;
+
     @ApiObjectField(name = "name", description = "Medicine's name")
-    @Size(min = 3, max = 45, message = "{right.length}")
+    @Size(min = 3, max = 100, message = "{right.length}")
     @NotBlank
     private String name;
 
@@ -19,10 +26,9 @@ public class MedicineForm implements Serializable {
     @NotBlank
     private String dose;
 
-    @ApiObjectField(name = "packaging", description = "Medicine's packaging")
-    @Size(min = 3, max = 20, message = "The minimum length for this field is 3 characters and maximum 20")
+    @ApiObjectField(name = "dosageForms", description = "Medicine's dosage forms")
     @NotBlank
-    private String packaging;
+    private DosageForm dosageForms;
 
     @ApiObjectField(name = "description", description = "Medicine's description")
     @Size(max = 60, message = "The maximum length for this field is 60")

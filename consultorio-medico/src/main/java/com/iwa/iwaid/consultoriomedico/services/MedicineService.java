@@ -2,16 +2,25 @@ package com.iwa.iwaid.consultoriomedico.services;
 
 import com.iwa.iwaid.consultoriomedico.dto.MedicineDTO;
 import com.iwa.iwaid.consultoriomedico.entity.Medicine;
+import com.iwa.iwaid.consultoriomedico.form.MedicineFiltersForm;
 import com.iwa.iwaid.consultoriomedico.form.MedicineForm;
 import com.iwa.iwaid.consultoriomedico.repository.MedicineRepository;
+import com.iwa.iwaid.consultoriomedico.repository.MedicineSpecs;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 @RequiredArgsConstructor
 public class MedicineService {
 
     private final MedicineRepository medicineRepository;
+
+    public List<MedicineDTO> getAllByFilters(final MedicineFiltersForm form) {
+        final List<Medicine> medicines = medicineRepository.findAll(MedicineSpecs.getAllByFilters(form));
+        return medicines.stream().map(MedicineDTO::build).toList();
+    }
 
     public MedicineDTO getMedicineById(final int id) throws Exception {
         validateIfMedicineExists(id);
