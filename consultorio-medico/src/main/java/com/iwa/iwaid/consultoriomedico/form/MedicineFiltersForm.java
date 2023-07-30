@@ -12,7 +12,7 @@ public class MedicineFiltersForm {
     private String key;
 
     @ApiObjectField(name = "name", description = "Medicine's name")
-    @Size(max = 100)
+    @Size(max = 100, message = "{name.right.length}")
     private String name;
 
     @ApiObjectField(name = "dosageForms", description = "Medicine's dosage forms")

@@ -43,7 +43,7 @@ public class MedicineController {
     }
 
     @PatchMapping("/{medicineId}")
-    public ResponseEntity<MedicineDTO> updateMedicine(@RequestBody @Valid @ModelAttribute MedicineForm form, @PathVariable("medicineId") final int medicineId) throws Exception {
+    public ResponseEntity<MedicineDTO> updateMedicine(@RequestBody @Valid MedicineForm form, @PathVariable("medicineId") final int medicineId) throws Exception {
         medicineService.updateMedicine(form, medicineId);
         return ResponseEntity.ok().build();
     }
