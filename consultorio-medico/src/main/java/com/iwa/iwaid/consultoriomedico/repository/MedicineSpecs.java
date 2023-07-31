@@ -15,8 +15,8 @@ public class MedicineSpecs {
     public static Specification<Medicine> getAllByFilters(final MedicineFiltersForm form) {
         return (Root<Medicine> root, CriteriaQuery<?> criteriaQuery, CriteriaBuilder criteriaBuilder) -> {
             List<Predicate> predicates = new ArrayList<>();
-            if (form.getKey() != null) {
-                predicates.add(criteriaBuilder.like(root.get("key"), "%" + form.getKey() + "%"));
+            if (form.getCode() != null) {
+                predicates.add(criteriaBuilder.like(root.get("key"), "%" + form.getCode() + "%"));
             }
             if (form.getName() != null) {
                 predicates.add(criteriaBuilder.like(root.get("name"), "%" + form.getName() + "%"));

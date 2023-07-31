@@ -12,8 +12,8 @@ public class MedicineDTO {
     @ApiObjectField(name = "id", description = "Medicine's id")
     private int id;
 
-    @ApiObjectField(name = "key", description = "Medicine's code")
-    private String key;
+    @ApiObjectField(name = "code", description = "Medicine's code")
+    private String code;
 
     @ApiObjectField(name = "name", description = "Medicine's name")
     private String name;
@@ -30,7 +30,7 @@ public class MedicineDTO {
     public static MedicineDTO build(final Medicine medicine) {
         return MedicineDTO.builder()
                 .id(medicine.getId())
-                .key(medicine.getKey())
+                .code(medicine.getCode())
                 .name(medicine.getName())
                 .dose(medicine.getDose())
                 .dosageForms(medicine.getDosageForms())

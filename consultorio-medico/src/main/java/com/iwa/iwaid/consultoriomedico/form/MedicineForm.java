@@ -10,9 +10,9 @@ import java.io.Serializable;
 @Data
 public class MedicineForm implements Serializable {
 
-    @ApiObjectField(name = "key", description = "Medicine's code")
+    @ApiObjectField(name = "code", description = "Medicine's code")
     @Size(max = 5)
-    private String key;
+    private String code;
 
     @ApiObjectField(name = "name", description = "Medicine's name")
     @Size(max = 100, message = "{name.right.length}")
