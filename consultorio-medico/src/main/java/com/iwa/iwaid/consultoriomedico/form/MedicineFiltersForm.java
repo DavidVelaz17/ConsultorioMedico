@@ -7,9 +7,9 @@ import org.jsondoc.core.annotation.ApiObjectField;
 
 @Data
 public class MedicineFiltersForm {
-    @ApiObjectField(name = "key", description = "Medicine's key")
+    @ApiObjectField(name = "code", description = "Medicine's code")
     @Size(max = 5)
-    private String key;
+    private String code;
 
     @ApiObjectField(name = "name", description = "Medicine's name")
     @Size(max = 100, message = "{name.right.length}")

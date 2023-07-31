@@ -23,8 +23,8 @@ public class Medicine {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    @Column(name = "key", length = 5, nullable = false)
-    private String key;
+    @Column(name = "code", length = 5, nullable = false)
+    private String code;
 
     @Column(name = "name", length = 100, nullable = false)
     private String name;
@@ -32,7 +32,7 @@ public class Medicine {
     @Column(name = "dose", length = 45, nullable = false)
     private String dose;
 
-    @Column(name = "packaging", nullable = false)
+    @Column(name = "dosageform", nullable = false)
     @Convert(converter = DosageFormsToIntConvertor.class)
     private DosageForm dosageForms;
 
@@ -40,7 +40,7 @@ public class Medicine {
     private String description;
 
     public Medicine(final MedicineForm form) {
-        this.key = form.getKey();
+        this.code = form.getCode();
         this.name = form.getName();
         this.dose = form.getDose();
         this.dosageForms = form.getDosageForms();
@@ -48,7 +48,7 @@ public class Medicine {
     }
 
     public void updateMedicine(final MedicineForm form) {
-        this.key = form.getKey();
+        this.code = form.getCode();
         this.name = form.getName();
         this.dose = form.getDose();
         this.dosageForms = form.getDosageForms();
