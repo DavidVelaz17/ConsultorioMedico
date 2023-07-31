@@ -39,12 +39,16 @@ public class Medicine {
     @Column(name = "description", length = 60, nullable = false)
     private String description;
 
+    @Column(name = "quantity", nullable = false)
+    private int quantity;
+
     public Medicine(final MedicineForm form) {
         this.code = form.getCode();
         this.name = form.getName();
         this.dose = form.getDose();
         this.dosageForms = form.getDosageForms();
         this.description = form.getDescription();
+        this.quantity = form.getQuantity();
     }
 
     public void updateMedicine(final MedicineForm form) {
@@ -53,5 +57,6 @@ public class Medicine {
         this.dose = form.getDose();
         this.dosageForms = form.getDosageForms();
         this.description = form.getDescription();
+        this.quantity = form.getQuantity();
     }
 }

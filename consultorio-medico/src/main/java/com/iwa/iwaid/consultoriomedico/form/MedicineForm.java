@@ -28,4 +28,7 @@ public class MedicineForm implements Serializable {
     @ApiObjectField(name = "description", description = "Medicine's description")
     @Size(max = 60, message = "The maximum length for this field is 60")
     private String description;
+
+    @ApiObjectField(name = "quantity", description = "Medicine's quantity")
+    private int quantity;
 }
