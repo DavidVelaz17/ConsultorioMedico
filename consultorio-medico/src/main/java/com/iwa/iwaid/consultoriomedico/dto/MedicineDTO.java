@@ -12,7 +12,7 @@ public class MedicineDTO {
     @ApiObjectField(name = "id", description = "Medicine's id")
     private int id;
 
-    @ApiObjectField(name = "key", description = "Medicine's key")
+    @ApiObjectField(name = "key", description = "Medicine's code")
     private String key;
 
     @ApiObjectField(name = "name", description = "Medicine's name")

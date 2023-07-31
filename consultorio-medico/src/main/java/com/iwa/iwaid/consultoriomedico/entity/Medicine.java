@@ -23,7 +23,7 @@ public class Medicine {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    @Column(name = "key", length = 5, nullable = false)
+    @Column(name = "code", length = 5, nullable = false)
     private String key;
 
     @Column(name = "name", length = 100, nullable = false)
