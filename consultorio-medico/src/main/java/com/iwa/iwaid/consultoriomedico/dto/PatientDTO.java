@@ -1,5 +1,6 @@
 package com.iwa.iwaid.consultoriomedico.dto;
 
+import com.iwa.iwaid.consultoriomedico.entity.Gender;
 import com.iwa.iwaid.consultoriomedico.entity.Patient;
 import lombok.Builder;
 import lombok.Data;
@@ -21,7 +22,7 @@ public class PatientDTO implements Serializable {
     private LocalDate dateOfBirth;
 
     @ApiObjectField(name = "gender", description = "Patient's gender")
-    private String gender;
+    private Gender gender;
 
     @ApiObjectField(name = "rfc", description = "Patient's RFC")
     private String rfc;
@@ -33,7 +34,7 @@ public class PatientDTO implements Serializable {
     private String city;
 
     @ApiObjectField(name = "phoneNumber", description = "Patient's phone number")
-    private Long phoneNumber;
+    private String phoneNumber;
 
     @ApiObjectField(name = "email", description = "Patient's mail")
     private String email;

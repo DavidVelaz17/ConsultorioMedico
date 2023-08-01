@@ -24,8 +24,9 @@ public class Patient {
     @Column(name = "date_of_birth", nullable = false)
     private LocalDate dateOfBirth;
 
+    @Enumerated(EnumType.STRING)
     @Column(name = "gender", nullable = false)
-    private String gender;
+    private Gender gender;
 
     @Column(name = "rfc", nullable = false)
     private String rfc;
@@ -37,7 +38,7 @@ public class Patient {
     private String city;
 
     @Column(name = "phone_number", nullable = false)
-    private Long phoneNumber;
+    private String phoneNumber;
 
     @Column(name = "email", nullable = false)
     private String email;
