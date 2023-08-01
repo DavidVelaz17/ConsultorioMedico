@@ -23,7 +23,7 @@ public class PatientController {
         this.patientService = patientService;
     }
 
-    @GetMapping("/")
+    @GetMapping
     public ResponseEntity<List<PatientDTO>> getAllPatients() {
         List<PatientDTO> patients = patientService.findAllPatients();
         return new ResponseEntity<>(patients, HttpStatus.OK);
@@ -35,8 +35,8 @@ public class PatientController {
         return new ResponseEntity<>(patient, HttpStatus.OK);
     }
 
-    @PostMapping("/filter/")
-    public ResponseEntity<List<PatientDTO>> filterPatient(@RequestBody final PatientFilterForm form) {
+    @PostMapping("/filter")
+    public ResponseEntity<List<PatientDTO>> getAllByFilters(@RequestBody final PatientFilterForm form) {
         List<PatientDTO> patientDTOS = patientService.getAllByFilters(form);
         return new ResponseEntity<>(patientDTOS, HttpStatus.OK);
     }
@@ -55,7 +55,7 @@ public class PatientController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<?> deletePatient(@PathVariable("id") final int id) throws Exception {
+    public ResponseEntity deletePatient(@PathVariable("id") final int id) throws Exception {
         patientService.deletePatient(id);
         return new ResponseEntity<>(HttpStatus.OK);
     }

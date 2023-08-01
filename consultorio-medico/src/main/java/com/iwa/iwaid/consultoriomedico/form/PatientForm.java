@@ -18,6 +18,7 @@ public class PatientForm implements Serializable {
 
     @ApiObjectField(name = "id", description = "Patient's ID")
     private int id;
+
     @Size(min = 3, max = 100)
     @NotBlank
     @ApiObjectField(name = "name", description = "Patient's name", required = true)
