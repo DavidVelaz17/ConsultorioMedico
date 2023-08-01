@@ -26,7 +26,7 @@ public class PatientForm implements Serializable {
 
     @NotBlank
     @DateTimeFormat(pattern = "yyyy-MM-dd")
-    @ApiObjectField(name = "dateOfBirth", description = "Patient's date of birth", required = true)
+    @ApiObjectField(name = "dateOfBirth", description = "Patient's birthday", required = true)
     private LocalDate dateOfBirth;
 
     @Size(max = 10)

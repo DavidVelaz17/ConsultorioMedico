@@ -41,7 +41,7 @@ public class PatientController {
         return new ResponseEntity<>(patientDTOS, HttpStatus.OK);
     }
 
-    @PostMapping("/")
+    @PostMapping
     public ResponseEntity<PatientDTO> createPatient(@RequestBody final PatientForm form) {
         PatientDTO patientDTO = patientService.createPatient(form);
         return new ResponseEntity<>(patientDTO, HttpStatus.CREATED);

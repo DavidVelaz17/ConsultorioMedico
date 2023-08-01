@@ -11,7 +11,7 @@ import java.util.List;
 
 @Getter
 public class PatientFilterForm {
-    @ApiObjectField(name = "name", description = "Name to search")
+    @ApiObjectField(name = "name", description = "Patient's name")
     String name;
 
     @Enumerated(EnumType.STRING)
@@ -21,7 +21,7 @@ public class PatientFilterForm {
     @ApiObjectField(name = "city", description = "Patient's city")
     private String city;
 
-    @ApiObjectField(name = "dateOfBirth", description = "Patient's date of birth", required = true)
+    @ApiObjectField(name = "dateOfBirth", description = "Patient's birthday", required = true)
     private List<LocalDate> dateOfBirth;
 
     @ApiObjectField(name = "rfc", description = "Patient's RFC")
