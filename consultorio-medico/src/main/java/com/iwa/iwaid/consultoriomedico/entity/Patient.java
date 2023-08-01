@@ -1,5 +1,6 @@
 package com.iwa.iwaid.consultoriomedico.entity;
 
+import com.iwa.iwaid.consultoriomedico.convertors.GenderToIntConvertor;
 import com.iwa.iwaid.consultoriomedico.form.PatientForm;
 import jakarta.persistence.*;
 import lombok.Data;
@@ -9,7 +10,7 @@ import java.time.LocalDate;
 
 @Data
 @Entity
-@Table(name = "patiens")
+@Table(name = "patients")
 @NoArgsConstructor
 public class Patient {
 
@@ -24,8 +25,8 @@ public class Patient {
     @Column(name = "date_of_birth", nullable = false)
     private LocalDate dateOfBirth;
 
-    @Enumerated(EnumType.STRING)
     @Column(name = "gender", nullable = false)
+    @Convert(converter = GenderToIntConvertor.class)
     private Gender gender;
 
     @Column(name = "rfc", nullable = false)

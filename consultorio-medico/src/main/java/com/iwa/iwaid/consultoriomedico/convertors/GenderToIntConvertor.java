@@ -15,9 +15,10 @@ public class GenderToIntConvertor implements AttributeConverter<Gender, Integer>
     }
 
     @Override
-    public Specialty convertToEntityAttribute(Integer key) {
+    public Gender convertToEntityAttribute(Integer key) {
         if (key == null) {
             return null;
         }
-        return Gender.getSpecialty(key);
+        return Gender.getGender(key);
     }
+}
