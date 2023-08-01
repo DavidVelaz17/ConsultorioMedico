@@ -27,6 +27,9 @@ public class MedicineDTO {
     @ApiObjectField(name = "description", description = "Medicine's description")
     private String description;
 
+    @ApiObjectField(name = "quantity", description = "Medicine's quantity")
+    private int quantity;
+
     public static MedicineDTO build(final Medicine medicine) {
         return MedicineDTO.builder()
                 .id(medicine.getId())
@@ -35,6 +38,7 @@ public class MedicineDTO {
                 .dose(medicine.getDose())
                 .dosageForms(medicine.getDosageForms())
                 .description(medicine.getDescription())
+                .quantity(medicine.getQuantity())
                 .build();
     }
 }

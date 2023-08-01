@@ -1,6 +1,7 @@
 package com.iwa.iwaid.consultoriomedico.form;
 
 import com.iwa.iwaid.consultoriomedico.entity.DosageForm;
+import jakarta.validation.constraints.Positive;
 import jakarta.validation.constraints.Size;
 import lombok.Data;
 import org.jsondoc.core.annotation.ApiObjectField;
@@ -28,4 +29,8 @@ public class MedicineForm implements Serializable {
     @ApiObjectField(name = "description", description = "Medicine's description")
     @Size(max = 60, message = "The maximum length for this field is 60")
     private String description;
+
+    @ApiObjectField(name = "quantity", description = "Medicine's quantity")
+    @Positive
+    private int quantity;
 }
