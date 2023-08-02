@@ -8,15 +8,10 @@ import com.iwa.iwaid.consultoriomedico.form.DoctorForm;
 import com.iwa.iwaid.consultoriomedico.repository.DoctorRepository;
 import com.iwa.iwaid.consultoriomedico.repository.DoctorSpecs;
 import lombok.RequiredArgsConstructor;
-import org.assertj.core.api.Assertions;
-import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.mockito.Answers;
-import org.mockito.ArgumentCaptor;
 import org.mockito.Mock;
-import org.mockito.Mockito;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
@@ -42,22 +37,23 @@ public class DoctorServiceTest {
     private DoctorDTO doctorDTO;
 
     @Before
-    public void setUp() throws Exception {
+    public void setUp() {
         doctorForm = new DoctorForm();
         doctorForm.setName("Juan");
-        doctorForm.setSpecialty(Specialty.valueOf("Pediatria"));
+        doctorForm.setSpecialty(Specialty.General);
         doctorForm.setAddress("Soledad #54");
         doctorForm.setPhoneNumber("2837485968");
         doctorForm.setEmail("Juan54@gmail.com");
 
+        doctor = new Doctor(doctorForm);
+
         doctorFiltersForm = new DoctorFiltersForm();
         doctorFiltersForm.setName("Juan");
-        doctorFiltersForm.setSpecialty(Specialty.valueOf("Pediatria"));
+        doctorFiltersForm.setSpecialty(Specialty.General);
     }
 
     @Test
-    public void getAllByFilters() throws Exception {
-        doctor = new Doctor(doctorForm);
+    public void getAllByFilters() {
         when(doctorRepository.findAll(DoctorSpecs.getAllByFilters(doctorFiltersForm)))
                 .thenReturn(List.of(doctor));
         List<DoctorDTO> doctors = doctorService.getAllByFilters(doctorFiltersForm);
@@ -66,7 +62,6 @@ public class DoctorServiceTest {
 
     @Test
     public void getDoctorById() throws Exception {
-        doctor = new Doctor(doctorForm);
         when(doctorRepository.findById(anyInt())).thenReturn(Optional.of(doctor));
         doctorDTO = doctorService.getDoctorById(anyInt());
         assertThat(doctorService.getDoctorById(anyInt())).isEqualTo(doctorDTO);
@@ -74,7 +69,6 @@ public class DoctorServiceTest {
 
     @Test
     public void createDoctor() {
-        doctor = new Doctor(doctorForm);
         when(doctorRepository.save(doctor)).thenReturn(doctor);
         doctorDTO = doctorService.createDoctor(doctorForm);
         assertThat(doctorService.createDoctor(doctorForm)).isEqualTo(doctorDTO);
@@ -88,7 +82,6 @@ public class DoctorServiceTest {
 
     @Test
     public void updateDoctor() throws Exception {
-        doctor = new Doctor(doctorForm);
         when(doctorRepository.findById(anyInt())).thenReturn(Optional.of(doctor));
         when(doctorRepository.save(doctor)).thenReturn(doctor);
         doctorDTO = doctorService.updateDoctor(doctorForm, 1);
