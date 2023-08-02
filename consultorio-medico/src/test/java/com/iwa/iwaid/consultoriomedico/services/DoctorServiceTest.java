@@ -8,15 +8,10 @@ import com.iwa.iwaid.consultoriomedico.form.DoctorForm;
 import com.iwa.iwaid.consultoriomedico.repository.DoctorRepository;
 import com.iwa.iwaid.consultoriomedico.repository.DoctorSpecs;
 import lombok.RequiredArgsConstructor;
-import org.assertj.core.api.Assertions;
-import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.mockito.Answers;
-import org.mockito.ArgumentCaptor;
 import org.mockito.Mock;
-import org.mockito.Mockito;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
@@ -52,7 +47,7 @@ public class DoctorServiceTest {
 
         doctorFiltersForm = new DoctorFiltersForm();
         doctorFiltersForm.setName("Juan");
-        doctorFiltersForm.setSpecialty(Specialty.valueOf("Pediatria"));
+        doctorFiltersForm.setSpecialty(Specialty.General);
     }
 
     @Test
