@@ -36,12 +36,12 @@ public class MedicineServiceTest {
     private MedicineDTO medicineDTO;
 
     @Before
-    public void setUp() throws Exception {
+    public void setUp() {
         medicineForm = new MedicineForm();
         medicineForm.setName("Paracetamol");
         medicineForm.setCode("PAR50");
         medicineForm.setDose("50 mg");
-        medicineForm.setDosageForms(DosageForm.valueOf("Gel"));
+        medicineForm.setDosageForms(DosageForm.Pastilla);
         medicineForm.setDescription("Is a nonsteroidal anti-inflammatory drug (NSAID)");
         medicineForm.setQuantity(100);
 
