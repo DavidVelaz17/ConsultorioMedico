@@ -50,7 +50,7 @@ public class MedicineServiceTest {
         medicineFiltersForm = new MedicineFiltersForm();
         medicineFiltersForm.setName("Paracetamol");
         medicineFiltersForm.setCode("PARAC");
-        medicineFiltersForm.setDosageForms(null);
+        medicineFiltersForm.setDosageForms(DosageForm.valueOf("Pastilla"));
     }
 
     @Test
