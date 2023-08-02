@@ -36,10 +36,9 @@ public class DoctorService {
         return DoctorDTO.build(doctor);
     }
 
-    public boolean deleteDoctor(final int id) throws Exception {
+    public void deleteDoctor(final int id) throws Exception {
         validateIfDoctorExists(id);
         doctorRepository.deleteById(id);
-        return true;
     }
 
     public DoctorDTO updateDoctor(final DoctorForm form, final int id) throws Exception {
