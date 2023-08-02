@@ -84,6 +84,12 @@
 			<artifactId>jsondoc-springmvc</artifactId>
 			<version>1.2.23</version>
 		</dependency>
+		<dependency>
+			<groupId>org.flywaydb</groupId>
+			<artifactId>flyway-mysql</artifactId>
+
+		</dependency>
+
 	</dependencies>
 
 	<build>
@@ -94,5 +100,4 @@
 			</plugin>
 		</plugins>
 	</build>
-
 </project>

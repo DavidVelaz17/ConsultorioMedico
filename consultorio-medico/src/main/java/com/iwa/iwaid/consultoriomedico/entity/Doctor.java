@@ -1,6 +1,6 @@
 package com.iwa.iwaid.consultoriomedico.entity;
 
-import com.iwa.iwaid.consultoriomedico.convertors.StringToEnumConvertor;
+import com.iwa.iwaid.consultoriomedico.convertors.SpecialtyToIntConvertor;
 import com.iwa.iwaid.consultoriomedico.form.DoctorForm;
 
 import jakarta.persistence.GeneratedValue;
@@ -29,7 +29,7 @@ public class Doctor {
     private String name;
 
     @Column(name = "specialty", nullable = false)
-    @Convert(converter = StringToEnumConvertor.class)
+    @Convert(converter = SpecialtyToIntConvertor.class)
     private Specialty specialty;
 
     @Column(name = "address", length = 500, nullable = false)
