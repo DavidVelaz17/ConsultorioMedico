@@ -1,10 +1,12 @@
 package com.iwa.iwaid.consultoriomedico.form;
 
+import com.iwa.iwaid.consultoriomedico.entity.Hour;
 import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 import org.jsondoc.core.annotation.ApiObjectField;
 
 import java.io.Serializable;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 @Data
@@ -18,9 +20,12 @@ public class AppointmentForm implements Serializable {
     @NotNull
     private int doctorId;
 
-    @ApiObjectField(name = "dateAndTime", description = "Appointment's date and time")
+    @ApiObjectField(name = "date", description = "Appointment's date")
     @NotNull
-    private LocalDateTime dateAndTime;
+    private LocalDate date;
+
+    @ApiObjectField(name = "hour", description = "Appointment's hour")
+    private Hour hour;
 
     @ApiObjectField(name = "notes", description = "Appointment's notes")
     private String notes;

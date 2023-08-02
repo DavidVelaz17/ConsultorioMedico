@@ -8,6 +8,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Service
 @RequiredArgsConstructor
@@ -15,6 +16,10 @@ public class AppointmentService {
 
     private final AppointmentRepository appointmentRepository;
 
+    public List<AppointmentDTO> getAll(){
+        final List<Appointment> appointments =appointmentRepository.findAll();
+        return appointments.stream().map(AppointmentDTO::build).toList();
+    }
     public AppointmentDTO getAppointment(final int id) throws Exception {
         validateIfAppointmentExists(id);
         final Appointment appointment = appointmentRepository.findById(id).get();
@@ -32,7 +37,8 @@ public class AppointmentService {
         appointmentRepository.deleteById(id);
     }
 
-    public AppointmentDTO updateAppointmentById(final AppointmentForm form, final int id) {
+    public AppointmentDTO updateAppointmentById(final AppointmentForm form, final int id) throws Exception {
+        validateIfAppointmentExists(id);
         final Appointment appointment = appointmentRepository.findById(id).get();
         appointment.updateAppointment(form);
         appointmentRepository.save(appointment);

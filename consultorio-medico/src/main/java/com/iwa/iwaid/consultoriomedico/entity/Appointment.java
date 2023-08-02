@@ -1,12 +1,13 @@
 package com.iwa.iwaid.consultoriomedico.entity;
 
+import com.iwa.iwaid.consultoriomedico.convertors.HourToIntConvertor;
 import com.iwa.iwaid.consultoriomedico.form.AppointmentForm;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 
 @Data
 @Entity
@@ -15,17 +16,29 @@ import java.time.LocalDateTime;
 public class Appointment {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
+    @Column(name = "id", nullable = false)
     private int id;
 
-    @Column(name = "patients_id")
+    @Column(name = "patients_Id", nullable = false)
     private int patientId;
 
-    @Column(name = "doctors_id")
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "patients_Id", nullable = false, insertable = false, updatable = false)
+    private Patient patient;
+
+    @Column(name = "doctors_Id", nullable = false)
     private int doctorId;
 
-    @Column(name = "date_time")
-    private LocalDateTime dateAndTime;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "doctors_Id", nullable = false, insertable = false, updatable = false)
+    private Doctor doctor;
+
+    @Column(name = "date")
+    private LocalDate date;
+
+    @Column(name = "hour")
+    @Convert(converter = HourToIntConvertor.class)
+    private Hour hour;
 
     @Column(name = "notes")
     private String notes;
@@ -33,19 +46,16 @@ public class Appointment {
     public Appointment(final AppointmentForm form) {
         this.patientId = form.getPatientId();
         this.doctorId = form.getDoctorId();
-        this.dateAndTime = form.getDateAndTime();
+        this.date = form.getDate();
+        this.hour = form.getHour();
         this.notes = form.getNotes();
     }
 
     public void updateAppointment(final AppointmentForm form) {
         this.patientId = form.getPatientId();
         this.doctorId = form.getDoctorId();
-        this.dateAndTime = form.getDateAndTime();
+        this.date = form.getDate();
+        this.hour = form.getHour();
         this.notes = form.getNotes();
-    }
-
-    public void findDoctorAvailability(final AppointmentForm form) {
-        this.doctorId = form.getDoctorId();
-        this.dateAndTime = form.getDateAndTime();
     }
 }

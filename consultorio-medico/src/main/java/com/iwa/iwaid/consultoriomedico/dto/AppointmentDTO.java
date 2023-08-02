@@ -1,10 +1,12 @@
 package com.iwa.iwaid.consultoriomedico.dto;
 
 import com.iwa.iwaid.consultoriomedico.entity.Appointment;
+import com.iwa.iwaid.consultoriomedico.entity.Hour;
 import lombok.Builder;
 import lombok.Data;
 import org.jsondoc.core.annotation.ApiObjectField;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 @Data
@@ -19,8 +21,11 @@ public class AppointmentDTO {
     @ApiObjectField(name = "doctorId", description = "Doctor's id")
     private int doctorId;
 
-    @ApiObjectField(name = "dateAndTime", description = "Appointment's date and time")
-    private LocalDateTime dateAndTime;
+    @ApiObjectField(name = "date", description = "Appointment's date")
+    private LocalDate date;
+    
+    @ApiObjectField(name = "hour",description = "Appointment's hour")
+    private Hour hour;
 
     @ApiObjectField(name = "notes", description = "Appointment's notes")
     private String notes;
@@ -30,7 +35,8 @@ public class AppointmentDTO {
                 .id(appointment.getId())
                 .patientId(appointment.getPatientId())
                 .doctorId(appointment.getDoctorId())
-                .dateAndTime(appointment.getDateAndTime())
+                .date(appointment.getDate())
+                .hour(appointment.getHour())
                 .notes(appointment.getNotes())
                 .build();
     }
