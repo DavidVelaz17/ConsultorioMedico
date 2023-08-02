@@ -14,7 +14,6 @@ public class PatientFilterForm {
     @ApiObjectField(name = "name", description = "Patient's name")
     String name;
 
-    @Enumerated(EnumType.STRING)
     @ApiObjectField(name = "gender", description = "Patient's gender")
     private Gender gender;
 

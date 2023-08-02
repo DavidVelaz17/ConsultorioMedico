@@ -1,10 +1,7 @@
 package com.iwa.iwaid.consultoriomedico.form;
 
 import com.iwa.iwaid.consultoriomedico.entity.Gender;
-import jakarta.persistence.EnumType;
-import jakarta.persistence.Enumerated;
 import jakarta.validation.constraints.Email;
-import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 import lombok.Data;
 import org.jsondoc.core.annotation.ApiObjectField;
@@ -20,22 +17,17 @@ public class PatientForm implements Serializable {
     private int id;
 
     @Size(min = 3, max = 100)
-    @NotBlank
     @ApiObjectField(name = "name", description = "Patient's name", required = true)
     private String name;
 
-    @NotBlank
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     @ApiObjectField(name = "dateOfBirth", description = "Patient's birthday", required = true)
     private LocalDate dateOfBirth;
 
-    @Size(max = 10)
-    @Enumerated(EnumType.STRING)
     @ApiObjectField(name = "gender", description = "Patient's gender")
     private Gender gender;
 
-    @NotBlank
-    @Size(min = 13)
+    @Size(min = 13, max = 13)
     @ApiObjectField(name = "rfc", description = "Patient's RFC")
     private String rfc;
 
@@ -47,7 +39,7 @@ public class PatientForm implements Serializable {
     @ApiObjectField(name = "city", description = "Patient's city")
     private String city;
 
-    @Size(min = 13)
+    @Size(max = 13)
     @ApiObjectField(name = "phoneNumber", description = "Patient's phone number")
     private String phoneNumber;
 

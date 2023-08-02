@@ -28,11 +28,12 @@ public class PatientSpecs {
             if (form.getRfc() != null) {
                 predicates.add(criteriaBuilder.like(root.get("rfc"), "%" + form.getRfc() + "%"));
             }
-            if (form.getDateOfBirth().get(0) != null && form.getDateOfBirth().get(1) != null) {
-                predicates.add(criteriaBuilder.between(root.get("dateOfBirth"), form.getDateOfBirth().get(0),
-                        form.getDateOfBirth().get(1)));
+            if (form.getDateOfBirth() != null) {
+                if (form.getDateOfBirth().get(0) != null && form.getDateOfBirth().get(1) != null) {
+                    predicates.add(criteriaBuilder.between(root.get("dateOfBirth"), form.getDateOfBirth().get(0),
+                            form.getDateOfBirth().get(1)));
+                }
             }
-
             return criteriaBuilder.and(predicates.toArray(new Predicate[0]));
         };
     }
