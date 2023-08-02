@@ -8,13 +8,10 @@ import com.iwa.iwaid.consultoriomedico.form.DoctorForm;
 import com.iwa.iwaid.consultoriomedico.repository.DoctorRepository;
 import com.iwa.iwaid.consultoriomedico.repository.DoctorSpecs;
 import lombok.RequiredArgsConstructor;
-import org.assertj.core.api.Assertions;
-import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Answers;
-import org.mockito.ArgumentCaptor;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -25,8 +22,6 @@ import java.util.Optional;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 import static org.mockito.ArgumentMatchers.anyInt;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
 
 @SpringBootTest
 @RunWith(SpringRunner.class)
@@ -58,7 +53,7 @@ public class DoctorServiceTest {
     @Test
     public void getAllByFilters() throws Exception {
         doctor = new Doctor(doctorForm);
-        when(doctorRepository.findAll(DoctorSpecs.getAllByFilters(doctorFiltersForm)))
+        Mockito.when(doctorRepository.findAll(DoctorSpecs.getAllByFilters(doctorFiltersForm)))
                 .thenReturn(List.of(doctor));
         List<DoctorDTO> doctors = doctorService.getAllByFilters(doctorFiltersForm);
         assertThat(doctorService.getAllByFilters(doctorFiltersForm)).isEqualTo(doctors);
@@ -67,7 +62,7 @@ public class DoctorServiceTest {
     @Test
     public void getDoctorById() throws Exception {
         doctor = new Doctor(doctorForm);
-        when(doctorRepository.findById(anyInt())).thenReturn(Optional.of(doctor));
+        Mockito.when(doctorRepository.findById(anyInt())).thenReturn(Optional.of(doctor));
         doctorDTO = doctorService.getDoctorById(anyInt());
         assertThat(doctorService.getDoctorById(anyInt())).isEqualTo(doctorDTO);
     }
@@ -75,22 +70,23 @@ public class DoctorServiceTest {
     @Test
     public void createDoctor() {
         doctor = new Doctor(doctorForm);
-        when(doctorRepository.save(doctor)).thenReturn(doctor);
+        Mockito.when(doctorRepository.save(doctor)).thenReturn(doctor);
         doctorDTO = doctorService.createDoctor(doctorForm);
         assertThat(doctorService.createDoctor(doctorForm)).isEqualTo(doctorDTO);
     }
 
     @Test
     public void deleteDoctor() throws Exception {
-        doctorService.deleteDoctor(anyInt());
-        verify(doctorService).deleteDoctor(anyInt());
+        Mockito.doAnswer(Answers.CALLS_REAL_METHODS).when(doctorRepository).deleteById(anyInt());
+        boolean result = doctorService.deleteDoctor(anyInt());
+        assertThat(doctorService.deleteDoctor(anyInt())).isEqualTo(result);
     }
 
     @Test
     public void updateDoctor() throws Exception {
         doctor = new Doctor(doctorForm);
-        when(doctorRepository.findById(anyInt())).thenReturn(Optional.of(doctor));
-        when(doctorRepository.save(doctor)).thenReturn(doctor);
+        Mockito.when(doctorRepository.findById(anyInt())).thenReturn(Optional.of(doctor));
+        Mockito.when(doctorRepository.save(doctor)).thenReturn(doctor);
         doctorDTO = doctorService.updateDoctor(doctorForm, 1);
         assertThat(doctorService.updateDoctor(doctorForm, 1)).isEqualTo(doctorDTO);
     }
