@@ -51,7 +51,6 @@ public class MedicineServiceTest {
         medicineFiltersForm.setName("Paracetamol");
         medicineFiltersForm.setCode("PARAC");
         medicineFiltersForm.setDosageForms(DosageForm.Pastilla);
-
     }
 
     @Test
@@ -82,7 +81,5 @@ public class MedicineServiceTest {
         when(medicineRepository.save(medicine)).thenReturn(medicine);
         medicineDTO = medicineService.updateMedicine(medicineForm, 1);
         assertThat(medicineService.updateMedicine(medicineForm, 1)).isEqualTo(medicineDTO);
-
-
     }
 }
