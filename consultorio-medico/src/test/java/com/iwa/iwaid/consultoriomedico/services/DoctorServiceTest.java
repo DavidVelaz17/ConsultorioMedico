@@ -37,7 +37,7 @@ public class DoctorServiceTest {
     private DoctorDTO doctorDTO;
 
     @Before
-    public void setUp() {
+    public void setUp() throws Exception {
         doctorForm = new DoctorForm();
         doctorForm.setName("Juan");
         doctorForm.setSpecialty(Specialty.valueOf("Pediatria"));
@@ -51,7 +51,7 @@ public class DoctorServiceTest {
     }
 
     @Test
-    public void getAllByFilters() {
+    public void getAllByFilters() throws Exception {
         doctor = new Doctor(doctorForm);
         Mockito.when(doctorRepository.findAll(DoctorSpecs.getAllByFilters(doctorFiltersForm)))
                 .thenReturn(List.of(doctor));
