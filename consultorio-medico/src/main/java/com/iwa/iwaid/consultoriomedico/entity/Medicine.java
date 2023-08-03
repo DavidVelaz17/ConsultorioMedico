@@ -2,17 +2,12 @@ package com.iwa.iwaid.consultoriomedico.entity;
 
 import com.iwa.iwaid.consultoriomedico.convertors.DosageFormsToIntConvertor;
 import com.iwa.iwaid.consultoriomedico.form.MedicineForm;
-
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Column;
-import jakarta.persistence.Convert;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+
+import java.util.List;
 
 @Getter
 @Entity
@@ -41,6 +36,9 @@ public class Medicine {
 
     @Column(name = "quantity", nullable = false)
     private int quantity;
+
+    @OneToMany(mappedBy = "medicines", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<MedicinesPrescription> medicinesPrescriptions;
 
     public Medicine(final MedicineForm form) {
         this.code = form.getCode();
