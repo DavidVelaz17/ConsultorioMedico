@@ -1,13 +1,14 @@
 package com.iwa.iwaid.consultoriomedico.form;
 
 import com.iwa.iwaid.consultoriomedico.entity.Hour;
+import jakarta.validation.constraints.Future;
 import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 import org.jsondoc.core.annotation.ApiObjectField;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import java.io.Serializable;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 
 @Data
 public class AppointmentForm implements Serializable {
@@ -22,6 +23,8 @@ public class AppointmentForm implements Serializable {
 
     @ApiObjectField(name = "date", description = "Appointment's date")
     @NotNull
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    @Future
     private LocalDate date;
 
     @ApiObjectField(name = "hour", description = "Appointment's hour")

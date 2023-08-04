@@ -26,7 +26,7 @@ public class AppointmentController {
 
     @GetMapping("/{appointmentId}")
     public ResponseEntity<AppointmentDTO> getAppointmentById(@PathVariable("appointmentId") final int appointmentId) throws Exception {
-        AppointmentDTO appointmentDTO = appointmentService.getAppointment(appointmentId);
+        AppointmentDTO appointmentDTO = appointmentService.getAppointmentById(appointmentId);
         return ResponseEntity.ok().body(appointmentDTO);
     }
 
