@@ -11,11 +11,11 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.Table;
 import jakarta.persistence.Id;
 import lombok.AccessLevel;
-import lombok.Data;
 
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-@Data
+@Getter
 @Entity
 @Table(name = "doctors")
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
