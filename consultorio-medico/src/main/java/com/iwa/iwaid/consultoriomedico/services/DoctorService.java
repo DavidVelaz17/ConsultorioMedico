@@ -55,7 +55,7 @@ public class DoctorService {
         return doctorDTOs.stream().collect(Collectors.toMap(DoctorDTO::getId,Function.identity()));
     }
 
-    private void validateIfDoctorExists(int id) throws Exception {
+    public void validateIfDoctorExists(final int id) throws Exception {
         if (!doctorRepository.existsById(id)) {
             throw new Exception("Doctor not found");
         }
