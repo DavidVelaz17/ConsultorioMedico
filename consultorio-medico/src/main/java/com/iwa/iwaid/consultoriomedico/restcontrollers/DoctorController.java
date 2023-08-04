@@ -21,7 +21,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import java.util.List;
 
 @RestController
-@RequestMapping(path = "/iwaid/doctors")
+@RequestMapping(path = "/iwaid/doctors/")
 @RequiredArgsConstructor
 public class DoctorController {
 

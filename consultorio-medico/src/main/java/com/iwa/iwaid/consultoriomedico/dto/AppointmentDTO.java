@@ -19,13 +19,13 @@ public class AppointmentDTO {
     @ApiObjectField(name = "patientId", description = "Patient's id")
     private int patientId;
 
-    @ApiObjectField(name = "patient", description = "Patient's data")
+    @ApiObjectField(name = "patientDTO", description = "Patient's data")
     private PatientDTO patientDTO;
 
     @ApiObjectField(name = "doctorId", description = "Doctor's id")
     private int doctorId;
 
-    @ApiObjectField(name = "doctor", description = "Doctor's data")
+    @ApiObjectField(name = "doctorDTO", description = "Doctor's data")
     private DoctorDTO doctorDTO;
 
     @ApiObjectField(name = "date", description = "Appointment's date")

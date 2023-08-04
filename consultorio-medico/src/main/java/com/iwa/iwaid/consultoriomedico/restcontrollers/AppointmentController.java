@@ -19,7 +19,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import java.util.List;
 
 @RestController
-@RequestMapping(path = "/iwaid/appointments")
+@RequestMapping(path = "/iwaid/appointments/")
 @RequiredArgsConstructor
 public class AppointmentController {
 
@@ -50,9 +50,10 @@ public class AppointmentController {
     }
 
     @PatchMapping("/{appointmentId}")
-    public ResponseEntity<AppointmentDTO> updateAppointmentById(@RequestBody @Valid AppointmentForm form,
-                                                                @PathVariable("appointmentId") final int appointmentId)
-                                                                throws Exception {
+    public ResponseEntity<AppointmentDTO> updateAppointmentById(
+            @RequestBody @Valid AppointmentForm form,
+            @PathVariable("appointmentId") final int appointmentId)
+            throws Exception {
         appointmentService.updateAppointmentById(form, appointmentId);
         return ResponseEntity.ok().build();
     }
