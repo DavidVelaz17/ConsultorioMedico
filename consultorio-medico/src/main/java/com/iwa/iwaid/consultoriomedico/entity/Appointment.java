@@ -1,6 +1,6 @@
 package com.iwa.iwaid.consultoriomedico.entity;
 
-import com.iwa.iwaid.consultoriomedico.convertors.HourToIntConvertor;
+import com.iwa.iwaid.consultoriomedico.convertors.HourConvertor;
 import com.iwa.iwaid.consultoriomedico.form.AppointmentForm;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Table;
@@ -46,7 +46,7 @@ public class Appointment {
     private LocalDate date;
 
     @Column(name = "hour")
-    @Convert(converter = HourToIntConvertor.class)
+    @Convert(converter = HourConvertor.class)
     private Hour hour;
 
     @Column(name = "notes")

@@ -19,7 +19,7 @@ public class MedicineController {
 
     private final MedicineService medicineService;
 
-    @GetMapping("/")
+    @GetMapping
     public List<MedicineDTO> getAllDoctorsByFilters(@RequestBody @Valid @ModelAttribute MedicineFiltersForm form) {
         List<MedicineDTO> medicines = medicineService.getAllByFilters(form);
         return medicines;
@@ -31,7 +31,7 @@ public class MedicineController {
         return ResponseEntity.ok().body(medicineDTO);
     }
 
-    @PostMapping("/")
+    @PostMapping
     public ResponseEntity createMedicine(@RequestBody @Valid MedicineForm form) {
         return ResponseEntity.status(HttpStatus.CREATED).body(medicineService.createMedicine(form));
     }

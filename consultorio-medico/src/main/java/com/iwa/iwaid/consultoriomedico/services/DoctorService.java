@@ -51,13 +51,16 @@ public class DoctorService {
 
     public Map<Integer, DoctorDTO> getDoctorsByIds(final List<Integer> doctorIds) {
         final List<Doctor> doctors = doctorRepository.findAllById(doctorIds);
-        final List<DoctorDTO> doctorDTOs = doctors.stream().map(DoctorDTO::build).toList();
-        return doctorDTOs.stream().collect(Collectors.toMap(DoctorDTO::getId,Function.identity()));
+        return doctorDTOs(doctors);
     }
 
     public void validateIfDoctorExists(final int id) throws Exception {
         if (!doctorRepository.existsById(id)) {
             throw new Exception("Doctor not found");
         }
+    }
+    private Map<Integer,DoctorDTO> doctorDTOs (List<Doctor> doctors){
+        final List<DoctorDTO> doctorDTOs = doctors.stream().map(DoctorDTO::build).toList();
+        return doctorDTOs.stream().collect(Collectors.toMap(DoctorDTO::getId,Function.identity()));
     }
 }

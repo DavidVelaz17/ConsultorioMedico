@@ -27,7 +27,7 @@ public class DoctorController {
 
     private final DoctorService doctorService;
 
-    @GetMapping("/")
+    @GetMapping
     public List<DoctorDTO> getAllDoctorsByFilters(@RequestBody @ModelAttribute DoctorFiltersForm form) {
         List<DoctorDTO> doctors = doctorService.getAllByFilters(form);
         return doctors;
@@ -39,7 +39,7 @@ public class DoctorController {
         return ResponseEntity.ok().body(doctorDTO);
     }
 
-    @PostMapping("/")
+    @PostMapping
     public ResponseEntity saveDoctor(@RequestBody @Valid DoctorForm form) {
         return ResponseEntity.status(HttpStatus.CREATED).body(doctorService.createDoctor(form));
     }

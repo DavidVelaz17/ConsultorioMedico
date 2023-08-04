@@ -28,6 +28,7 @@ public class AppointmentForm implements Serializable {
     private LocalDate date;
 
     @ApiObjectField(name = "hour", description = "Appointment's hour")
+    @NotNull
     private Hour hour;
 
     @ApiObjectField(name = "notes", description = "Appointment's notes")

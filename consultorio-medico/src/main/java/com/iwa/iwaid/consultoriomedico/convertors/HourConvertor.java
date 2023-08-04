@@ -5,7 +5,7 @@ import jakarta.persistence.AttributeConverter;
 import jakarta.persistence.Converter;
 
 @Converter(autoApply = true)
-public class HourToIntConvertor implements AttributeConverter<Hour,Integer> {
+public class HourConvertor implements AttributeConverter<Hour,Integer> {
     @Override
     public Integer convertToDatabaseColumn(Hour hour) {
         if(hour==null){
