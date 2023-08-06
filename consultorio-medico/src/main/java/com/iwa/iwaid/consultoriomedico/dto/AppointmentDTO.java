@@ -1,9 +1,7 @@
 package com.iwa.iwaid.consultoriomedico.dto;
 
 import com.iwa.iwaid.consultoriomedico.entity.Appointment;
-import com.iwa.iwaid.consultoriomedico.entity.Doctor;
 import com.iwa.iwaid.consultoriomedico.entity.Hour;
-import com.iwa.iwaid.consultoriomedico.entity.Patient;
 import lombok.Builder;
 import lombok.Data;
 import org.jsondoc.core.annotation.ApiObjectField;

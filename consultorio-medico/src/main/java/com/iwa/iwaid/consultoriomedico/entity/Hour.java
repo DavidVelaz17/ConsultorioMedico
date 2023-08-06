@@ -6,19 +6,19 @@ import lombok.RequiredArgsConstructor;
 @Getter
 @RequiredArgsConstructor
 public enum Hour {
-    EIGHT_AM(8),
-    NINE_AM(9),
-    TEN_AM(10),
-    ELEVEN_AM(11),
-    TWELVE_PM(12),
-    ONE_PM(13),
-    TWO_PM(14),
-    THREE_PM(15),
-    FOUR_PM(16),
-    FIVE_PM(17),
-    SIX_PM(18),
-    SEVEN_PM(19),
-    EIGHT_PM(20);
+  EIGHT_AM(8),
+  NINE_AM(9),
+  TEN_AM(10),
+  ELEVEN_AM(11),
+  TWELVE_PM(12),
+  ONE_PM(13),
+  TWO_PM(14),
+  THREE_PM(15),
+  FOUR_PM(16),
+  FIVE_PM(17),
+  SIX_PM(18),
+  SEVEN_PM(19),
+  EIGHT_PM(20);
     private int key;
     Hour(int key){this.key=key;}
 
