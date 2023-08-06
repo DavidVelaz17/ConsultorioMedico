@@ -58,7 +58,7 @@ public class PrescriptionService {
             throws Exception {
         validateIfPrescriptionExist(id);
         final Prescription prescription = repository.findById(id).orElseThrow();
-        patientService.validateIfPatientExist(form.getDoctorId());
+        patientService.validateIfPatientExist(form.getPatientId());
         doctorService.validateIfDoctorExists(form.getDoctorId());
         prescription.updatePrescription(form);
         repository.save(prescription);
