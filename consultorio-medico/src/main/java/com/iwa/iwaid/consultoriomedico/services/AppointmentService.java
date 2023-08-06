@@ -14,6 +14,7 @@ import org.springframework.stereotype.Service;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Map;
+import java.util.ResourceBundle;
 
 @Service
 @RequiredArgsConstructor
@@ -23,7 +24,7 @@ public class AppointmentService {
     private final DoctorService doctorService;
     private final PatientService patientService;
     private final AppointmentRepository appointmentRepository;
-
+    private final ResourceBundle messages=ResourceBundle.getBundle("ValidationMessages");
     public List<AppointmentDTO> getAll() {
         final List<Appointment> appointments = appointmentRepository.findAll();
         final Map<Integer, DoctorDTO> doctorDTOMap =
@@ -88,9 +89,9 @@ public class AppointmentService {
         return AppointmentDTO.build(appointment);
     }
 
-    private void validateIfAppointmentExists(int id) throws Exception {
+    private void validateIfAppointmentExists(final int id) throws Exception {
         if (!appointmentRepository.existsById(id)) {
-            throw new Exception("The appointment does not exist yet");
+            throw new Exception( messages.getString("non.existent.appointment"));
         }
     }
 
@@ -100,9 +101,9 @@ public class AppointmentService {
     final Hour hour)
         throws Exception {
         if (appointmentRepository.existsByDoctorIdAndDateAndHour(doctorId,date, hour)) {
-            throw new Exception("This date and hour has been taken for this Doctor");
+            throw new Exception(messages.getString("date.taken")+" Doctor:"+doctorId);
         } else
-            log.info("The selected date and hour was available for this Doctor");
+            log.info(messages.getString("date.and.hour.available"));
     }
 
     private void validatePatientAndDateAndHour(
@@ -111,15 +112,15 @@ public class AppointmentService {
     final Hour hour)
         throws Exception{
         if(appointmentRepository.existsByPatientIdAndDateAndHour(patientId,date,hour)){
-            throw new Exception("This date and hour has been taken for this Patient");
+            throw new Exception(messages.getString("date.taken")+ " Patient:"+patientId);
         }else
-            log.info("The selected date and hour was available for this Patient");
+            log.info(messages.getString("date.and.hour.available"));
     }
-    private Map<Integer, DoctorDTO> getDoctorsMap(List<Integer> doctorsIds) {
+    private Map<Integer, DoctorDTO> getDoctorsMap(final List<Integer> doctorsIds) {
         return doctorService.getDoctorsByIds(doctorsIds);
     }
 
-    private Map<Integer, PatientDTO> getPatientsMap(List<Integer> patientsIds) {
+    private Map<Integer, PatientDTO> getPatientsMap(final List<Integer> patientsIds) {
         return patientService.getPatientByIds(patientsIds);
     }
 }
