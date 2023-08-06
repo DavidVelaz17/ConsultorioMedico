@@ -10,6 +10,9 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Map;
+import java.util.function.Function;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -46,9 +49,19 @@ public class DoctorService {
         return DoctorDTO.build(doctor);
     }
 
-    private void validateIfDoctorExists(int id) throws Exception {
+    public Map<Integer, DoctorDTO> getDoctorsByIds(final List<Integer> doctorIds) {
+        final List<Doctor> doctors = doctorRepository.findAllById(doctorIds);
+        return doctorDTOs(doctors);
+    }
+
+    public void validateIfDoctorExists(int id) throws Exception {
         if (!doctorRepository.existsById(id)) {
             throw new Exception("Doctor not found");
         }
+    }
+
+    private Map<Integer, DoctorDTO> doctorDTOs(List<Doctor> doctors) {
+        final List<DoctorDTO> doctorDTOs = doctors.stream().map(DoctorDTO::build).toList();
+        return doctorDTOs.stream().collect(Collectors.toMap(DoctorDTO::getId, Function.identity()));
     }
 }

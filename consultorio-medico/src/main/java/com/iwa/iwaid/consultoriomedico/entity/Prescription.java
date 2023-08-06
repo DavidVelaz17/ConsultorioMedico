@@ -1,13 +1,15 @@
 package com.iwa.iwaid.consultoriomedico.entity;
 
+import com.iwa.iwaid.consultoriomedico.form.PrescriptionForm;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
-import java.util.Date;
-import java.util.List;
+import java.time.LocalDate;
 
 @Getter
+@Setter
 @Entity
 @Table(name = "prescriptions")
 @NoArgsConstructor
@@ -31,9 +33,25 @@ public class Prescription {
     @JoinColumn(name = "doctors_id", nullable = false, insertable = false, updatable = false)
     private Doctor doctor;
 
-    @OneToMany(mappedBy = "prescription")
-    private List<MedicinesPrescription> medicinesPrescriptions;
-
     @Column(name = "date")
-    private Date date;
+    private LocalDate date;
+
+    @Column(name = "description")
+    private String description;
+
+    public Prescription(final PrescriptionForm form) {
+        this.id = form.getId();
+        this.patientId = form.getPatientId();
+        this.doctorId = form.getDoctorId();
+        this.date = form.getDate();
+        this.description = form.getDescription();
+    }
+
+    public void updatePrescription(final PrescriptionForm form) {
+        this.patientId = form.getPatientId();
+        this.doctorId = form.getDoctorId();
+        this.date = form.getDate();
+        this.description = form.getDescription();
+    }
 }
+

@@ -10,6 +10,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Map;
+import java.util.function.Function;
+import java.util.stream.Collectors;
 
 
 @Service
@@ -53,9 +56,19 @@ public class PatientService {
         patientRepository.deleteById(id);
     }
 
+    public Map<Integer, PatientDTO> getPatientByIds(final List<Integer> patientsId) {
+        final List<Patient> patients = patientRepository.findAllById(patientsId);
+        return patientDTOs(patients);
+    }
+
     public void validateIfPatientExist(final int id) throws Exception {
         if (!patientRepository.existsById(id)) {
             throw new Exception("Patient not found");
         }
+    }
+
+    private Map<Integer, PatientDTO> patientDTOs(List<Patient> patients) {
+        final List<PatientDTO> patientDTOS = patients.stream().map(PatientDTO::build).toList();
+        return patientDTOS.stream().collect(Collectors.toMap(PatientDTO::getId, Function.identity()));
     }
 }

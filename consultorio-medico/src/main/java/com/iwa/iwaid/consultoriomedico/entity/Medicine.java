@@ -4,16 +4,16 @@ import com.iwa.iwaid.consultoriomedico.convertors.DosageFormsToIntConvertor;
 import com.iwa.iwaid.consultoriomedico.form.MedicineForm;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
-import lombok.Getter;
+import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.util.List;
+import java.io.Serializable;
 
-@Getter
+@Data
 @Entity
 @Table(name = "medicines")
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class Medicine {
+public class Medicine implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
@@ -36,9 +36,6 @@ public class Medicine {
 
     @Column(name = "quantity", nullable = false)
     private int quantity;
-
-    @OneToMany(mappedBy = "medicines", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<MedicinesPrescription> medicinesPrescriptions;
 
     public Medicine(final MedicineForm form) {
         this.code = form.getCode();
