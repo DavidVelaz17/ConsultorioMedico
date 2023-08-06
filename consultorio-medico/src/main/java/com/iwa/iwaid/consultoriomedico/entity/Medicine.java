@@ -2,18 +2,23 @@ package com.iwa.iwaid.consultoriomedico.entity;
 
 import com.iwa.iwaid.consultoriomedico.convertors.DosageFormsToIntConvertor;
 import com.iwa.iwaid.consultoriomedico.form.MedicineForm;
-import jakarta.persistence.*;
+
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Column;
+import jakarta.persistence.Convert;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
 import lombok.AccessLevel;
-import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-import java.io.Serializable;
-
-@Data
+@Getter
 @Entity
 @Table(name = "medicines")
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class Medicine implements Serializable {
+public class Medicine {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
