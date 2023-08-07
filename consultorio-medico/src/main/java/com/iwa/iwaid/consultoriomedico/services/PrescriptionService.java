@@ -54,10 +54,10 @@ public class PrescriptionService {
         return PrescriptionDTO.build(prescription);
     }
 
-    public PrescriptionDTO updatePrescription(final PrescriptionForm form, final int id)
+    public PrescriptionDTO updatePrescription(final PrescriptionForm form, final int prescriptionId)
             throws Exception {
-        validateIfPrescriptionExist(id);
-        final Prescription prescription = repository.findById(id).orElseThrow();
+        validateIfPrescriptionExist(prescriptionId);
+        final Prescription prescription = repository.findById(prescriptionId).orElseThrow();
         patientService.validateIfPatientExist(form.getPatientId());
         doctorService.validateIfDoctorExists(form.getDoctorId());
         prescription.updatePrescription(form);
@@ -65,14 +65,14 @@ public class PrescriptionService {
         return PrescriptionDTO.build(prescription);
     }
 
-    public void deletePrescription(final int id) throws Exception {
-        validateIfPrescriptionExist(id);
-        repository.deleteById(id);
+    public void deletePrescription(final int prescriptionId) throws Exception {
+        validateIfPrescriptionExist(prescriptionId);
+        repository.deleteById(prescriptionId);
     }
 
-    public void validateIfPrescriptionExist(final int id) throws Exception {
-        if (!repository.existsById(id)) {
-            throw new Exception("Prescription not found with ID: " + id);
+    public void validateIfPrescriptionExist(final int prescriptionId) throws Exception {
+        if (!repository.existsById(prescriptionId)) {
+            throw new Exception("Prescription not found with ID: " + prescriptionId);
         }
     }
 

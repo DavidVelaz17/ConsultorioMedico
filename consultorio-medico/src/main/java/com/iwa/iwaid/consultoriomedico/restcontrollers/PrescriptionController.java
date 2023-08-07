@@ -27,10 +27,10 @@ public class PrescriptionController {
         return new ResponseEntity<>(service.getAllPrescriptions(), HttpStatus.OK);
     }
 
-    @GetMapping("/{id}")
-    public ResponseEntity<PrescriptionDTO> getPrescriptionById(@PathVariable final int id)
+    @GetMapping("/{prescriptionId}")
+    public ResponseEntity<PrescriptionDTO> getPrescriptionById(@PathVariable final int prescriptionId)
             throws Exception {
-        PrescriptionDTO prescription = service.findPrescriptionById(id);
+        PrescriptionDTO prescription = service.findPrescriptionById(prescriptionId);
         return new ResponseEntity<>(prescription, HttpStatus.OK);
     }
 
@@ -41,16 +41,18 @@ public class PrescriptionController {
         return new ResponseEntity<>(prescription, HttpStatus.CREATED);
     }
 
-    @PatchMapping("/{id}")
+    @PatchMapping("/{prescriptionId}")
     public ResponseEntity<PrescriptionDTO> updatePrescription(@Valid @RequestBody final PrescriptionForm form,
-                                                              @PathVariable final int id) throws Exception {
-        PrescriptionDTO prescription = service.updatePrescription(form, id);
+                                                              @PathVariable final int prescriptionId)
+            throws Exception {
+        PrescriptionDTO prescription = service.updatePrescription(form, prescriptionId);
         return new ResponseEntity<>(prescription, HttpStatus.OK);
     }
 
-    @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deletePrescription(@PathVariable final int id) throws Exception {
-        service.deletePrescription(id);
+    @DeleteMapping("/{prescriptionId}")
+    public ResponseEntity<Void> deletePrescription(@PathVariable final int prescriptionId)
+            throws Exception {
+        service.deletePrescription(prescriptionId);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 }

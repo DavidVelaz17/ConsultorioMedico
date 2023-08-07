@@ -14,7 +14,7 @@ import java.time.LocalDate;
 @Builder
 public class PrescriptionDTO implements Serializable {
 
-    @ApiObjectField(name = "id", description = "Prescription ID")
+    @ApiObjectField(name = "id", description = "Prescription's ID")
     private int id;
 
     @ApiObjectField(name = "PatientId", description = "Patient's ID")
@@ -29,21 +29,22 @@ public class PrescriptionDTO implements Serializable {
     @ApiObjectField(name = "doctor", description = "Doctor's data")
     private DoctorDTO doctor;
 
-    @ApiObjectField(name = "date", description = "Prescription date")
-    private LocalDate date;
+    @ApiObjectField(name = "registerDate", description = "Prescription's registration date")
+    private LocalDate registerDate;
 
-    @ApiObjectField(name = "description", description = "Prescription description")
+    @ApiObjectField(name = "description", description = "Prescription's description")
     private String description;
 
 
-    public static PrescriptionDTO build(final Prescription prescription, final PatientDTO patient, final DoctorDTO doctor) {
+    public static PrescriptionDTO build(final Prescription prescription,
+                                        final PatientDTO patient, final DoctorDTO doctor) {
         return PrescriptionDTO.builder()
                 .id(prescription.getId())
                 .patientId(prescription.getPatientId())
                 .patient(patient)
                 .doctorId(prescription.getDoctorId())
                 .doctor(doctor)
-                .date(prescription.getDate())
+                .registerDate(prescription.getRegisterDate())
                 .description(prescription.getDescription())
                 .build();
     }
@@ -53,7 +54,7 @@ public class PrescriptionDTO implements Serializable {
                 .id(prescription.getId())
                 .patientId(prescription.getPatientId())
                 .doctorId(prescription.getDoctorId())
-                .date(prescription.getDate())
+                .registerDate(prescription.getRegisterDate())
                 .description(prescription.getDescription())
                 .build();
     }

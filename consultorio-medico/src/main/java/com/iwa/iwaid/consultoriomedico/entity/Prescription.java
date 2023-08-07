@@ -19,22 +19,22 @@ public class Prescription {
     @Column(name = "id")
     private int id;
 
-    @Column(name = "patients_id", nullable = false)
+    @Column(name = "patient_id", nullable = false)
     private int patientId;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "patients_id", nullable = false, insertable = false, updatable = false)
+    @JoinColumn(name = "patient_id", nullable = false, insertable = false, updatable = false)
     private Patient patient;
 
-    @Column(name = "doctors_id", nullable = false)
+    @Column(name = "doctor_id", nullable = false)
     private int doctorId;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "doctors_id", nullable = false, insertable = false, updatable = false)
+    @JoinColumn(name = "doctor_id", nullable = false, insertable = false, updatable = false)
     private Doctor doctor;
 
-    @Column(name = "date")
-    private LocalDate date;
+    @Column(name = "register_date")
+    private LocalDate registerDate;
 
     @Column(name = "description")
     private String description;
@@ -43,14 +43,14 @@ public class Prescription {
         this.id = form.getId();
         this.patientId = form.getPatientId();
         this.doctorId = form.getDoctorId();
-        this.date = form.getDate();
+        this.registerDate = form.getRegisterDate();
         this.description = form.getDescription();
     }
 
     public void updatePrescription(final PrescriptionForm form) {
         this.patientId = form.getPatientId();
         this.doctorId = form.getDoctorId();
-        this.date = form.getDate();
+        this.registerDate = form.getRegisterDate();
         this.description = form.getDescription();
     }
 }

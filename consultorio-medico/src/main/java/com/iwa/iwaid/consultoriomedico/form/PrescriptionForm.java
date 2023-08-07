@@ -14,7 +14,7 @@ import java.time.LocalDate;
 @Getter
 public class PrescriptionForm implements Serializable {
 
-    @ApiObjectField(name = "id", description = "Prescription ID")
+    @ApiObjectField(name = "id", description = "Prescription's ID")
     private int id;
 
     @NotNull
@@ -28,11 +28,11 @@ public class PrescriptionForm implements Serializable {
     private int doctorId;
 
     @DateTimeFormat(pattern = "yyyy-MM-dd")
-    @ApiObjectField(name = "date", description = "Prescription date")
-    private LocalDate date;
+    @ApiObjectField(name = "date", description = "Prescription's registration date")
+    private LocalDate registerDate;
 
     @Size(max = 500)
-    @ApiObjectField(name = "description", description = "Prescription description")
+    @ApiObjectField(name = "description", description = "Prescription's description")
     private String description;
 
 }

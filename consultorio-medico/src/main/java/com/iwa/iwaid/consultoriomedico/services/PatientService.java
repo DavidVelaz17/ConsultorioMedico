@@ -56,8 +56,8 @@ public class PatientService {
         patientRepository.deleteById(id);
     }
 
-    public Map<Integer, PatientDTO> getPatientByIds(final List<Integer> patientsId) {
-        final List<Patient> patients = patientRepository.findAllById(patientsId);
+    public Map<Integer, PatientDTO> getPatientByIds(final List<Integer> patientId) {
+        final List<Patient> patients = patientRepository.findAllById(patientId);
         return patientDTOs(patients);
     }
 
