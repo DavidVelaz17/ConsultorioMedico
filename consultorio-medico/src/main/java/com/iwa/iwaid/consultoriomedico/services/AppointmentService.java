@@ -34,12 +34,12 @@ public class AppointmentService {
                 getPatientsMap(appointments.stream().map(Appointment::getPatientId).toList());
         return appointments
                 .stream()
-                .map(appointment -> AppointmentDTO
+                   .map(appointment -> AppointmentDTO
                      .build(appointment,
-                            doctorDTOMap
-                            .get(appointment.getDoctorId()),
-                            patientDTOMap
-                            .get(appointment.getPatientId())))
+                         doctorDTOMap
+                         .get(appointment.getDoctorId()),
+                         patientDTOMap
+                         .get(appointment.getPatientId())))
                 .toList();
     }
 
@@ -81,14 +81,6 @@ public class AppointmentService {
         throws Exception {
         validateIfAppointmentExists(appointmentId);
         final Appointment appointment = appointmentRepository.findById(appointmentId).get();
-        validateDoctorAvailability(
-                appointment.getDoctorId(),
-                appointment.getDate(),
-                appointment.getHour());
-        validatePatientAvailability(
-                appointment.getPatientId(),
-                appointment.getDate(),
-                appointment.getHour());
         doctorService.validateIfDoctorExists(appointment.getDoctorId());
         patientService.validateIfPatientExist(appointment.getPatientId());
         appointment.updateAppointment(form);

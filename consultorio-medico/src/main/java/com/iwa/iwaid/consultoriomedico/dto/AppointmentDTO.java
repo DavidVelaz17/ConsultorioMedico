@@ -35,7 +35,10 @@ public class AppointmentDTO {
     @ApiObjectField(name = "notes", description = "Appointment's notes")
     private String notes;
 
-    public static AppointmentDTO build(final Appointment appointment,final DoctorDTO doctorDTO, final PatientDTO patientDTO) {
+    public static AppointmentDTO build(
+    final Appointment appointment,
+    final DoctorDTO doctorDTO,
+    final PatientDTO patientDTO) {
         return AppointmentDTO.builder()
                 .id(appointment.getId())
                 .patientId(appointment.getPatientId())

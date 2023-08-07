@@ -19,7 +19,6 @@ import java.util.stream.Collectors;
 @Service
 @RequiredArgsConstructor
 public class PatientService {
-
     private final PatientRepository patientRepository;
     private final ResourceBundle messages =
             ResourceBundle.getBundle("ValidationMessages");
