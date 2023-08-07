@@ -20,11 +20,12 @@ import java.util.ResourceBundle;
 @RequiredArgsConstructor
 @Slf4j
 public class AppointmentService {
-
     private final DoctorService doctorService;
     private final PatientService patientService;
     private final AppointmentRepository appointmentRepository;
-    private final ResourceBundle messages=ResourceBundle.getBundle("ValidationMessages");
+    private final ResourceBundle messages =
+            ResourceBundle.getBundle("ValidationMessages");
+
     public List<AppointmentDTO> getAll() {
         final List<Appointment> appointments = appointmentRepository.findAll();
         final Map<Integer, DoctorDTO> doctorDTOMap =
@@ -32,34 +33,37 @@ public class AppointmentService {
         final Map<Integer, PatientDTO> patientDTOMap =
                 getPatientsMap(appointments.stream().map(Appointment::getPatientId).toList());
         return appointments
-        .stream()
-            .map(appointment -> AppointmentDTO
-                  .build(appointment,
-                         doctorDTOMap
-                              .get(appointment.getDoctorId()),
-                         patientDTOMap
-                              .get(appointment.getPatientId())))
-        .toList();
+                .stream()
+                .map(appointment -> AppointmentDTO
+                     .build(appointment,
+                            doctorDTOMap
+                            .get(appointment.getDoctorId()),
+                            patientDTOMap
+                            .get(appointment.getPatientId())))
+                .toList();
     }
 
     public AppointmentDTO getAppointmentById(final int id) throws Exception {
         validateIfAppointmentExists(id);
-        final Appointment appointment = appointmentRepository.findById(id).get();
-        final DoctorDTO doctorDTO = doctorService.getDoctorById(appointment.getDoctorId());
-        final PatientDTO patientDTO = patientService.getPatientById(appointment.getPatientId());
+        final Appointment appointment =
+                appointmentRepository.findById(id).get();
+        final DoctorDTO doctorDTO =
+                doctorService.getDoctorById(appointment.getDoctorId());
+        final PatientDTO patientDTO =
+                patientService.getPatientById(appointment.getPatientId());
         return AppointmentDTO.build(appointment, doctorDTO, patientDTO);
     }
 
     public AppointmentDTO createAppointment(final AppointmentForm form) throws Exception {
         final Appointment appointment = new Appointment(form);
         validateDoctorAndDateAndHour(
-            appointment.getDoctorId(),
-            appointment.getDate(),
-            appointment.getHour());
+                appointment.getDoctorId(),
+                appointment.getDate(),
+                appointment.getHour());
         validatePatientAndDateAndHour(
-            appointment.getPatientId(),
-            appointment.getDate(),
-            appointment.getHour());
+                appointment.getPatientId(),
+                appointment.getDate(),
+                appointment.getHour());
         doctorService.validateIfDoctorExists(appointment.getDoctorId());
         patientService.validateIfPatientExist(appointment.getPatientId());
         appointmentRepository.save(appointment);
@@ -71,17 +75,20 @@ public class AppointmentService {
         appointmentRepository.deleteById(id);
     }
 
-    public AppointmentDTO updateAppointmentById(final AppointmentForm form, final int id) throws Exception {
+    public AppointmentDTO updateAppointmentById(
+    final AppointmentForm form,
+    final int id)
+        throws Exception {
         validateIfAppointmentExists(id);
         final Appointment appointment = appointmentRepository.findById(id).get();
         validateDoctorAndDateAndHour(
-            appointment.getDoctorId(),
-            appointment.getDate(),
-            appointment.getHour());
+                appointment.getDoctorId(),
+                appointment.getDate(),
+                appointment.getHour());
         validatePatientAndDateAndHour(
-            appointment.getPatientId(),
-            appointment.getDate(),
-            appointment.getHour());
+                appointment.getPatientId(),
+                appointment.getDate(),
+                appointment.getHour());
         doctorService.validateIfDoctorExists(appointment.getDoctorId());
         patientService.validateIfPatientExist(appointment.getPatientId());
         appointment.updateAppointment(form);
@@ -91,7 +98,7 @@ public class AppointmentService {
 
     private void validateIfAppointmentExists(final int id) throws Exception {
         if (!appointmentRepository.existsById(id)) {
-            throw new Exception( messages.getString("non.existent.appointment"));
+            throw new Exception(messages.getString("not.found") + " -Appointment:" + id);
         }
     }
 
@@ -100,8 +107,8 @@ public class AppointmentService {
     final LocalDate date,
     final Hour hour)
         throws Exception {
-        if (appointmentRepository.existsByDoctorIdAndDateAndHour(doctorId,date, hour)) {
-            throw new Exception(messages.getString("date.taken")+" Doctor:"+doctorId);
+        if (appointmentRepository.existsByDoctorIdAndDateAndHour(doctorId, date, hour)) {
+            throw new Exception(messages.getString("date.taken") + " Doctor:" + doctorId);
         } else
             log.info(messages.getString("date.and.hour.available"));
     }
@@ -110,12 +117,13 @@ public class AppointmentService {
     final Integer patientId,
     final LocalDate date,
     final Hour hour)
-        throws Exception{
-        if(appointmentRepository.existsByPatientIdAndDateAndHour(patientId,date,hour)){
-            throw new Exception(messages.getString("date.taken")+ " Patient:"+patientId);
-        }else
+        throws Exception {
+        if (appointmentRepository.existsByPatientIdAndDateAndHour(patientId, date, hour)) {
+            throw new Exception(messages.getString("date.taken") + " Patient:" + patientId);
+        } else
             log.info(messages.getString("date.and.hour.available"));
     }
+
     private Map<Integer, DoctorDTO> getDoctorsMap(final List<Integer> doctorsIds) {
         return doctorService.getDoctorsByIds(doctorsIds);
     }
