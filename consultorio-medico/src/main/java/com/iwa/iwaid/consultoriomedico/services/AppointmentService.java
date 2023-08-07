@@ -120,6 +120,7 @@ public class AppointmentService {
         } else
             log.info(messages.getString("date.and.hour.available"));
     }
+
     private void validateDuplicatedAppointment(
     final Integer doctorId,
     final Integer patientId,
@@ -130,7 +131,6 @@ public class AppointmentService {
             throw new Exception(messages.getString("date.taken"));
         }else
             log.info(messages.getString("date.and.hour.available"));
-
     }
 
     private Map<Integer, DoctorDTO> getDoctorsMap(final List<Integer> doctorsIds) {
