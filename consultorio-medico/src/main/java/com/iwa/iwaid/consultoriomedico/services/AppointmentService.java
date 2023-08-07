@@ -80,6 +80,11 @@ public class AppointmentService {
     final int appointmentId)
         throws Exception {
         validateIfAppointmentExists(appointmentId);
+        validateDuplicatedAppointment(
+                form.getDoctorId(),
+                form.getPatientId(),
+                form.getDate(),
+                form.getHour());
         final Appointment appointment = appointmentRepository.findById(appointmentId).get();
         doctorService.validateIfDoctorExists(appointment.getDoctorId());
         patientService.validateIfPatientExist(appointment.getPatientId());
@@ -114,6 +119,18 @@ public class AppointmentService {
             throw new Exception(messages.getString("date.taken") + " Patient:" + patientId);
         } else
             log.info(messages.getString("date.and.hour.available"));
+    }
+    private void validateDuplicatedAppointment(
+    final Integer doctorId,
+    final Integer patientId,
+    final LocalDate date,
+    final Hour hour)
+         throws Exception{
+        if(appointmentRepository.existsByDoctorIdAndPatientIdAndDateAndHour(doctorId,patientId,date,hour)){
+            throw new Exception(messages.getString("date.taken"));
+        }else
+            log.info(messages.getString("date.and.hour.available"));
+
     }
 
     private Map<Integer, DoctorDTO> getDoctorsMap(final List<Integer> doctorsIds) {
