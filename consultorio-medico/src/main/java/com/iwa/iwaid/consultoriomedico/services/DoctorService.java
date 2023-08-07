@@ -58,9 +58,9 @@ public class DoctorService {
         return doctorDTOs(doctors);
     }
 
-    public void validateIfDoctorExists(final int id) throws Exception {
-        if (!doctorRepository.existsById(id)) {
-            throw new Exception(messages.getString("not.found") + " -Doctor:" + id);
+    public void validateIfDoctorExists(final int doctorId) throws Exception {
+        if (!doctorRepository.existsById(doctorId)) {
+            throw new Exception(messages.getString("not.found") + " -Doctor:" + doctorId);
         }
     }
 

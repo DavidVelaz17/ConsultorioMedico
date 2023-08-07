@@ -43,10 +43,10 @@ public class AppointmentService {
                 .toList();
     }
 
-    public AppointmentDTO getAppointmentById(final int id) throws Exception {
-        validateIfAppointmentExists(id);
+    public AppointmentDTO getAppointmentById(final int appointmentId) throws Exception {
+        validateIfAppointmentExists(appointmentId);
         final Appointment appointment =
-                appointmentRepository.findById(id).get();
+                appointmentRepository.findById(appointmentId).get();
         final DoctorDTO doctorDTO =
                 doctorService.getDoctorById(appointment.getDoctorId());
         final PatientDTO patientDTO =
@@ -56,11 +56,11 @@ public class AppointmentService {
 
     public AppointmentDTO createAppointment(final AppointmentForm form) throws Exception {
         final Appointment appointment = new Appointment(form);
-        validateDoctorAndDateAndHour(
+        validateDoctorAvailability(
                 appointment.getDoctorId(),
                 appointment.getDate(),
                 appointment.getHour());
-        validatePatientAndDateAndHour(
+        validatePatientAvailability(
                 appointment.getPatientId(),
                 appointment.getDate(),
                 appointment.getHour());
@@ -70,22 +70,22 @@ public class AppointmentService {
         return AppointmentDTO.build(appointment);
     }
 
-    public void deleteAppointment(final int id) throws Exception {
-        validateIfAppointmentExists(id);
-        appointmentRepository.deleteById(id);
+    public void deleteAppointment(final int appointmentId) throws Exception {
+        validateIfAppointmentExists(appointmentId);
+        appointmentRepository.deleteById(appointmentId);
     }
 
     public AppointmentDTO updateAppointmentById(
     final AppointmentForm form,
-    final int id)
+    final int appointmentId)
         throws Exception {
-        validateIfAppointmentExists(id);
-        final Appointment appointment = appointmentRepository.findById(id).get();
-        validateDoctorAndDateAndHour(
+        validateIfAppointmentExists(appointmentId);
+        final Appointment appointment = appointmentRepository.findById(appointmentId).get();
+        validateDoctorAvailability(
                 appointment.getDoctorId(),
                 appointment.getDate(),
                 appointment.getHour());
-        validatePatientAndDateAndHour(
+        validatePatientAvailability(
                 appointment.getPatientId(),
                 appointment.getDate(),
                 appointment.getHour());
@@ -96,13 +96,13 @@ public class AppointmentService {
         return AppointmentDTO.build(appointment);
     }
 
-    private void validateIfAppointmentExists(final int id) throws Exception {
-        if (!appointmentRepository.existsById(id)) {
-            throw new Exception(messages.getString("not.found") + " -Appointment:" + id);
+    private void validateIfAppointmentExists(final int appointmentId) throws Exception {
+        if (!appointmentRepository.existsById(appointmentId)) {
+            throw new Exception(messages.getString("not.found") + " -Appointment:" + appointmentId);
         }
     }
 
-    private void validateDoctorAndDateAndHour(
+    private void validateDoctorAvailability(
     final Integer doctorId,
     final LocalDate date,
     final Hour hour)
@@ -113,7 +113,7 @@ public class AppointmentService {
             log.info(messages.getString("date.and.hour.available"));
     }
 
-    private void validatePatientAndDateAndHour(
+    private void validatePatientAvailability(
     final Integer patientId,
     final LocalDate date,
     final Hour hour)
