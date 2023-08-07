@@ -6,7 +6,7 @@ import com.iwa.iwaid.consultoriomedico.form.PatientFilterForm;
 import com.iwa.iwaid.consultoriomedico.form.PatientForm;
 import com.iwa.iwaid.consultoriomedico.repository.PatientRepository;
 import com.iwa.iwaid.consultoriomedico.repository.PatientSpecs;
-import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -17,8 +17,8 @@ import java.util.stream.Collectors;
 
 
 @Service
-@RequiredArgsConstructor
 public class PatientService {
+    @Autowired
     private PatientRepository patientRepository;
     private final ResourceBundle messages =
             ResourceBundle.getBundle("ValidationMessages");
