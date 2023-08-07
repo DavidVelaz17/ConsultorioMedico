@@ -1,7 +1,6 @@
 package com.iwa.iwaid.consultoriomedico.dto;
 
 import com.iwa.iwaid.consultoriomedico.entity.MedicalHistory;
-import com.iwa.iwaid.consultoriomedico.entity.Patient;
 import lombok.Builder;
 import lombok.Getter;
 import org.jsondoc.core.annotation.ApiObjectField;
@@ -17,7 +16,7 @@ public class MedicalHistoryDTO {
     private int patientsId;
 
     @ApiObjectField(name = "patient", description = "Patient's Entity")
-    private Patient patient;
+    private PatientDTO patient;
 
     @ApiObjectField(name = "height", description = "Patient's height")
     private int height;
@@ -43,11 +42,26 @@ public class MedicalHistoryDTO {
     @ApiObjectField(name = "specificNonPathologicalHistory", description = "Patient's specific non pathological history")
     private String specificNonPathologicalHistory;
 
-    public static MedicalHistoryDTO build(MedicalHistory medicalHistory) {
+    public static MedicalHistoryDTO build(final MedicalHistory medicalHistory) {
         return MedicalHistoryDTO.builder()
                 .id(medicalHistory.getId())
                 .patientsId(medicalHistory.getPatientsId())
-                .patient(medicalHistory.getPatient())
+                .height(medicalHistory.getHeight())
+                .weight(medicalHistory.getWeight())
+                .familyMedicalHistory(medicalHistory.isFamilyMedicalHistory())
+                .specificFamilyMedicalHistory(medicalHistory.getSpecificFamilyMedicalHistory())
+                .pathologicalHistory(medicalHistory.isPathologicalHistory())
+                .specificPathologicalHistory(medicalHistory.getSpecificPathologicalHistory())
+                .nonPathologicalHistory(medicalHistory.isNonPathologicalHistory())
+                .specificNonPathologicalHistory(medicalHistory.getSpecificNonPathologicalHistory())
+                .build();
+    }
+
+    public static MedicalHistoryDTO build(final MedicalHistory medicalHistory, final PatientDTO patient) {
+        return MedicalHistoryDTO.builder()
+                .id(medicalHistory.getId())
+                .patientsId(medicalHistory.getPatientsId())
+                .patient(patient)
                 .height(medicalHistory.getHeight())
                 .weight(medicalHistory.getWeight())
                 .familyMedicalHistory(medicalHistory.isFamilyMedicalHistory())

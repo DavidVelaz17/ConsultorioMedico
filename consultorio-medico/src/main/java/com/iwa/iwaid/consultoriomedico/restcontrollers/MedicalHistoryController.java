@@ -4,6 +4,7 @@ import com.iwa.iwaid.consultoriomedico.dto.MedicalHistoryDTO;
 import com.iwa.iwaid.consultoriomedico.form.MedicalHistoryForm;
 import com.iwa.iwaid.consultoriomedico.services.MedicalHistoryService;
 import jakarta.validation.Valid;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -11,19 +12,16 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
+@RequiredArgsConstructor
 @RequestMapping("/iwaid/medicalhistory")
 public class MedicalHistoryController {
 
-    private MedicalHistoryService service;
-
-    public MedicalHistoryController(MedicalHistoryService service) {
-        this.service = service;
-    }
+    private final MedicalHistoryService service;
 
     @GetMapping
     public ResponseEntity<List<MedicalHistoryDTO>> getAllMedicalHistory() {
-        List<MedicalHistoryDTO> histories = service.findAllMedicalHistorys();
-        return new ResponseEntity<>(histories, HttpStatus.OK);
+        List<MedicalHistoryDTO> history = service.findAllMedicalHistorys();
+        return new ResponseEntity<>(history, HttpStatus.OK);
     }
 
     @GetMapping("/{id}")
@@ -33,7 +31,8 @@ public class MedicalHistoryController {
     }
 
     @PostMapping
-    public ResponseEntity<MedicalHistoryDTO> createMedicalHistory(@RequestBody @Valid final MedicalHistoryForm form) throws Exception {
+    public ResponseEntity<MedicalHistoryDTO> createMedicalHistory(@RequestBody @Valid final MedicalHistoryForm form)
+            throws Exception {
         MedicalHistoryDTO history = service.createMedicalHistory(form);
         return new ResponseEntity<>(history, HttpStatus.CREATED);
     }
@@ -46,7 +45,7 @@ public class MedicalHistoryController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity deleteMedicalHistory(@PathVariable final int id) throws Exception {
+    public ResponseEntity<Void> deleteMedicalHistory(@PathVariable final int id) throws Exception {
         service.deleteMedicalHistory(id);
         return new ResponseEntity(HttpStatus.OK);
     }

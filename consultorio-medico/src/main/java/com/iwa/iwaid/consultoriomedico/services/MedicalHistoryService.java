@@ -1,26 +1,31 @@
 package com.iwa.iwaid.consultoriomedico.services;
 
 import com.iwa.iwaid.consultoriomedico.dto.MedicalHistoryDTO;
+import com.iwa.iwaid.consultoriomedico.dto.PatientDTO;
 import com.iwa.iwaid.consultoriomedico.entity.MedicalHistory;
 import com.iwa.iwaid.consultoriomedico.form.MedicalHistoryForm;
 import com.iwa.iwaid.consultoriomedico.repository.MedicalHistoryRepository;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Map;
 
 @Service
+@RequiredArgsConstructor
 public class MedicalHistoryService {
 
-    @Autowired
-    private MedicalHistoryRepository repository;
-
-    @Autowired
-    private PatientService patientService;
+    private final MedicalHistoryRepository repository;
+    private final PatientService patientService;
 
     public List<MedicalHistoryDTO> findAllMedicalHistorys() {
-        List<MedicalHistory> histories = repository.findAll();
-        return histories.stream().map(MedicalHistoryDTO::build).toList();
+        final List<MedicalHistory> histories = repository.findAll();
+        final Map<Integer, PatientDTO> patientDTOMap =
+                getPatientsMap(histories.stream().map(MedicalHistory::getPatientsId).toList());
+        return histories
+                .stream().map(history -> MedicalHistoryDTO
+                        .build(history, patientDTOMap.get(history.getPatientsId())))
+                .toList();
     }
 
     public MedicalHistoryDTO findMedicalHistorybyId(final int id) throws Exception {
@@ -52,8 +57,12 @@ public class MedicalHistoryService {
 
     public void validateIfMedicalHistoryExist(final int id) throws Exception {
         if (!repository.existsById(id)) {
-            throw new Exception("Medical history ID does not exist");
+            throw new Exception("medical history not found with ID: " + id);
         }
+    }
+
+    private Map<Integer, PatientDTO> getPatientsMap(final List<Integer> patientsIds) {
+        return patientService.getPatientByIds(patientsIds);
     }
 
 }
