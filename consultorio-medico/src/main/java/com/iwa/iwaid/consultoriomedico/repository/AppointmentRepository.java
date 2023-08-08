@@ -11,6 +11,6 @@ import java.time.LocalDate;
 public interface AppointmentRepository extends JpaRepository<Appointment, Integer> {
     boolean existsByDoctorIdAndDateAndHour(Integer doctorId, LocalDate date, Hour hour);
     boolean existsByPatientIdAndDateAndHour(Integer patientId, LocalDate date, Hour hour);
-    boolean existsByDoctorIdAndPatientIdAndDateAndHour(Integer doctorId,Integer patientId, LocalDate date,Hour hour);
-
+    boolean existsByDoctorIdAndDateAndHourAndIdNot(Integer doctorId, LocalDate date, Hour hour,Integer id);
+    boolean existsByPatientIdAndDateAndHourAndIdNot(Integer patientId, LocalDate date, Hour hour,Integer id);
 }
