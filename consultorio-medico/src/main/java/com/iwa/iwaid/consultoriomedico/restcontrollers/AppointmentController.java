@@ -30,7 +30,7 @@ public class AppointmentController {
         return appointmentService.getAll();
     }
 
-    @GetMapping("/{appointmentId}")
+    @GetMapping("{appointmentId}")
     public ResponseEntity<AppointmentDTO> getAppointmentById(@PathVariable("appointmentId") final int appointmentId)
         throws Exception {
         final AppointmentDTO appointmentDTO = appointmentService.getAppointmentById(appointmentId);
@@ -42,14 +42,14 @@ public class AppointmentController {
         return ResponseEntity.status(HttpStatus.CREATED).body(appointmentService.createAppointment(form));
     }
 
-    @DeleteMapping("/{appointmentId}")
+    @DeleteMapping("{appointmentId}")
     public ResponseEntity<Void> deleteAppointment(@PathVariable("appointmentId") final int appointmentId)
         throws Exception {
         appointmentService.deleteAppointment(appointmentId);
         return ResponseEntity.ok().build();
     }
 
-    @PatchMapping("/{appointmentId}")
+    @PatchMapping("{appointmentId}")
     public ResponseEntity<AppointmentDTO> updateAppointmentById(
     @RequestBody @Valid AppointmentForm form,
     @PathVariable("appointmentId") final int appointmentId)
