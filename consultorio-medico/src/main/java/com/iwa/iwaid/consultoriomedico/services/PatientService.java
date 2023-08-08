@@ -6,36 +6,41 @@ import com.iwa.iwaid.consultoriomedico.form.PatientFilterForm;
 import com.iwa.iwaid.consultoriomedico.form.PatientForm;
 import com.iwa.iwaid.consultoriomedico.repository.PatientRepository;
 import com.iwa.iwaid.consultoriomedico.repository.PatientSpecs;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Map;
+import java.util.ResourceBundle;
+import java.util.function.Function;
+import java.util.stream.Collectors;
 
 
 @Service
+@RequiredArgsConstructor
 public class PatientService {
-
-    @Autowired
-    private PatientRepository patientRepository;
-
+    private final PatientRepository patientRepository;
+    private final ResourceBundle messages =
+            ResourceBundle.getBundle("ValidationMessages");
     public List<PatientDTO> findAllPatients() {
-        List<Patient> patientPage = patientRepository.findAll();
+        final List<Patient> patientPage = patientRepository.findAll();
         return patientPage.stream().map(PatientDTO::build).toList();
     }
 
     public PatientDTO getPatientById(final int id) throws Exception {
         validateIfPatientExist(id);
-        Patient patient = patientRepository.findById(id).orElseThrow();
+        final Patient patient = patientRepository.findById(id).orElseThrow();
         return PatientDTO.build(patient);
     }
 
     public List<PatientDTO> getAllByFilters(final PatientFilterForm form) {
-        List<Patient> patients = patientRepository.findAll(PatientSpecs.getAllByFilters(form));
+        final List<Patient> patients =
+                patientRepository.findAll(PatientSpecs.getAllByFilters(form));
         return patients.stream().map(PatientDTO::build).toList();
     }
 
     public PatientDTO createPatient(final PatientForm form) {
-        Patient patient = new Patient(form);
+        final Patient patient = new Patient(form);
         patientRepository.save(patient);
         return PatientDTO.build(patient);
     }
@@ -53,9 +58,22 @@ public class PatientService {
         patientRepository.deleteById(id);
     }
 
+    public Map<Integer, PatientDTO> getPatientByIds(final List<Integer> patientsId){
+        final List<Patient> patients=patientRepository.findAllById(patientsId);
+        return patientDTOs(patients);
+    }
+
     public void validateIfPatientExist(final int id) throws Exception {
         if (!patientRepository.existsById(id)) {
-            throw new Exception("Patient not found");
+            throw new Exception(messages.getString("not.found")+" -Patient:"+id);
         }
+    }
+
+    private Map<Integer,PatientDTO> patientDTOs(final List<Patient> patients){
+        final List<PatientDTO> patientDTOS=
+                patients.stream().map(PatientDTO::build).toList();
+        return patientDTOS
+                .stream()
+                .collect(Collectors.toMap(PatientDTO::getId, Function.identity()));
     }
 }
