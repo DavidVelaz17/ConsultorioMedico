@@ -4,6 +4,8 @@ import com.iwa.iwaid.consultoriomedico.dto.PatientDTO;
 import com.iwa.iwaid.consultoriomedico.form.PatientFilterForm;
 import com.iwa.iwaid.consultoriomedico.form.PatientForm;
 import com.iwa.iwaid.consultoriomedico.services.PatientService;
+
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
