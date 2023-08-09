@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Map;
+import java.util.ResourceBundle;
 
 @Service
 @RequiredArgsConstructor
@@ -19,6 +20,7 @@ public class PrescriptionService {
     private final PrescriptionRepository repository;
     private final PatientService patientService;
     private final DoctorService doctorService;
+    private final ResourceBundle messages = ResourceBundle.getBundle("ValidationMessages");
 
     public List<PrescriptionDTO> getAllPrescriptions() {
         final List<Prescription> prescriptions = repository.findAll();
@@ -47,9 +49,9 @@ public class PrescriptionService {
     }
 
     public PrescriptionDTO createPrescription(final PrescriptionForm form) throws Exception {
-        final Prescription prescription = new Prescription(form);
         patientService.validateIfPatientExist(form.getPatientId());
         doctorService.validateIfDoctorExists(form.getDoctorId());
+        final Prescription prescription = new Prescription(form);
         repository.save(prescription);
         return PrescriptionDTO.build(prescription);
     }
@@ -57,9 +59,9 @@ public class PrescriptionService {
     public PrescriptionDTO updatePrescription(final PrescriptionForm form, final int prescriptionId)
             throws Exception {
         validateIfPrescriptionExist(prescriptionId);
-        final Prescription prescription = repository.findById(prescriptionId).orElseThrow();
         patientService.validateIfPatientExist(form.getPatientId());
         doctorService.validateIfDoctorExists(form.getDoctorId());
+        final Prescription prescription = repository.findById(prescriptionId).orElseThrow();
         prescription.updatePrescription(form);
         repository.save(prescription);
         return PrescriptionDTO.build(prescription);
@@ -72,7 +74,7 @@ public class PrescriptionService {
 
     public void validateIfPrescriptionExist(final int prescriptionId) throws Exception {
         if (!repository.existsById(prescriptionId)) {
-            throw new Exception("Prescription not found with ID: " + prescriptionId);
+            throw new Exception(messages.getString("prescription.not.found"));
         }
     }
 

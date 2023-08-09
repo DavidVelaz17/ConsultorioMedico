@@ -4,7 +4,7 @@ import com.iwa.iwaid.consultoriomedico.dto.PrescriptionDTO;
 import com.iwa.iwaid.consultoriomedico.form.PrescriptionForm;
 import com.iwa.iwaid.consultoriomedico.services.PrescriptionService;
 import jakarta.validation.Valid;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -12,22 +12,18 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping(path = "/iwaid/prescription")
+@RequestMapping(path = "/iwaid/prescription/")
+@RequiredArgsConstructor
 public class PrescriptionController {
 
-    @Autowired
-    private PrescriptionService service;
-
-    public PrescriptionController(PrescriptionService service) {
-        this.service = service;
-    }
+    private final PrescriptionService service;
 
     @GetMapping
     public ResponseEntity<List<PrescriptionDTO>> getAllPrescription() throws Exception {
         return new ResponseEntity<>(service.getAllPrescriptions(), HttpStatus.OK);
     }
 
-    @GetMapping("/{prescriptionId}")
+    @GetMapping("{prescriptionId}")
     public ResponseEntity<PrescriptionDTO> getPrescriptionById(@PathVariable final int prescriptionId)
             throws Exception {
         PrescriptionDTO prescription = service.findPrescriptionById(prescriptionId);
@@ -41,7 +37,7 @@ public class PrescriptionController {
         return new ResponseEntity<>(prescription, HttpStatus.CREATED);
     }
 
-    @PatchMapping("/{prescriptionId}")
+    @PatchMapping("{prescriptionId}")
     public ResponseEntity<PrescriptionDTO> updatePrescription(@Valid @RequestBody final PrescriptionForm form,
                                                               @PathVariable final int prescriptionId)
             throws Exception {
@@ -49,7 +45,7 @@ public class PrescriptionController {
         return new ResponseEntity<>(prescription, HttpStatus.OK);
     }
 
-    @DeleteMapping("/{prescriptionId}")
+    @DeleteMapping("{prescriptionId}")
     public ResponseEntity<Void> deletePrescription(@PathVariable final int prescriptionId)
             throws Exception {
         service.deletePrescription(prescriptionId);
