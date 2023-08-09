@@ -16,11 +16,11 @@ public class MedicalHistory {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    @Column(name = "patients_id", nullable = false)
+    @Column(name = "patient_id", nullable = false)
     private int patientsId;
 
     @ManyToOne
-    @JoinColumn(name = "patients_id", nullable = false, insertable = false, updatable = false)
+    @JoinColumn(name = "patient_id", nullable = false, insertable = false, updatable = false)
     private Patient patient;
 
     @Column(name = "height")
@@ -49,7 +49,7 @@ public class MedicalHistory {
 
     public MedicalHistory(final MedicalHistoryForm form) {
         this.id = form.getId();
-        this.patientsId = form.getPatientsId();
+        this.patientsId = form.getPatientId();
         this.height = form.getHeight();
         this.weight = form.getWeight();
         this.familyMedicalHistory = form.isFamilyMedicalHistory();
@@ -61,7 +61,7 @@ public class MedicalHistory {
     }
 
     public void updateMedicalHistory(final MedicalHistoryForm form) {
-        this.patientsId = form.getPatientsId();
+        this.patientsId = form.getPatientId();
         this.height = form.getHeight();
         this.weight = form.getWeight();
         this.familyMedicalHistory = form.isFamilyMedicalHistory();

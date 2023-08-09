@@ -13,41 +13,46 @@ import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/iwaid/medicalhistory")
+@RequestMapping("/iwaid/medicalhistory/")
 public class MedicalHistoryController {
 
     private final MedicalHistoryService service;
 
     @GetMapping
     public ResponseEntity<List<MedicalHistoryDTO>> getAllMedicalHistory() {
-        List<MedicalHistoryDTO> history = service.findAllMedicalHistorys();
+        List<MedicalHistoryDTO> history = service.getAllMedicalHistorys();
         return new ResponseEntity<>(history, HttpStatus.OK);
     }
 
-    @GetMapping("/{id}")
-    public ResponseEntity<MedicalHistoryDTO> getMedicalHistoryById(@PathVariable final int id) throws Exception {
-        MedicalHistoryDTO history = service.findMedicalHistorybyId(id);
+    @GetMapping("{medicalHistoryId}")
+    public ResponseEntity<MedicalHistoryDTO> getMedicalHistoryById(
+            @PathVariable final int medicalHistoryId)
+            throws Exception {
+        MedicalHistoryDTO history = service.getMedicalHistorybyId(medicalHistoryId);
         return new ResponseEntity<>(history, HttpStatus.OK);
     }
 
     @PostMapping
-    public ResponseEntity<MedicalHistoryDTO> createMedicalHistory(@RequestBody @Valid final MedicalHistoryForm form)
+    public ResponseEntity<MedicalHistoryDTO> createMedicalHistory(
+            @RequestBody @Valid final MedicalHistoryForm form)
             throws Exception {
         MedicalHistoryDTO history = service.createMedicalHistory(form);
         return new ResponseEntity<>(history, HttpStatus.CREATED);
     }
 
-    @PatchMapping("/{id}")
-    public ResponseEntity<MedicalHistoryDTO> updateMedicalHistory(@RequestBody @Valid final MedicalHistoryForm form,
-                                                                  @PathVariable final int id) throws Exception {
-        MedicalHistoryDTO history = service.updateMedicalHistory(form, id);
+    @PatchMapping("{medicalHistoryId}")
+    public ResponseEntity<MedicalHistoryDTO> updateMedicalHistory(
+            @RequestBody @Valid final MedicalHistoryForm form,
+            @PathVariable final int medicalHistoryId) throws Exception {
+        MedicalHistoryDTO history = service.updateMedicalHistory(form, medicalHistoryId);
         return new ResponseEntity<>(history, HttpStatus.CREATED);
     }
 
-    @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteMedicalHistory(@PathVariable final int id) throws Exception {
-        service.deleteMedicalHistory(id);
-        return new ResponseEntity(HttpStatus.OK);
+    @DeleteMapping("{medicalHistoryId}")
+    public ResponseEntity<Void> deleteMedicalHistory(@PathVariable final int medicalHistoryId)
+            throws Exception {
+        service.deleteMedicalHistory(medicalHistoryId);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 
 }

@@ -1,6 +1,8 @@
 package com.iwa.iwaid.consultoriomedico.form;
 
+import jakarta.validation.constraints.AssertTrue;
 import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
 import lombok.Getter;
 import org.jsondoc.core.annotation.ApiObjectField;
@@ -14,8 +16,8 @@ public class MedicalHistoryForm implements Serializable {
     private int id;
 
     @NotNull
-    @ApiObjectField(name = "patientsId", description = "Patient's ID")
-    private int patientsId;
+    @ApiObjectField(name = "patientId", description = "Patient's ID")
+    private int patientId;
 
     @NotNull
     @ApiObjectField(name = "height", description = "Patient's height")

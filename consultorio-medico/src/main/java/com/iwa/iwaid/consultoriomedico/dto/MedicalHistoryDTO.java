@@ -12,10 +12,10 @@ public class MedicalHistoryDTO {
     @ApiObjectField(name = "id", description = "Medical history ID")
     private int id;
 
-    @ApiObjectField(name = "patientsId", description = "Patient's ID")
-    private int patientsId;
+    @ApiObjectField(name = "patientId", description = "Patient's ID")
+    private int patientId;
 
-    @ApiObjectField(name = "patient", description = "Patient's Entity")
+    @ApiObjectField(name = "patient", description = "Patient's data")
     private PatientDTO patient;
 
     @ApiObjectField(name = "height", description = "Patient's height")
@@ -45,7 +45,7 @@ public class MedicalHistoryDTO {
     public static MedicalHistoryDTO build(final MedicalHistory medicalHistory) {
         return MedicalHistoryDTO.builder()
                 .id(medicalHistory.getId())
-                .patientsId(medicalHistory.getPatientsId())
+                .patientId(medicalHistory.getPatientsId())
                 .height(medicalHistory.getHeight())
                 .weight(medicalHistory.getWeight())
                 .familyMedicalHistory(medicalHistory.isFamilyMedicalHistory())
@@ -60,7 +60,7 @@ public class MedicalHistoryDTO {
     public static MedicalHistoryDTO build(final MedicalHistory medicalHistory, final PatientDTO patient) {
         return MedicalHistoryDTO.builder()
                 .id(medicalHistory.getId())
-                .patientsId(medicalHistory.getPatientsId())
+                .patientId(medicalHistory.getPatientsId())
                 .patient(patient)
                 .height(medicalHistory.getHeight())
                 .weight(medicalHistory.getWeight())

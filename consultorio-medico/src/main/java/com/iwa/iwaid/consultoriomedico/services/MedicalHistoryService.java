@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Map;
+import java.util.ResourceBundle;
 
 @Service
 @RequiredArgsConstructor
@@ -17,8 +18,10 @@ public class MedicalHistoryService {
 
     private final MedicalHistoryRepository repository;
     private final PatientService patientService;
+    private final ResourceBundle messages =
+            ResourceBundle.getBundle("ValidationMessages");
 
-    public List<MedicalHistoryDTO> findAllMedicalHistorys() {
+    public List<MedicalHistoryDTO> getAllMedicalHistorys() {
         final List<MedicalHistory> histories = repository.findAll();
         final Map<Integer, PatientDTO> patientDTOMap =
                 getPatientsMap(histories.stream().map(MedicalHistory::getPatientsId).toList());
@@ -28,36 +31,41 @@ public class MedicalHistoryService {
                 .toList();
     }
 
-    public MedicalHistoryDTO findMedicalHistorybyId(final int id) throws Exception {
-        validateIfMedicalHistoryExist(id);
-        MedicalHistory medicalHistory = repository.findById(id).orElseThrow();
+    public MedicalHistoryDTO getMedicalHistorybyId(final int medicalHistoryId)
+            throws Exception {
+        validateIfMedicalHistoryExist(medicalHistoryId);
+        MedicalHistory medicalHistory = repository.findById(medicalHistoryId).orElseThrow();
         return MedicalHistoryDTO.build(medicalHistory);
     }
 
-    public MedicalHistoryDTO createMedicalHistory(final MedicalHistoryForm form) throws Exception {
-        patientService.validateIfPatientExist(form.getPatientsId());
+    public MedicalHistoryDTO createMedicalHistory(final MedicalHistoryForm form)
+            throws Exception {
+        patientService.validateIfPatientExist(form.getPatientId());
         MedicalHistory medicalHistory = new MedicalHistory(form);
         repository.save(medicalHistory);
         return MedicalHistoryDTO.build(medicalHistory);
     }
 
-    public MedicalHistoryDTO updateMedicalHistory(final MedicalHistoryForm form, final int id) throws Exception {
-        validateIfMedicalHistoryExist(id);
-        patientService.validateIfPatientExist(form.getPatientsId());
-        final MedicalHistory medicalHistory = repository.findById(id).orElseThrow();
+    public MedicalHistoryDTO updateMedicalHistory(final MedicalHistoryForm form,
+                                                  final int medicalHistoryId)
+            throws Exception {
+        validateIfMedicalHistoryExist(medicalHistoryId);
+        patientService.validateIfPatientExist(form.getPatientId());
+        final MedicalHistory medicalHistory = repository.findById(medicalHistoryId).orElseThrow();
         medicalHistory.updateMedicalHistory(form);
         repository.save(medicalHistory);
         return MedicalHistoryDTO.build(medicalHistory);
     }
 
-    public void deleteMedicalHistory(final int id) throws Exception {
-        validateIfMedicalHistoryExist(id);
-        repository.deleteById(id);
+    public void deleteMedicalHistory(final int medicalHistoryId) throws Exception {
+        validateIfMedicalHistoryExist(medicalHistoryId);
+        repository.deleteById(medicalHistoryId);
     }
 
-    public void validateIfMedicalHistoryExist(final int id) throws Exception {
-        if (!repository.existsById(id)) {
-            throw new Exception("medical history not found with ID: " + id);
+    public void validateIfMedicalHistoryExist(final int medicalHistoryId)
+            throws Exception {
+        if (!repository.existsById(medicalHistoryId)) {
+            throw new Exception(messages.getString("medicalHistory.not.found"));
         }
     }
 
