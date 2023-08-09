@@ -4,7 +4,6 @@ import com.iwa.iwaid.consultoriomedico.dto.PatientDTO;
 import com.iwa.iwaid.consultoriomedico.form.PatientFilterForm;
 import com.iwa.iwaid.consultoriomedico.form.PatientForm;
 import com.iwa.iwaid.consultoriomedico.services.PatientService;
-import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -30,7 +29,7 @@ public class PatientController {
         return new ResponseEntity<>(patients, HttpStatus.OK);
     }
 
-    @GetMapping("/{id}")
+    @GetMapping("{id}")
     public ResponseEntity<PatientDTO> getPatientById(@PathVariable final int id) throws Exception {
         PatientDTO patient = patientService.getPatientById(id);
         return new ResponseEntity<>(patient, HttpStatus.OK);
@@ -48,14 +47,14 @@ public class PatientController {
         return new ResponseEntity<>(patientDTO, HttpStatus.CREATED);
     }
 
-    @PatchMapping("/{id}")
+    @PatchMapping("{id}")
     public ResponseEntity<PatientDTO> updatePatient(@Valid @RequestBody final PatientForm form,
                                                     @PathVariable final int id) throws Exception {
         PatientDTO patient = patientService.updatePatient(form, id);
         return new ResponseEntity<>(patient, HttpStatus.CREATED);
     }
 
-    @DeleteMapping("/{id}")
+    @DeleteMapping("{id}")
     public ResponseEntity deletePatient(@PathVariable("id") final int id) throws Exception {
         patientService.deletePatient(id);
         return new ResponseEntity<>(HttpStatus.OK);

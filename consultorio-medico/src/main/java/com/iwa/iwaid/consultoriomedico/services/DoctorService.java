@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Map;
+import java.util.ResourceBundle;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
@@ -18,15 +19,18 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 public class DoctorService {
     private final DoctorRepository doctorRepository;
+    private final ResourceBundle messages =
+            ResourceBundle.getBundle("ValidationMessages");
 
     public List<DoctorDTO> getAllByFilters(final DoctorFiltersForm form) {
-        final List<Doctor> doctors = doctorRepository.findAll(DoctorSpecs.getAllByFilters(form));
+        final List<Doctor> doctors =
+                doctorRepository.findAll(DoctorSpecs.getAllByFilters(form));
         return doctors.stream().map(DoctorDTO::build).toList();
     }
 
     public DoctorDTO getDoctorById(final int id) throws Exception {
         validateIfDoctorExists(id);
-        Doctor doctor = doctorRepository.findById(id).get();
+        final Doctor doctor = doctorRepository.findById(id).get();
         return DoctorDTO.build(doctor);
     }
 
@@ -54,14 +58,17 @@ public class DoctorService {
         return doctorDTOs(doctors);
     }
 
-    public void validateIfDoctorExists(int id) throws Exception {
-        if (!doctorRepository.existsById(id)) {
-            throw new Exception("Doctor not found");
+    public void validateIfDoctorExists(final int doctorId) throws Exception {
+        if (!doctorRepository.existsById(doctorId)) {
+            throw new Exception(messages.getString("not.found") + " -Doctor:" + doctorId);
         }
     }
 
-    private Map<Integer, DoctorDTO> doctorDTOs(List<Doctor> doctors) {
-        final List<DoctorDTO> doctorDTOs = doctors.stream().map(DoctorDTO::build).toList();
-        return doctorDTOs.stream().collect(Collectors.toMap(DoctorDTO::getId, Function.identity()));
+    private Map<Integer, DoctorDTO> doctorDTOs(final List<Doctor> doctors) {
+        final List<DoctorDTO> doctorDTOs =
+                doctors.stream().map(DoctorDTO::build).toList();
+        return doctorDTOs
+                .stream()
+                .collect(Collectors.toMap(DoctorDTO::getId, Function.identity()));
     }
 }
