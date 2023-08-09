@@ -4,6 +4,8 @@ import com.iwa.iwaid.consultoriomedico.dto.PatientDTO;
 import com.iwa.iwaid.consultoriomedico.form.PatientFilterForm;
 import com.iwa.iwaid.consultoriomedico.form.PatientForm;
 import com.iwa.iwaid.consultoriomedico.services.PatientService;
+
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -42,13 +44,13 @@ public class PatientController {
     }
 
     @PostMapping
-    public ResponseEntity<PatientDTO> createPatient(@RequestBody final PatientForm form) {
+    public ResponseEntity<PatientDTO> createPatient(@Valid @RequestBody final PatientForm form) {
         PatientDTO patientDTO = patientService.createPatient(form);
         return new ResponseEntity<>(patientDTO, HttpStatus.CREATED);
     }
 
     @PatchMapping("{id}")
-    public ResponseEntity<PatientDTO> updatePatient(@RequestBody final PatientForm form,
+    public ResponseEntity<PatientDTO> updatePatient(@Valid @RequestBody final PatientForm form,
                                                     @PathVariable final int id) throws Exception {
         PatientDTO patient = patientService.updatePatient(form, id);
         return new ResponseEntity<>(patient, HttpStatus.CREATED);
