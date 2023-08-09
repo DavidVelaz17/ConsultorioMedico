@@ -2,7 +2,7 @@ CREATE TABLE IF NOT EXISTS `medical_history` (
     `id` INT NOT NULL AUTO_INCREMENT,
     `patient_id` INT NOT NULL,
     `height` INT NOT NULL,
-    `weight` INT NOT NULL,
+    `weight` FLOAT NOT NULL,
     `family_medical_history` TINYINT NOT NULL,
     `specific_family_medical_history` VARCHAR(500) NULL,
     `pathological_history` TINYINT NOT NULL,

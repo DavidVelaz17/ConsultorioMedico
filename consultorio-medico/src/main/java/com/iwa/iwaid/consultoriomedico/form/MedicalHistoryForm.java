@@ -1,8 +1,6 @@
 package com.iwa.iwaid.consultoriomedico.form;
 
-import jakarta.validation.constraints.AssertTrue;
 import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
 import lombok.Getter;
 import org.jsondoc.core.annotation.ApiObjectField;
@@ -25,7 +23,7 @@ public class MedicalHistoryForm implements Serializable {
 
     @NotNull
     @ApiObjectField(name = "weight", description = "Patient's weight")
-    private int weight;
+    private float weight;
 
     @NotNull
     @ApiObjectField(name = "familyMedicalHistory", description = "Patient's family medical history")

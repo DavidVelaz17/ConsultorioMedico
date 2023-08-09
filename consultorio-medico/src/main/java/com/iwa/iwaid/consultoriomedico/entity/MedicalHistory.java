@@ -27,7 +27,7 @@ public class MedicalHistory {
     private int height;
 
     @Column(name = "weight")
-    private int weight;
+    private float weight;
 
     @Column(name = "family_medical_history")
     private boolean familyMedicalHistory;

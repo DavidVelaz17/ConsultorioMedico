@@ -22,7 +22,7 @@ public class MedicalHistoryDTO {
     private int height;
 
     @ApiObjectField(name = "weight", description = "Patient's weight")
-    private int weight;
+    private float weight;
 
     @ApiObjectField(name = "familyMedicalHistory", description = "Patient's family medical history")
     private boolean familyMedicalHistory;
