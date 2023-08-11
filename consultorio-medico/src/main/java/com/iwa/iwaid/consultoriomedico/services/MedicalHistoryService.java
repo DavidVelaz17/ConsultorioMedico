@@ -1,0 +1,76 @@
+package com.iwa.iwaid.consultoriomedico.services;
+
+import com.iwa.iwaid.consultoriomedico.dto.MedicalHistoryDTO;
+import com.iwa.iwaid.consultoriomedico.dto.PatientDTO;
+import com.iwa.iwaid.consultoriomedico.entity.MedicalHistory;
+import com.iwa.iwaid.consultoriomedico.form.MedicalHistoryForm;
+import com.iwa.iwaid.consultoriomedico.repository.MedicalHistoryRepository;
+import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Service;
+
+import java.util.List;
+import java.util.Map;
+import java.util.ResourceBundle;
+
+@Service
+@RequiredArgsConstructor
+public class MedicalHistoryService {
+
+    private final MedicalHistoryRepository repository;
+    private final PatientService patientService;
+    private final ResourceBundle messages =
+            ResourceBundle.getBundle("ValidationMessages");
+
+    public List<MedicalHistoryDTO> getAllMedicalHistorys() {
+        final List<MedicalHistory> histories = repository.findAll();
+        final Map<Integer, PatientDTO> patientDTOMap =
+                getPatientsMap(histories.stream().map(MedicalHistory::getPatientsId).toList());
+        return histories
+                .stream().map(history -> MedicalHistoryDTO
+                        .build(history, patientDTOMap.get(history.getPatientsId())))
+                .toList();
+    }
+
+    public MedicalHistoryDTO getMedicalHistorybyId(final int medicalHistoryId)
+            throws Exception {
+        validateIfMedicalHistoryExist(medicalHistoryId);
+        MedicalHistory medicalHistory = repository.findById(medicalHistoryId).orElseThrow();
+        return MedicalHistoryDTO.build(medicalHistory);
+    }
+
+    public MedicalHistoryDTO createMedicalHistory(final MedicalHistoryForm form)
+            throws Exception {
+        patientService.validateIfPatientExist(form.getPatientId());
+        MedicalHistory medicalHistory = new MedicalHistory(form);
+        repository.save(medicalHistory);
+        return MedicalHistoryDTO.build(medicalHistory);
+    }
+
+    public MedicalHistoryDTO updateMedicalHistory(final MedicalHistoryForm form,
+                                                  final int medicalHistoryId)
+            throws Exception {
+        validateIfMedicalHistoryExist(medicalHistoryId);
+        patientService.validateIfPatientExist(form.getPatientId());
+        final MedicalHistory medicalHistory = repository.findById(medicalHistoryId).orElseThrow();
+        medicalHistory.updateMedicalHistory(form);
+        repository.save(medicalHistory);
+        return MedicalHistoryDTO.build(medicalHistory);
+    }
+
+    public void deleteMedicalHistory(final int medicalHistoryId) throws Exception {
+        validateIfMedicalHistoryExist(medicalHistoryId);
+        repository.deleteById(medicalHistoryId);
+    }
+
+    public void validateIfMedicalHistoryExist(final int medicalHistoryId)
+            throws Exception {
+        if (!repository.existsById(medicalHistoryId)) {
+            throw new Exception(messages.getString("medicalHistory.not.found"));
+        }
+    }
+
+    private Map<Integer, PatientDTO> getPatientsMap(final List<Integer> patientsIds) {
+        return patientService.getPatientByIds(patientsIds);
+    }
+
+}
