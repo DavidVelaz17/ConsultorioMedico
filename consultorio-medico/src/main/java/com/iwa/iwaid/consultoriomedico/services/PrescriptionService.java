@@ -78,11 +78,11 @@ public class PrescriptionService {
         }
     }
 
-    private Map<Integer, DoctorDTO> getDoctorsMap(List<Integer> doctorsIds) {
+    private Map<Integer, DoctorDTO> getDoctorsMap(final List<Integer> doctorsIds) {
         return doctorService.getDoctorsByIds(doctorsIds);
     }
 
-    private Map<Integer, PatientDTO> getPatientsMap(List<Integer> patientsIds) {
+    private Map<Integer, PatientDTO> getPatientsMap(final List<Integer> patientsIds) {
         return patientService.getPatientByIds(patientsIds);
     }
 

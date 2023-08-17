@@ -19,9 +19,7 @@ public enum Hour {
   SIX_PM(18),
   SEVEN_PM(19),
   EIGHT_PM(20);
-    private int key;
-    Hour(int key){this.key=key;}
-
+    private final int key;
     public static Hour getWrittenHour(int key){
         switch (key){
             case 8:

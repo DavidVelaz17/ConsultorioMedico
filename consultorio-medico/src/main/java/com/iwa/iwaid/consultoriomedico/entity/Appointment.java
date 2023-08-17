@@ -13,12 +13,12 @@ import jakarta.persistence.FetchType;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.Convert;
 import lombok.AccessLevel;
-import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
 
-@Data
+@Getter
 @Entity
 @Table(name = "appointments")
 @NoArgsConstructor(access = AccessLevel.PROTECTED)

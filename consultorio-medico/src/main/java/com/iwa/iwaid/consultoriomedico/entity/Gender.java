@@ -7,12 +7,7 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public enum Gender {
     Masculino(0), Femenino(1), Otro(2);
-    private int key;
-
-    Gender(int key) {
-        this.key = key;
-    }
-
+    private final int key;
     public static Gender getGender(Integer key) {
         switch (key) {
             case 0:

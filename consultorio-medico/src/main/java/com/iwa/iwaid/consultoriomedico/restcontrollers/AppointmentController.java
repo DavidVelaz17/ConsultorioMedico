@@ -26,24 +26,29 @@ public class AppointmentController {
     private final AppointmentService appointmentService;
 
     @GetMapping
-    public List<AppointmentDTO> getAllAppointments() {
-        return appointmentService.getAll();
+    public ResponseEntity<List<AppointmentDTO>> getAllAppointments() {
+        final List<AppointmentDTO> appointments = appointmentService.getAll();
+        return ResponseEntity.ok().body(appointments);
     }
 
     @GetMapping("{appointmentId}")
-    public ResponseEntity<AppointmentDTO> getAppointmentById(@PathVariable("appointmentId") final int appointmentId)
+    public ResponseEntity<AppointmentDTO> getAppointmentById(
+    @PathVariable("appointmentId") final int appointmentId)
         throws Exception {
         final AppointmentDTO appointmentDTO = appointmentService.getAppointmentById(appointmentId);
         return ResponseEntity.ok().body(appointmentDTO);
     }
 
     @PostMapping
-    public ResponseEntity createAppointment(@RequestBody @Valid AppointmentForm form) throws Exception {
-        return ResponseEntity.status(HttpStatus.CREATED).body(appointmentService.createAppointment(form));
+    public ResponseEntity<AppointmentDTO> createAppointment(
+    @RequestBody @Valid final AppointmentForm form) throws Exception {
+        final AppointmentDTO appointmentDTO = appointmentService.createAppointment(form);
+        return ResponseEntity.status(HttpStatus.CREATED).body(appointmentDTO);
     }
 
     @DeleteMapping("{appointmentId}")
-    public ResponseEntity<Void> deleteAppointment(@PathVariable("appointmentId") final int appointmentId)
+    public ResponseEntity<Void> deleteAppointment(
+    @PathVariable("appointmentId") final int appointmentId)
         throws Exception {
         appointmentService.deleteAppointment(appointmentId);
         return ResponseEntity.ok().build();
@@ -51,10 +56,10 @@ public class AppointmentController {
 
     @PatchMapping("{appointmentId}")
     public ResponseEntity<AppointmentDTO> updateAppointmentById(
-    @RequestBody @Valid AppointmentForm form,
+    @RequestBody @Valid final AppointmentForm form,
     @PathVariable("appointmentId") final int appointmentId)
         throws Exception {
-        appointmentService.updateAppointmentById(form, appointmentId);
-        return ResponseEntity.ok().build();
+        final AppointmentDTO appointmentDTO = appointmentService.updateAppointmentById(form, appointmentId);
+        return ResponseEntity.ok().body(appointmentDTO);
     }
 }

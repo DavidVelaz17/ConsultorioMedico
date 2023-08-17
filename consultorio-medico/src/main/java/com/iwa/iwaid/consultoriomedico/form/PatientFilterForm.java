@@ -7,12 +7,13 @@ import lombok.Getter;
 import lombok.Setter;
 import org.jsondoc.core.annotation.ApiObjectField;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.List;
 
 @Getter
 @Setter
-public class PatientFilterForm {
+public class PatientFilterForm implements Serializable {
     @ApiObjectField(name = "name", description = "Patient's name")
     String name;
 
