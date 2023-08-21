@@ -40,9 +40,9 @@ public class PrescriptionService {
                 .toList();
     }
 
-    public PrescriptionDTO findPrescriptionById(final int id) throws Exception {
-        validateIfPrescriptionExist(id);
-        final Prescription prescription = repository.findById(id).orElseThrow();
+    public PrescriptionDTO findPrescriptionById(final int prescriptionId) throws Exception {
+        validateIfPrescriptionExist(prescriptionId);
+        final Prescription prescription = repository.findById(prescriptionId).orElseThrow();
         final PatientDTO patientDTO = patientService.getPatientById(prescription.getPatientId());
         final DoctorDTO doctorDTO = doctorService.getDoctorById(prescription.getDoctorId());
         return PrescriptionDTO.build(prescription, patientDTO, doctorDTO);

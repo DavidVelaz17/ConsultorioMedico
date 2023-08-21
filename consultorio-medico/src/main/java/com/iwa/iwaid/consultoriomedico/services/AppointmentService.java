@@ -4,14 +4,10 @@ import com.iwa.iwaid.consultoriomedico.dto.AppointmentDTO;
 import com.iwa.iwaid.consultoriomedico.dto.DoctorDTO;
 import com.iwa.iwaid.consultoriomedico.dto.PatientDTO;
 import com.iwa.iwaid.consultoriomedico.entity.Appointment;
-import com.iwa.iwaid.consultoriomedico.entity.Doctor;
 import com.iwa.iwaid.consultoriomedico.entity.Hour;
 import com.iwa.iwaid.consultoriomedico.form.AppointmentForm;
-import com.iwa.iwaid.consultoriomedico.form.DoctorForm;
 import com.iwa.iwaid.consultoriomedico.repository.AppointmentRepository;
 import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
-import net.bytebuddy.asm.Advice;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;

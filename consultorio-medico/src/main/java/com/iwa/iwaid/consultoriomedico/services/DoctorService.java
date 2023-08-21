@@ -28,9 +28,9 @@ public class DoctorService {
         return doctors.stream().map(DoctorDTO::build).toList();
     }
 
-    public DoctorDTO getDoctorById(final int id) throws Exception {
-        validateIfDoctorExists(id);
-        final Doctor doctor = doctorRepository.findById(id).get();
+    public DoctorDTO getDoctorById(final int doctorId) throws Exception {
+        validateIfDoctorExists(doctorId);
+        final Doctor doctor = doctorRepository.findById(doctorId).get();
         return DoctorDTO.build(doctor);
     }
 
@@ -40,14 +40,14 @@ public class DoctorService {
         return DoctorDTO.build(doctor);
     }
 
-    public void deleteDoctor(final int id) throws Exception {
-        validateIfDoctorExists(id);
-        doctorRepository.deleteById(id);
+    public void deleteDoctor(final int doctorId) throws Exception {
+        validateIfDoctorExists(doctorId);
+        doctorRepository.deleteById(doctorId);
     }
 
-    public DoctorDTO updateDoctor(final DoctorForm form, final int id) throws Exception {
-        validateIfDoctorExists(id);
-        final Doctor doctor = doctorRepository.findById(id).get();
+    public DoctorDTO updateDoctor(final DoctorForm form, final int doctorId) throws Exception {
+        validateIfDoctorExists(doctorId);
+        final Doctor doctor = doctorRepository.findById(doctorId).get();
         doctor.updateDoctor(form);
         doctorRepository.save(doctor);
         return DoctorDTO.build(doctor);
