@@ -29,9 +29,10 @@ public class MedicineController {
     private final MedicineService medicineService;
 
     @GetMapping
-    public List<MedicineDTO> getAllDoctorsByFilters(
+    public ResponseEntity<List<MedicineDTO>> getAllMedicinesByFilters(
     @RequestBody @ModelAttribute final MedicineFiltersForm form) {
-        return medicineService.getAllByFilters(form);
+        final List<MedicineDTO> medicines = medicineService.getAllByFilters(form);
+        return ResponseEntity.ok().body(medicines);
     }
 
     @GetMapping("{medicineId}")

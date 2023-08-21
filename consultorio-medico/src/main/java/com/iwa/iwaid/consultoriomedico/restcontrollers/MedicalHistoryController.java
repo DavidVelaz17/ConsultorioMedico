@@ -37,7 +37,7 @@ public class MedicalHistoryController {
     @RequestBody @Valid final MedicalHistoryForm form)
         throws Exception {
         final MedicalHistoryDTO history = service.createMedicalHistory(form);
-        return ResponseEntity.ok().body(history);
+        return ResponseEntity.status(HttpStatus.CREATED).body(history);
     }
 
     @PatchMapping("{medicalHistoryId}")
@@ -46,7 +46,7 @@ public class MedicalHistoryController {
     @PathVariable final int medicalHistoryId)
         throws Exception {
         final MedicalHistoryDTO history = service.updateMedicalHistory(form, medicalHistoryId);
-        return ResponseEntity.status(HttpStatus.CREATED).body(history);
+        return ResponseEntity.ok().body(history);
     }
 
     @DeleteMapping("{medicalHistoryId}")

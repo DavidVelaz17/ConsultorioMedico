@@ -20,28 +20,21 @@ import java.util.List;
 @RequiredArgsConstructor
 public class PatientController {
 
-    @Autowired
     private final PatientService patientService;
 
     @GetMapping
-    public ResponseEntity<List<PatientDTO>> getAllPatients() {
-        final List<PatientDTO> patients = patientService.findAllPatients();
-        return ResponseEntity.ok().body(patients);
-    }
-
-    @GetMapping("{id}")
-    public ResponseEntity<PatientDTO> getPatientById(
-    @PathVariable final int id)
-        throws Exception {
-        final PatientDTO patient = patientService.getPatientById(id);
-        return ResponseEntity.ok().body(patient);
-    }
-
-    @PostMapping("/filter")
     public ResponseEntity<List<PatientDTO>> getAllByFilters(
-    @RequestBody final PatientFilterForm form) {
+            @RequestBody @ModelAttribute final PatientFilterForm form) {
         final List<PatientDTO> patientDTOS = patientService.getAllByFilters(form);
         return ResponseEntity.ok().body(patientDTOS);
+    }
+
+    @GetMapping("{patientId}")
+    public ResponseEntity<PatientDTO> getPatientById(
+    @PathVariable final int patientId)
+        throws Exception {
+        final PatientDTO patient = patientService.getPatientById(patientId);
+        return ResponseEntity.ok().body(patient);
     }
 
     @PostMapping
@@ -51,20 +44,20 @@ public class PatientController {
         return ResponseEntity.status(HttpStatus.CREATED).body(patientDTO);
     }
 
-    @PatchMapping("{id}")
+    @PatchMapping("{patientId}")
     public ResponseEntity<PatientDTO> updatePatient(
     @RequestBody @Valid final PatientForm form,
-    @PathVariable final int id)
+    @PathVariable final int patientId)
         throws Exception {
-        final PatientDTO patient = patientService.updatePatient(form, id);
+        final PatientDTO patient = patientService.updatePatient(form, patientId);
         return ResponseEntity.ok().body(patient);
     }
 
-    @DeleteMapping("{id}")
+    @DeleteMapping("{patientId}")
     public ResponseEntity<Void> deletePatient(
-    @PathVariable("id") final int id)
+    @PathVariable("patientId") final int patientId)
         throws Exception {
-        patientService.deletePatient(id);
+        patientService.deletePatient(patientId);
         return ResponseEntity.ok().build();
     }
 }
