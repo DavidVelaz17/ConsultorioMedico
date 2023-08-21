@@ -59,7 +59,8 @@ public class AppointmentController {
     @RequestBody @Valid final AppointmentForm form,
     @PathVariable("appointmentId") final int appointmentId)
         throws Exception {
-        final AppointmentDTO appointmentDTO = appointmentService.updateAppointmentById(form, appointmentId);
+        final AppointmentDTO appointmentDTO =
+                appointmentService.updateAppointmentById(form, appointmentId);
         return ResponseEntity.ok().body(appointmentDTO);
     }
 }

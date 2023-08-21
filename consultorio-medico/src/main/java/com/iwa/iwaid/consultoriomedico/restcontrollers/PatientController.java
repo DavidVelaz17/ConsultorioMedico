@@ -21,7 +21,6 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 
 import java.util.List;
 
-
 @RestController
 @RequestMapping(path = "/iwaid/patients/")
 @RequiredArgsConstructor
