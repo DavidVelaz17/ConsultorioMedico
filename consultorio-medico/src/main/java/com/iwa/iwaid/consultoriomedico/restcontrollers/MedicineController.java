@@ -1,6 +1,5 @@
 package com.iwa.iwaid.consultoriomedico.restcontrollers;
 
-import com.iwa.iwaid.consultoriomedico.dto.MedicalHistoryDTO;
 import com.iwa.iwaid.consultoriomedico.dto.MedicineDTO;
 import com.iwa.iwaid.consultoriomedico.form.MedicineFiltersForm;
 import com.iwa.iwaid.consultoriomedico.form.MedicineForm;
