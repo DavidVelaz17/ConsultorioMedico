@@ -3,15 +3,14 @@ package com.iwa.iwaid.consultoriomedico.dto;
 import com.iwa.iwaid.consultoriomedico.entity.Gender;
 import com.iwa.iwaid.consultoriomedico.entity.Patient;
 import lombok.Builder;
-import lombok.Data;
+import lombok.Getter;
 import org.jsondoc.core.annotation.ApiObjectField;
 
-import java.io.Serializable;
 import java.time.LocalDate;
 
-@Data
+@Getter
 @Builder
-public class PatientDTO implements Serializable {
+public class PatientDTO{
     @ApiObjectField(name = "id", description = "Patient's ID")
     private int id;
 

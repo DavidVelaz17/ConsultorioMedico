@@ -27,9 +27,9 @@ public class PatientService {
         return patientPage.stream().map(PatientDTO::build).toList();
     }
 
-    public PatientDTO getPatientById(final int id) throws Exception {
-        validateIfPatientExist(id);
-        final Patient patient = patientRepository.findById(id).orElseThrow();
+    public PatientDTO getPatientById(final int patientId) throws Exception {
+        validateIfPatientExist(patientId);
+        final Patient patient = patientRepository.findById(patientId).orElseThrow();
         return PatientDTO.build(patient);
     }
 
@@ -45,9 +45,9 @@ public class PatientService {
         return PatientDTO.build(patient);
     }
 
-    public PatientDTO updatePatient(final PatientForm form, final int id) throws Exception {
-        validateIfPatientExist(id);
-        final Patient patient = patientRepository.findById(id).orElseThrow();
+    public PatientDTO updatePatient(final PatientForm form, final int patientId) throws Exception {
+        validateIfPatientExist(patientId);
+        final Patient patient = patientRepository.findById(patientId).orElseThrow();
         patient.updatePatient(form);
         patientRepository.save(patient);
         return PatientDTO.build(patient);
@@ -63,9 +63,9 @@ public class PatientService {
         return patientDTOs(patients);
     }
 
-    public void validateIfPatientExist(final int id) throws Exception {
-        if (!patientRepository.existsById(id)) {
-            throw new Exception(messages.getString("not.found")+" -Patient:"+id);
+    public void validateIfPatientExist(final int patientId) throws Exception {
+        if (!patientRepository.existsById(patientId)) {
+            throw new Exception(messages.getString("not.found")+" -Patient:"+patientId);
         }
     }
 

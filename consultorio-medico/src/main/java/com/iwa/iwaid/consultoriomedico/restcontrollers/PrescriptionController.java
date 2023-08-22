@@ -7,7 +7,14 @@ import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.PathVariable;
 
 import java.util.List;
 
@@ -19,36 +26,41 @@ public class PrescriptionController {
     private final PrescriptionService service;
 
     @GetMapping
-    public ResponseEntity<List<PrescriptionDTO>> getAllPrescription() throws Exception {
-        return new ResponseEntity<>(service.getAllPrescriptions(), HttpStatus.OK);
+    public ResponseEntity<List<PrescriptionDTO>> getAllPrescription(){
+        final List<PrescriptionDTO> prescriptions = service.getAllPrescriptions();
+        return ResponseEntity.ok().body(prescriptions);
     }
 
     @GetMapping("{prescriptionId}")
-    public ResponseEntity<PrescriptionDTO> getPrescriptionById(@PathVariable final int prescriptionId)
-            throws Exception {
-        PrescriptionDTO prescription = service.findPrescriptionById(prescriptionId);
-        return new ResponseEntity<>(prescription, HttpStatus.OK);
+    public ResponseEntity<PrescriptionDTO> getPrescriptionById(
+    @PathVariable final int prescriptionId)
+        throws Exception {
+        final PrescriptionDTO prescription = service.findPrescriptionById(prescriptionId);
+        return ResponseEntity.ok().body(prescription);
     }
 
     @PostMapping
-    public ResponseEntity<PrescriptionDTO> createPrescription(@Valid @RequestBody final PrescriptionForm form)
-            throws Exception {
-        PrescriptionDTO prescription = service.createPrescription(form);
-        return new ResponseEntity<>(prescription, HttpStatus.CREATED);
+    public ResponseEntity<PrescriptionDTO> createPrescription(
+    @Valid @RequestBody final PrescriptionForm form)
+        throws Exception {
+        final PrescriptionDTO prescription = service.createPrescription(form);
+        return ResponseEntity.status(HttpStatus.CREATED).body(prescription);
     }
 
     @PatchMapping("{prescriptionId}")
-    public ResponseEntity<PrescriptionDTO> updatePrescription(@Valid @RequestBody final PrescriptionForm form,
-                                                              @PathVariable final int prescriptionId)
-            throws Exception {
-        PrescriptionDTO prescription = service.updatePrescription(form, prescriptionId);
-        return new ResponseEntity<>(prescription, HttpStatus.OK);
+    public ResponseEntity<PrescriptionDTO> updatePrescription(
+    @Valid @RequestBody final PrescriptionForm form,
+    @PathVariable final int prescriptionId)
+        throws Exception {
+        final PrescriptionDTO prescription = service.updatePrescription(form, prescriptionId);
+        return ResponseEntity.ok().body(prescription);
     }
 
     @DeleteMapping("{prescriptionId}")
-    public ResponseEntity<Void> deletePrescription(@PathVariable final int prescriptionId)
-            throws Exception {
+    public ResponseEntity<Void> deletePrescription(
+    @PathVariable final int prescriptionId)
+        throws Exception {
         service.deletePrescription(prescriptionId);
-        return new ResponseEntity<>(HttpStatus.OK);
+        return ResponseEntity.ok().build();
     }
 }

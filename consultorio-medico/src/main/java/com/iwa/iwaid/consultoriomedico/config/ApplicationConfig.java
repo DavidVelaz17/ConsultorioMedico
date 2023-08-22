@@ -12,6 +12,5 @@ public class ApplicationConfig implements WebMvcConfigurer {
                 .allowedOrigins("*")
                 .allowedHeaders("*")
                 .allowedMethods("GET", "POST", "PUT", "PATCH", "DELETE");
-
     }
 }

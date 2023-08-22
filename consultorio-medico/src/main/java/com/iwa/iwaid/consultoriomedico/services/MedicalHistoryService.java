@@ -21,7 +21,7 @@ public class MedicalHistoryService {
     private final ResourceBundle messages =
             ResourceBundle.getBundle("ValidationMessages");
 
-    public List<MedicalHistoryDTO> getAllMedicalHistorys() {
+    public List<MedicalHistoryDTO> getAllMedicalHistories() {
         final List<MedicalHistory> histories = repository.findAll();
         final Map<Integer, PatientDTO> patientDTOMap =
                 getPatientsMap(histories.stream().map(MedicalHistory::getPatientsId).toList());
@@ -31,17 +31,17 @@ public class MedicalHistoryService {
                 .toList();
     }
 
-    public MedicalHistoryDTO getMedicalHistorybyId(final int medicalHistoryId)
+    public MedicalHistoryDTO getMedicalHistoryById(final int medicalHistoryId)
             throws Exception {
         validateIfMedicalHistoryExist(medicalHistoryId);
-        MedicalHistory medicalHistory = repository.findById(medicalHistoryId).orElseThrow();
+        final MedicalHistory medicalHistory = repository.findById(medicalHistoryId).orElseThrow();
         return MedicalHistoryDTO.build(medicalHistory);
     }
 
     public MedicalHistoryDTO createMedicalHistory(final MedicalHistoryForm form)
             throws Exception {
         patientService.validateIfPatientExist(form.getPatientId());
-        MedicalHistory medicalHistory = new MedicalHistory(form);
+        final MedicalHistory medicalHistory = new MedicalHistory(form);
         repository.save(medicalHistory);
         return MedicalHistoryDTO.build(medicalHistory);
     }

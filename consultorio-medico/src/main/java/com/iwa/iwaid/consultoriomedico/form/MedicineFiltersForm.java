@@ -5,8 +5,10 @@ import jakarta.validation.constraints.Size;
 import lombok.Data;
 import org.jsondoc.core.annotation.ApiObjectField;
 
+import java.io.Serializable;
+
 @Data
-public class MedicineFiltersForm {
+public class MedicineFiltersForm implements Serializable {
     @ApiObjectField(name = "code", description = "Medicine's code")
     @Size(max = 5)
     private String code;

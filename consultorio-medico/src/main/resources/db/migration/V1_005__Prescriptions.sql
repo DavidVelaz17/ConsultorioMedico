@@ -5,6 +5,6 @@ CREATE TABLE IF NOT EXISTS `prescriptions` (
     `register_date` DATE NOT NULL,
     `description` VARCHAR(500),
     PRIMARY KEY (`id`, `patient_id`, `doctor_id`),
-    CONSTRAINT `fk_prescriptions_patient` FOREIGN KEY (`patient_id`) REFERENCES `ConsultingRoomIWA`.`patients` (`id`),
-    CONSTRAINT `fk_prescriptions_doctor1` FOREIGN KEY (`doctor_id`) REFERENCES `ConsultingRoomIWA`.`doctors` (`id`))
+    CONSTRAINT `fk_prescriptions_patient` FOREIGN KEY (`patient_id`) REFERENCES `patients` (`id`),
+    CONSTRAINT `fk_prescriptions_doctor1` FOREIGN KEY (`doctor_id`) REFERENCES `doctors` (`id`))
     ENGINE = InnoDB;

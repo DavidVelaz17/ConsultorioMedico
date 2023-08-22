@@ -3,10 +3,10 @@ package com.iwa.iwaid.consultoriomedico.dto;
 import com.iwa.iwaid.consultoriomedico.entity.DosageForm;
 import com.iwa.iwaid.consultoriomedico.entity.Medicine;
 import lombok.Builder;
-import lombok.Data;
+import lombok.Getter;
 import org.jsondoc.core.annotation.ApiObjectField;
 
-@Data
+@Getter
 @Builder
 public class MedicineDTO {
     @ApiObjectField(name = "id", description = "Medicine's id")

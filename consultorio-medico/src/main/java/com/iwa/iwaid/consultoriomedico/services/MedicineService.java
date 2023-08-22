@@ -25,9 +25,9 @@ public class MedicineService {
         return medicines.stream().map(MedicineDTO::build).toList();
     }
 
-    public MedicineDTO getMedicineById(final int id) throws Exception {
-        validateIfMedicineExists(id);
-        final Medicine medicine = medicineRepository.findById(id).get();
+    public MedicineDTO getMedicineById(final int medicineId) throws Exception {
+        validateIfMedicineExists(medicineId);
+        final Medicine medicine = medicineRepository.findById(medicineId).get();
         return MedicineDTO.build(medicine);
     }
 
@@ -37,22 +37,22 @@ public class MedicineService {
         return MedicineDTO.build(medicine);
     }
 
-    public void deleteMedicine(final int id) throws Exception {
-        validateIfMedicineExists(id);
-        medicineRepository.deleteById(id);
+    public void deleteMedicine(final int medicineId) throws Exception {
+        validateIfMedicineExists(medicineId);
+        medicineRepository.deleteById(medicineId);
     }
 
-    public MedicineDTO updateMedicine(final MedicineForm form, final int id) throws Exception {
-        validateIfMedicineExists(id);
-        final Medicine medicine = medicineRepository.findById(id).get();
+    public MedicineDTO updateMedicine(final MedicineForm form, final int medicineId) throws Exception {
+        validateIfMedicineExists(medicineId);
+        final Medicine medicine = medicineRepository.findById(medicineId).get();
         medicine.updateMedicine(form);
         medicineRepository.save(medicine);
         return MedicineDTO.build(medicine);
     }
 
-    private void validateIfMedicineExists(final int id) throws Exception {
-        if (!medicineRepository.existsById(id)) {
-            throw new Exception(messages.getString("not.found") + " -Medicine:" + id);
+    private void validateIfMedicineExists(final int medicineId) throws Exception {
+        if (!medicineRepository.existsById(medicineId)) {
+            throw new Exception(messages.getString("not.found") + " -Medicine:" + medicineId);
         }
     }
 }

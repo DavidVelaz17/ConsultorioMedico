@@ -8,8 +8,6 @@ import com.iwa.iwaid.consultoriomedico.entity.Hour;
 import com.iwa.iwaid.consultoriomedico.form.AppointmentForm;
 import com.iwa.iwaid.consultoriomedico.repository.AppointmentRepository;
 import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
-import net.bytebuddy.asm.Advice;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
@@ -19,7 +17,6 @@ import java.util.ResourceBundle;
 
 @Service
 @RequiredArgsConstructor
-@Slf4j
 public class AppointmentService {
     private final DoctorService doctorService;
     private final PatientService patientService;
@@ -58,12 +55,16 @@ public class AppointmentService {
     public AppointmentDTO createAppointment(final AppointmentForm form) throws Exception {
         final LocalDate date = form.getDate();
         final Hour hour = form.getHour();
+        final int doctorId = form.getDoctorId();
+        final int patientId = form.getPatientId();
+        doctorService.validateIfDoctorExists(doctorId);
+        patientService.validateIfPatientExist(patientId);
         validateDoctorAvailability(
-           form.getDoctorId(),
+           doctorId,
            date,
            hour);
         validatePatientAvailability(
-           form.getPatientId(),
+           patientId,
            date,
            hour);
         final Appointment appointment = new Appointment(form);
@@ -84,15 +85,19 @@ public class AppointmentService {
         throws Exception {
         final LocalDate date = form.getDate();
         final Hour hour = form.getHour();
+        final int doctorId = form.getDoctorId();
+        final int patientId = form.getPatientId();
+        doctorService.validateIfDoctorExists(doctorId);
+        patientService.validateIfPatientExist(patientId);
         validateIfAppointmentExists(appointmentId);
         validateDuplicatedAppointmentByDoctor(
            appointmentId,
-           form.getDoctorId(),
+           doctorId,
            date,
            hour);
         validateDuplicatedAppointmentByPatient(
            appointmentId,
-           form.getPatientId(),
+           patientId,
            date,
            hour);
         final Appointment appointment = appointmentRepository.findById(appointmentId).get();
@@ -137,10 +142,10 @@ public class AppointmentService {
     }
 
     private void validateDuplicatedAppointmentByDoctor(
-            Integer appointmentId,
-            Integer doctorId,
-            LocalDate date,
-            Hour hour)
+    final Integer appointmentId,
+    final Integer doctorId,
+    final LocalDate date,
+    final Hour hour)
         throws Exception {
         if (appointmentRepository.existsByDoctorIdAndDateAndHourAndIdNot(
                 doctorId,
@@ -151,10 +156,10 @@ public class AppointmentService {
     }
 
     private void validateDuplicatedAppointmentByPatient(
-            Integer appointmentId,
-            Integer doctorId,
-            LocalDate date,
-            Hour hour)
+    final Integer appointmentId,
+    final Integer doctorId,
+    final LocalDate date,
+    final Hour hour)
         throws Exception {
         if (appointmentRepository.existsByPatientIdAndDateAndHourAndIdNot(
                 doctorId,

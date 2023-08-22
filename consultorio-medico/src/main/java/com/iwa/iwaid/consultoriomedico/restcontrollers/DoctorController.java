@@ -28,25 +28,30 @@ public class DoctorController {
     private final DoctorService doctorService;
 
     @GetMapping
-    public List<DoctorDTO> getAllDoctorsByFilters(@RequestBody @ModelAttribute DoctorFiltersForm form) {
-        List<DoctorDTO> doctors = doctorService.getAllByFilters(form);
-        return doctors;
+    public ResponseEntity<List<DoctorDTO>> getAllDoctorsByFilters(
+    @RequestBody @ModelAttribute final DoctorFiltersForm form) {
+        final List<DoctorDTO> doctors=doctorService.getAllByFilters(form);
+        return ResponseEntity.ok().body(doctors);
     }
 
     @GetMapping("{doctorId}")
-    public ResponseEntity<DoctorDTO> getDoctorById(@PathVariable("doctorId") final int doctorId)
+    public ResponseEntity<DoctorDTO> getDoctorById(
+    @PathVariable("doctorId") final int doctorId)
         throws Exception {
-        DoctorDTO doctorDTO = doctorService.getDoctorById(doctorId);
+        final DoctorDTO doctorDTO = doctorService.getDoctorById(doctorId);
         return ResponseEntity.ok().body(doctorDTO);
     }
 
     @PostMapping
-    public ResponseEntity saveDoctor(@RequestBody @Valid DoctorForm form) {
-        return ResponseEntity.status(HttpStatus.CREATED).body(doctorService.createDoctor(form));
+    public ResponseEntity<DoctorDTO> saveDoctor(
+    @RequestBody @Valid final DoctorForm form) {
+        final DoctorDTO doctorDTO=doctorService.createDoctor(form);
+        return ResponseEntity.status(HttpStatus.CREATED).body(doctorDTO);
     }
 
     @DeleteMapping("{doctorId}")
-    public ResponseEntity<DoctorDTO> deleteDoctor(@PathVariable("doctorId") final int doctorId)
+    public ResponseEntity<Void> deleteDoctor(
+    @PathVariable("doctorId") final int doctorId)
         throws Exception {
         doctorService.deleteDoctor(doctorId);
         return ResponseEntity.ok().build();
@@ -54,10 +59,10 @@ public class DoctorController {
 
     @PatchMapping("{doctorId}")
     public ResponseEntity<DoctorDTO> updateDoctorById(
-    @RequestBody @Valid DoctorForm form,
+    @RequestBody @Valid final DoctorForm form,
     @PathVariable("doctorId") final int doctorId)
         throws Exception {
-        doctorService.updateDoctor(form, doctorId);
-        return ResponseEntity.ok().build();
+        final DoctorDTO doctorDTO=doctorService.updateDoctor(form, doctorId);
+        return ResponseEntity.ok().body(doctorDTO);
     }
 }

@@ -7,12 +7,7 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public enum DosageForm {
     Liquida(0), Pastilla(1), Capsula(2), Gel(3), Crema(4), Supositorio(5);
-    private int key;
-
-    DosageForm(int key) {
-        this.key = key;
-    }
-
+    private final int key;
     public static DosageForm getDosageForms(int key) {
         switch (key) {
             case 0:

@@ -3,12 +3,12 @@ package com.iwa.iwaid.consultoriomedico.dto;
 import com.iwa.iwaid.consultoriomedico.entity.Appointment;
 import com.iwa.iwaid.consultoriomedico.entity.Hour;
 import lombok.Builder;
-import lombok.Data;
+import lombok.Getter;
 import org.jsondoc.core.annotation.ApiObjectField;
 
 import java.time.LocalDate;
 
-@Data
+@Getter
 @Builder
 public class AppointmentDTO {
     @ApiObjectField(name = "id", description = "Appointment's id")

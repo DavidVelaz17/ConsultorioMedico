@@ -25,7 +25,6 @@ import static org.mockito.Mockito.when;
 
 @SpringBootTest
 @RunWith(SpringRunner.class)
-@RequiredArgsConstructor
 public class DoctorServiceTest {
     @Mock
     private DoctorService doctorService;

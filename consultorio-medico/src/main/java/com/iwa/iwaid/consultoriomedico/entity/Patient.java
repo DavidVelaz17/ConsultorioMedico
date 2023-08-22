@@ -3,13 +3,12 @@ package com.iwa.iwaid.consultoriomedico.entity;
 import com.iwa.iwaid.consultoriomedico.convertors.GenderToIntConvertor;
 import com.iwa.iwaid.consultoriomedico.form.PatientForm;
 import jakarta.persistence.*;
-import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
-import java.util.List;
 
-@Data
+@Getter
 @Entity
 @Table(name = "patients")
 @NoArgsConstructor

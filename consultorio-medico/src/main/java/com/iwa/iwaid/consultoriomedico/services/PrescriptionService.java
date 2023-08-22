@@ -40,9 +40,9 @@ public class PrescriptionService {
                 .toList();
     }
 
-    public PrescriptionDTO findPrescriptionById(final int id) throws Exception {
-        validateIfPrescriptionExist(id);
-        final Prescription prescription = repository.findById(id).orElseThrow();
+    public PrescriptionDTO findPrescriptionById(final int prescriptionId) throws Exception {
+        validateIfPrescriptionExist(prescriptionId);
+        final Prescription prescription = repository.findById(prescriptionId).orElseThrow();
         final PatientDTO patientDTO = patientService.getPatientById(prescription.getPatientId());
         final DoctorDTO doctorDTO = doctorService.getDoctorById(prescription.getDoctorId());
         return PrescriptionDTO.build(prescription, patientDTO, doctorDTO);
@@ -78,11 +78,11 @@ public class PrescriptionService {
         }
     }
 
-    private Map<Integer, DoctorDTO> getDoctorsMap(List<Integer> doctorsIds) {
+    private Map<Integer, DoctorDTO> getDoctorsMap(final List<Integer> doctorsIds) {
         return doctorService.getDoctorsByIds(doctorsIds);
     }
 
-    private Map<Integer, PatientDTO> getPatientsMap(List<Integer> patientsIds) {
+    private Map<Integer, PatientDTO> getPatientsMap(final List<Integer> patientsIds) {
         return patientService.getPatientByIds(patientsIds);
     }
 

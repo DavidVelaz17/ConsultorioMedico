@@ -12,5 +12,5 @@ CREATE TABLE IF NOT EXISTS `medical_history` (
     PRIMARY KEY (`id`, `patient_id`),
     CONSTRAINT `fk_medical_history_patient1`
     FOREIGN KEY (`patient_id`)
-    REFERENCES `ConsultingRoomIWA`.`patients` (`id`)
+    REFERENCES `patients` (`id`)
     ) ENGINE = InnoDB;

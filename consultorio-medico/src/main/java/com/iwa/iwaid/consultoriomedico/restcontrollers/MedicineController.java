@@ -28,25 +28,31 @@ public class MedicineController {
     private final MedicineService medicineService;
 
     @GetMapping
-    public List<MedicineDTO> getAllDoctorsByFilters(@RequestBody @ModelAttribute MedicineFiltersForm form) {
-        List<MedicineDTO> medicines = medicineService.getAllByFilters(form);
-        return medicines;
+    public ResponseEntity<List<MedicineDTO>> getAllMedicinesByFilters(
+    @RequestBody @ModelAttribute final MedicineFiltersForm form) {
+        final List<MedicineDTO> medicines = medicineService.getAllByFilters(form);
+        return ResponseEntity.ok().body(medicines);
     }
 
     @GetMapping("{medicineId}")
-    public ResponseEntity<MedicineDTO> getMedicineById(@PathVariable("medicineId") final int medicineId)
+    public ResponseEntity<MedicineDTO> getMedicineById(
+    @PathVariable("medicineId") final int medicineId)
         throws Exception {
         MedicineDTO medicineDTO = medicineService.getMedicineById(medicineId);
         return ResponseEntity.ok().body(medicineDTO);
     }
 
     @PostMapping
-    public ResponseEntity createMedicine(@RequestBody @Valid MedicineForm form) {
-        return ResponseEntity.status(HttpStatus.CREATED).body(medicineService.createMedicine(form));
+    public ResponseEntity<MedicineDTO> createMedicine(
+    @RequestBody @Valid final MedicineForm form) {
+        return ResponseEntity
+                .status(HttpStatus.CREATED)
+                .body(medicineService.createMedicine(form));
     }
 
     @DeleteMapping("{medicineId}")
-    public ResponseEntity<MedicineDTO> deleteMedicine(@PathVariable("medicineId") final int medicineId)
+    public ResponseEntity<Void> deleteMedicine(
+    @PathVariable("medicineId") final int medicineId)
         throws Exception {
         medicineService.deleteMedicine(medicineId);
         return ResponseEntity.ok().build();
@@ -54,10 +60,10 @@ public class MedicineController {
 
     @PatchMapping("{medicineId}")
     public ResponseEntity<MedicineDTO> updateMedicine(
-    @RequestBody @Valid MedicineForm form,
+    @RequestBody @Valid final MedicineForm form,
     @PathVariable("medicineId") final int medicineId)
         throws Exception {
-        medicineService.updateMedicine(form, medicineId);
-        return ResponseEntity.ok().build();
+        final MedicineDTO medicineDTO = medicineService.updateMedicine(form, medicineId);
+        return ResponseEntity.ok().body(medicineDTO);
     }
 }

@@ -7,12 +7,7 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public enum Specialty {
     General(0), Urologia(1), Ginecologia(2), Pediatria(3), Neurologia(4);
-    private int key;
-
-    Specialty(int key) {
-        this.key = key;
-    }
-
+    private final int key;
     public static Specialty getSpecialty(Integer key) {
         switch (key) {
             case 0:
