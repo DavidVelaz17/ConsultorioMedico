@@ -15,7 +15,7 @@ public enum Specialty {
     private final int key;
     public static Specialty getSpecialty(Integer key) {
         Map<Integer,Specialty> specialtyMap =
-          Arrays.stream(Specialty.values()).collect(Collectors.toMap(Specialty::getKey, Function.identity()));
+                Arrays.stream(Specialty.values()).collect(Collectors.toMap(Specialty::getKey, Function.identity()));
         return specialtyMap.get(key);
     }
 }

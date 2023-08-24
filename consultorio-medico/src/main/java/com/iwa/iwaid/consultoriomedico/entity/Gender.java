@@ -15,7 +15,7 @@ public enum Gender {
     private final int key;
     public static Gender getGender(Integer key) {
         Map<Integer, Gender> genderMap =
-          Arrays.stream(Gender.values()).collect(Collectors.toMap(Gender::getKey, Function.identity()));
+                Arrays.stream(Gender.values()).collect(Collectors.toMap(Gender::getKey, Function.identity()));
         return genderMap.get(key);
     }
 }

@@ -26,9 +26,9 @@ public enum Hour {
   EIGHT_PM(20);
     private final int key;
     public static Hour getWrittenHour(int key){
-        Map<Integer,Hour> hourMap =
-          Arrays.stream(Hour.values()).collect(Collectors.toMap(Hour::getKey, Function.identity()));
-        return hourMap.get(key);
+      Map<Integer,Hour> hourMap =
+              Arrays.stream(Hour.values()).collect(Collectors.toMap(Hour::getKey, Function.identity()));
+      return hourMap.get(key);
     }
 
 }

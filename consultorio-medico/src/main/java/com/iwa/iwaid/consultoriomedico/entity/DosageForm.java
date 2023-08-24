@@ -15,8 +15,8 @@ public enum DosageForm {
     private final int key;
     public static DosageForm getDosageForms(int key) {
         Map<Integer,DosageForm> dosageFormsMap =
-          Arrays.stream(
-             DosageForm.values()).collect(Collectors.toMap(DosageForm::getKey, Function.identity()));
+                Arrays.stream(
+                        DosageForm.values()).collect(Collectors.toMap(DosageForm::getKey, Function.identity()));
         return dosageFormsMap.get(key);
     }
 }
