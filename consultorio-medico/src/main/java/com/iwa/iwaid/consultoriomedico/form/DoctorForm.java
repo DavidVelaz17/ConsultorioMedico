@@ -29,4 +29,7 @@ public class DoctorForm implements Serializable {
     @ApiObjectField(name = "email", description = "Doctor's email ")
     @Email(message = "{wrong.email.structure}")
     private String email;
+
+    @ApiObjectField(name = "password", description = "Doctor's password")
+    private String password;
 }

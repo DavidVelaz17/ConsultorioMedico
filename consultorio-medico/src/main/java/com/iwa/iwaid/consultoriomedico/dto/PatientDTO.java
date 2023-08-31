@@ -38,6 +38,9 @@ public class PatientDTO{
     @ApiObjectField(name = "email", description = "Patient's mail")
     private String email;
 
+    @ApiObjectField(name = "password", description = "Doctor's password")
+    private String password;
+
     public static PatientDTO build(final Patient patient){
         return PatientDTO.builder()
                 .id(patient.getId())
@@ -49,6 +52,7 @@ public class PatientDTO{
                 .city(patient.getCity())
                 .phoneNumber(patient.getPhoneNumber())
                 .email(patient.getEmail())
+                .password(patient.getPassword())
                 .build();
     }
 }

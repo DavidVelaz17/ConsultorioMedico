@@ -27,6 +27,9 @@ public class DoctorDTO {
     @ApiObjectField(name = "email", description = "Doctor's email")
     private String email;
 
+    @ApiObjectField(name = "password", description = "Doctor's password")
+    private String password;
+
     public static DoctorDTO build(final Doctor doctor) {
         return DoctorDTO.builder()
                 .id(doctor.getId())
@@ -35,6 +38,7 @@ public class DoctorDTO {
                 .address(doctor.getAddress())
                 .phoneNumber(doctor.getPhoneNumber())
                 .email(doctor.getEmail())
+                .password(doctor.getPassword())
                 .build();
     }
 }

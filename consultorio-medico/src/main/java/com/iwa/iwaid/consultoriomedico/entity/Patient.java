@@ -44,6 +44,9 @@ public class Patient {
     @Column(name = "email", nullable = false)
     private String email;
 
+    @Column(name = "password", nullable = false)
+    private String password;
+
     public Patient(final PatientForm form) {
         this.id = form.getId();
         this.name = form.getName();
@@ -54,6 +57,7 @@ public class Patient {
         this.city = form.getCity();
         this.phoneNumber = form.getPhoneNumber();
         this.email = form.getEmail();
+        this.password = form.getPassword();
     }
 
     public void updatePatient(final PatientForm form) {
@@ -65,5 +69,6 @@ public class Patient {
         this.city = form.getCity();
         this.phoneNumber = form.getPhoneNumber();
         this.email = form.getEmail();
+        this.password = form.getPassword();
     }
 }
