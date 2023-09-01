@@ -47,4 +47,7 @@ public class PatientForm implements Serializable {
     @Email
     @ApiObjectField(name = "email", description = "Patient's mail")
     private String email;
+
+    @ApiObjectField(name = "password", description = "Patient's password")
+    private String password;
 }

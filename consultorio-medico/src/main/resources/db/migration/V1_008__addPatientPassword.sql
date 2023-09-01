@@ -1,0 +1,1 @@
+ALTER TABLE patients ADD COLUMN password VARCHAR(8) NOT NULL;

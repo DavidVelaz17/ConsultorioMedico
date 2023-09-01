@@ -42,12 +42,16 @@ public class Doctor {
     @Column(name = "email", length = 45, nullable = false)
     private String email;
 
+    @Column(name = "password", length = 8, nullable = false)
+    private String password;
+
     public Doctor(final DoctorForm form) {
         this.name = form.getName();
         this.specialty = form.getSpecialty();
         this.address = form.getAddress();
         this.phoneNumber = form.getPhoneNumber();
         this.email = form.getEmail();
+        this.password = form.getPassword();
     }
 
     public void updateDoctor(final DoctorForm form) {
@@ -56,5 +60,6 @@ public class Doctor {
         this.address = form.getAddress();
         this.phoneNumber = form.getPhoneNumber();
         this.email = form.getEmail();
+        this.password = form.getPassword();
     }
 }
