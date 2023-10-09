@@ -7,17 +7,20 @@ import com.iwa.iwaid.consultoriomedico.form.MedicineForm;
 import com.iwa.iwaid.consultoriomedico.repository.MedicineRepository;
 import com.iwa.iwaid.consultoriomedico.repository.MedicineSpecs;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.PropertySource;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.ResourceBundle;
 
 @Service
 @RequiredArgsConstructor
+@PropertySource("classpath:ValidationMessages.properties")
 public class MedicineService {
     private final MedicineRepository medicineRepository;
-    private final ResourceBundle messages =
-            ResourceBundle.getBundle("ValidationMessages");
+
+    @Value("${not.found}")
+    private String notFound;
 
     public List<MedicineDTO> getAllByFilters(final MedicineFiltersForm form) {
         final List<Medicine> medicines =
@@ -52,7 +55,7 @@ public class MedicineService {
 
     private void validateIfMedicineExists(final int medicineId) throws Exception {
         if (!medicineRepository.existsById(medicineId)) {
-            throw new Exception(messages.getString("not.found") + " -Medicine:" + medicineId);
+            throw new Exception(notFound + " -Medicine:" + medicineId);
         }
     }
 }

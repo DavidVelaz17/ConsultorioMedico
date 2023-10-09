@@ -6,20 +6,23 @@ import com.iwa.iwaid.consultoriomedico.entity.MedicalHistory;
 import com.iwa.iwaid.consultoriomedico.form.MedicalHistoryForm;
 import com.iwa.iwaid.consultoriomedico.repository.MedicalHistoryRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.PropertySource;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Map;
-import java.util.ResourceBundle;
 
 @Service
 @RequiredArgsConstructor
+@PropertySource("classpath:ValidationMessages.properties")
 public class MedicalHistoryService {
 
     private final MedicalHistoryRepository repository;
     private final PatientService patientService;
-    private final ResourceBundle messages =
-            ResourceBundle.getBundle("ValidationMessages");
+
+    @Value("not.found")
+    private String notFound;
 
     public List<MedicalHistoryDTO> getAllMedicalHistories() {
         final List<MedicalHistory> histories = repository.findAll();
@@ -65,7 +68,7 @@ public class MedicalHistoryService {
     public void validateIfMedicalHistoryExist(final int medicalHistoryId)
             throws Exception {
         if (!repository.existsById(medicalHistoryId)) {
-            throw new Exception(messages.getString("medicalHistory.not.found"));
+            throw new Exception(notFound);
         }
     }
 
