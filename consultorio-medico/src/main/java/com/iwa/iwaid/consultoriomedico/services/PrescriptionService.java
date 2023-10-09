@@ -7,20 +7,24 @@ import com.iwa.iwaid.consultoriomedico.entity.Prescription;
 import com.iwa.iwaid.consultoriomedico.form.PrescriptionForm;
 import com.iwa.iwaid.consultoriomedico.repository.PrescriptionRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.PropertySource;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Map;
-import java.util.ResourceBundle;
 
 @Service
 @RequiredArgsConstructor
+@PropertySource("classpath:ValidationMessages.properties")
 public class PrescriptionService {
 
     private final PrescriptionRepository repository;
     private final PatientService patientService;
     private final DoctorService doctorService;
-    private final ResourceBundle messages = ResourceBundle.getBundle("ValidationMessages");
+
+    @Value("${not.found}")
+    private String notFound;
 
     public List<PrescriptionDTO> getAllPrescriptions() {
         final List<Prescription> prescriptions = repository.findAll();
@@ -74,7 +78,7 @@ public class PrescriptionService {
 
     public void validateIfPrescriptionExist(final int prescriptionId) throws Exception {
         if (!repository.existsById(prescriptionId)) {
-            throw new Exception(messages.getString("prescription.not.found"));
+            throw new Exception(notFound);
         }
     }
 

@@ -7,21 +7,24 @@ import com.iwa.iwaid.consultoriomedico.form.PatientForm;
 import com.iwa.iwaid.consultoriomedico.repository.PatientRepository;
 import com.iwa.iwaid.consultoriomedico.repository.PatientSpecs;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.PropertySource;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Map;
-import java.util.ResourceBundle;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
-
 @Service
 @RequiredArgsConstructor
+@PropertySource("classpath:ValidationMessages.properties")
 public class PatientService {
     private final PatientRepository patientRepository;
-    private final ResourceBundle messages =
-            ResourceBundle.getBundle("ValidationMessages");
+
+    @Value("${not.found}")
+    private String notFound;
+
     public List<PatientDTO> findAllPatients() {
         final List<Patient> patientPage = patientRepository.findAll();
         return patientPage.stream().map(PatientDTO::build).toList();
@@ -65,7 +68,7 @@ public class PatientService {
 
     public void validateIfPatientExist(final int patientId) throws Exception {
         if (!patientRepository.existsById(patientId)) {
-            throw new Exception(messages.getString("not.found")+" -Patient:"+patientId);
+            throw new Exception(notFound + " -Patient:" + patientId);
         }
     }
 

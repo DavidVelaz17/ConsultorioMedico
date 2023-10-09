@@ -8,21 +8,29 @@ import com.iwa.iwaid.consultoriomedico.entity.Hour;
 import com.iwa.iwaid.consultoriomedico.form.AppointmentForm;
 import com.iwa.iwaid.consultoriomedico.repository.AppointmentRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.ComponentScan;
+import org.springframework.context.annotation.PropertySource;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Map;
-import java.util.ResourceBundle;
 
 @Service
+@ComponentScan
 @RequiredArgsConstructor
+@PropertySource("classpath:ValidationMessages.properties")
 public class AppointmentService {
+
     private final DoctorService doctorService;
     private final PatientService patientService;
     private final AppointmentRepository appointmentRepository;
-    private final ResourceBundle messages =
-            ResourceBundle.getBundle("ValidationMessages");
+
+    @Value("${not.found}")
+    private String notFound;
+    @Value("${date.taken}")
+    private String dateTaken;
 
     public List<AppointmentDTO> getAll() {
         final List<Appointment> appointments = appointmentRepository.findAll();
@@ -109,9 +117,10 @@ public class AppointmentService {
     }
 
     private void validateIfAppointmentExists(final int appointmentId) throws Exception {
+
         if (!appointmentRepository.existsById(appointmentId)) {
             throw new Exception(
-                    messages.getString("not.found")
+                    notFound
                     + " -Appointment:"
                     + appointmentId);
         }
@@ -124,7 +133,7 @@ public class AppointmentService {
         throws Exception {
         if (appointmentRepository.existsByDoctorIdAndDateAndHour(doctorId, date, hour))
             throw new Exception(
-                    messages.getString("date.taken")
+                    dateTaken
                     + " Doctor:"
                     + doctorId);
     }
@@ -136,7 +145,7 @@ public class AppointmentService {
         throws Exception {
         if (appointmentRepository.existsByPatientIdAndDateAndHour(patientId, date, hour))
             throw new Exception(
-                    messages.getString("date.taken")
+                    dateTaken
                     + " Patient:"
                     + patientId);
     }
@@ -152,7 +161,7 @@ public class AppointmentService {
                 date,
                 hour,
                 appointmentId))
-            throw new Exception(messages.getString("date.taken"));
+            throw new Exception(dateTaken);
     }
 
     private void validateDuplicatedAppointmentByPatient(
@@ -166,7 +175,7 @@ public class AppointmentService {
                 date,
                 hour,
                 appointmentId))
-            throw new Exception(messages.getString("date.taken"));
+            throw new Exception(dateTaken);
     }
 
     private Map<Integer, DoctorDTO> getDoctorsMap(final List<Integer> doctorsIds) {
