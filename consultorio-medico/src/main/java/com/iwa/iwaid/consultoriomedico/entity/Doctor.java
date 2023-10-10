@@ -26,23 +26,23 @@ public class Doctor {
     @Column(name = "id")
     private int id;
 
-    @Column(name = "name", length = 100, nullable = false)
+    @Column(name = "name",nullable = false)
     private String name;
 
     @Column(name = "specialty", nullable = false)
     @Convert(converter = SpecialtyToIntConvertor.class)
     private Specialty specialty;
 
-    @Column(name = "address", length = 500, nullable = false)
+    @Column(name = "address", nullable = false)
     private String address;
 
-    @Column(name = "phone_number", length = 13, nullable = false)
+    @Column(name = "phone_number", nullable = false)
     private String phoneNumber;
 
-    @Column(name = "email", length = 45, nullable = false)
+    @Column(name = "email", nullable = false)
     private String email;
 
-    @Column(name = "password", length = 8, nullable = false)
+    @Column(name = "password", nullable = false)
     private String password;
 
     public Doctor(final DoctorForm form) {

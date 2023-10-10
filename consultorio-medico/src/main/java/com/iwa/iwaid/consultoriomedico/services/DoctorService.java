@@ -2,10 +2,12 @@ package com.iwa.iwaid.consultoriomedico.services;
 
 import com.iwa.iwaid.consultoriomedico.dto.DoctorDTO;
 import com.iwa.iwaid.consultoriomedico.entity.Doctor;
+import com.iwa.iwaid.consultoriomedico.entity.User;
 import com.iwa.iwaid.consultoriomedico.form.DoctorFiltersForm;
 import com.iwa.iwaid.consultoriomedico.form.DoctorForm;
 import com.iwa.iwaid.consultoriomedico.repository.DoctorRepository;
 import com.iwa.iwaid.consultoriomedico.repository.DoctorSpecs;
+import com.iwa.iwaid.consultoriomedico.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.PropertySource;
@@ -22,6 +24,7 @@ import java.util.stream.Collectors;
 public class DoctorService {
 
     private final DoctorRepository doctorRepository;
+    private final UserRepository userRepository;
 
     @Value("${not.found}")
     private String notFound;
@@ -41,6 +44,8 @@ public class DoctorService {
     public DoctorDTO createDoctor(final DoctorForm form) {
         final Doctor doctor = new Doctor(form);
         doctorRepository.save(doctor);
+        final User user = new User(DoctorDTO.build(doctor));
+        userRepository.save(user);
         return DoctorDTO.build(doctor);
     }
 
