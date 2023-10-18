@@ -11,6 +11,7 @@ import com.iwa.iwaid.consultoriomedico.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.PropertySource;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -25,6 +26,7 @@ public class DoctorService {
 
     private final DoctorRepository doctorRepository;
     private final UserRepository userRepository;
+    private final PasswordEncoder passwordEncoder;
 
     @Value("${not.found}")
     private String notFound;
@@ -44,7 +46,15 @@ public class DoctorService {
     public DoctorDTO createDoctor(final DoctorForm form) {
         final Doctor doctor = new Doctor(form);
         doctorRepository.save(doctor);
-        final User user = new User(DoctorDTO.build(doctor));
+        final User user = new User(DoctorDTO.builder()
+                .id(doctor.getId())
+                .name(doctor.getName())
+                .specialty(doctor.getSpecialty())
+                .address(doctor.getAddress())
+                .phoneNumber(doctor.getPhoneNumber())
+                .email(doctor.getEmail())
+                .password(passwordEncoder.encode(doctor.getPassword()))
+                .build());
         userRepository.save(user);
         return DoctorDTO.build(doctor);
     }
