@@ -23,7 +23,7 @@ public class SecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         return http
                 .csrf(csrf -> csrf.disable())
-                .authorizeHttpRequests(authRequest -> authRequest.requestMatchers("/iwaid/auth/login","/iwaid/doctors/")
+                .authorizeHttpRequests(authRequest -> authRequest.requestMatchers("/iwaid/auth/login")
                         .permitAll()
                         .anyRequest().authenticated())
                 .sessionManagement(sessionManager -> sessionManager.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
