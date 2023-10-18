@@ -2,8 +2,6 @@ package com.iwa.iwaid.consultoriomedico.entity;
 
 import com.iwa.iwaid.consultoriomedico.dto.DoctorDTO;
 import com.iwa.iwaid.consultoriomedico.dto.PatientDTO;
-import com.iwa.iwaid.consultoriomedico.form.PatientForm;
-import com.iwa.iwaid.consultoriomedico.form.UserForm;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Getter;
@@ -58,7 +56,6 @@ public class User implements UserDetails {
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return List.of(new SimpleGrantedAuthority(role.name()));
     }
-
     @Override
     public String getUsername() {
         return this.email;
