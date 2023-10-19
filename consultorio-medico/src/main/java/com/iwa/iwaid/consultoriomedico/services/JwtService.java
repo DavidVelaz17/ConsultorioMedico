@@ -6,6 +6,10 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.function.Function;
 
+import com.iwa.iwaid.consultoriomedico.repository.PatientRepository;
+import lombok.NoArgsConstructor;
+import lombok.RequiredArgsConstructor;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
@@ -16,8 +20,9 @@ import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
 
 @Service
+@RequiredArgsConstructor
 public class JwtService {
-
+    private final UserService userService;
     private static final String SECRET_KEY="586E3272357538782F413F4428472B4B6250655368566B597033733676397924";
 
     public String getToken(UserDetails user){
@@ -25,14 +30,18 @@ public class JwtService {
     }
 
     private String getToken(Map<String,Object> extraClaims, UserDetails user) {
-        return Jwts
+        String jwts= Jwts
                 .builder()
                 .setClaims(extraClaims)
                 .setSubject(user.getUsername())
+                .claim("ID Patient: ", userService.getUserByEmail(user.getUsername()).getIdPatient())
+                .claim("ID Doctor: ", userService.getUserByEmail(user.getUsername()).getIdDoctor())
+                .claim("Role: ", userService.getUserByEmail(user.getUsername()).getRole())
                 .setIssuedAt(new Date(System.currentTimeMillis()))
                 .setExpiration(new Date(System.currentTimeMillis()+1000*60*24))
                 .signWith(getKey(), SignatureAlgorithm.HS256)
                 .compact();
+        return jwts;
     }
     private Key getKey() {
         byte[] keyBytes=Decoders.BASE64.decode(SECRET_KEY);
