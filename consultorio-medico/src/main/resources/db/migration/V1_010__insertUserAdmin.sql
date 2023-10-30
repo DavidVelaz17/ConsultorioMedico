@@ -1,0 +1,2 @@
+INSERT INTO users VALUES ('1','0','1','admin@gmail.com','$2a$10$xu5Y1rV/ovJH2hQuNGeJou3Hs3o1uRxYeUudfJwSu/ztzLQm2muiG','0');
+INSERT INTO doctors VALUES ('1','Admin','0','blank #1','12312312','admin@gmail.com','admin');
